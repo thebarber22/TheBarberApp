@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Employee } from '../employeeservices/model/Employee';
+import { EmployeeServiceService } from '../employeeservices/service/emeployeeservice.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,14 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  employees:Employee[];
+  constructor(private empserservice: EmployeeServiceService) {}
 
+  async ngOnInit() {
+
+    this.empserservice.getEmployees(2).subscribe(res => {
+      console.log(res)
+      this.employees=res;
+    })
+  }
 }

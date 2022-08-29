@@ -1,27 +1,79 @@
 #container {
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.header{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 60px;
+  margin-bottom: 60px;
+  span{
+    text-align: center;
+    color: #2B2C34;
+  }
+  :first-child{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+  }
+  :nth-child(2){
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.search-box{
+  .searchbar{
+    --background: white;
+    --icon-color: black;
+  }
 }
 
-#container a {
-  text-decoration: none;
+ion-grid{
+  ion-row{
+    ion-col{
+      max-width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      padding: 0;
+      ion-card{
+        img{
+          min-width: 170px;
+          min-height: 220px;
+          border-radius: 20px;
+        }
+
+        margin: 0;
+        width: 170px;
+        box-shadow: none!important;
+
+        .card-title{
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        color: #2B2C34;
+        margin-top: 20px;
+        margin-bottom: 4px;
+        text-align: left;
+      }
+
+      .card-subtitle{
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        color: #7C7C7C;
+        text-align: left;
+      }
+
+      }
+    }
+  }
 }
