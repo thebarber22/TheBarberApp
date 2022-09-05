@@ -1,10 +1,18 @@
+
 ion-tab-bar  {
+    height: 80px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border: unset;
     box-shadow: 0px -2px 6px 1px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     ion-tab-button{
       --color-selected:#b99c33;
+      --color:black;
+      height: 30px;
+      width: 30px;
     }
   }

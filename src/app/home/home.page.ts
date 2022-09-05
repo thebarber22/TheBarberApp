@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Employee } from '../employeeservices/model/Employee';
-import { EmployeeServiceService } from '../employeeservices/service/emeployeeservice.service';
+import { Employee } from '../employee/model/Employee';
+import { EmployeeServiceService } from '../employee/services/employee-service.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +11,18 @@ import { EmployeeServiceService } from '../employeeservices/service/emeployeeser
 export class HomePage {
 
   employees:Employee[];
-  constructor(private empserservice: EmployeeServiceService) {}
+  constructor(private empserservice: EmployeeServiceService, private router: Router) {}
 
   async ngOnInit() {
-
-    this.empserservice.getEmployees(2).subscribe(res => {
+    this.empserservice.sendMenuNotActive(true)
+    
+    this.empserservice.getEmployeesByCompanyId(1).subscribe(res => {
       console.log(res)
       this.employees=res;
     })
+  }
+
+  openBarber(emp){
+    this.router.navigate(['employee', emp.userId])
   }
 }

@@ -15,8 +15,8 @@
       <ion-grid>
         <ion-row>
           <ion-col *ngFor="let emp of employees">
-            <ion-card mode="ios">
-              <img src={{emp.image}} alt="">
+            <ion-card mode="ios" (click)="openBarber(emp)">
+              <div class="img"></div>
               <ion-card-header style="padding: 0;">
                 <ion-card-title class="card-title">Мајстор {{emp.name}}</ion-card-title>
                 <ion-card-subtitle class="card-subtitle"><ion-icon name="star-outline" style="margin-right: 6px;"></ion-icon><span>4.5</span></ion-card-subtitle>

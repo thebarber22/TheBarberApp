@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from './employeeservices/model/Employee';
-import { EmployeeServiceService } from './employeeservices/service/emeployeeservice.service';
+import { EmployeeServiceService } from './employee/services/employee-service.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +7,12 @@ import { EmployeeServiceService } from './employeeservices/service/emeployeeserv
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent{
-  constructor() {}
+  constructor(private empService: EmployeeServiceService) {}
+  showMenu:boolean=true;
 
+  ngOnInit() {
+    this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
+    console.log(this.showMenu)
+  }
 
 }
