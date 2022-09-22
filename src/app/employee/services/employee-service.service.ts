@@ -10,9 +10,7 @@ import { Subject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EmployeeServiceService {
-
   private url = environment.url;
-
   private menuNotActive = new Subject<boolean>();
 
   constructor(private http: HttpClient) { }
