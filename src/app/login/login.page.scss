@@ -1,7 +1,8 @@
 #container {
   --background: rgb(90,98,133);
-  --background: linear-gradient(90deg, rgba(90,98,133,1) 0%, rgba(51,54,68,1) 100%, rgba(60,89,106,1) 100%, rgba(0,212,255,1) 100%);
+ // --background: linear-gradient(90deg, rgba(90,98,133,1) 0%, rgba(51,54,68,1) 100%, rgba(60,89,106,1) 100%, rgba(0,212,255,1) 100%);
     text-align: center;
+  --background: linear-gradient(90deg, rgb(110 113 129) 0%, rgb(40 43 56) 100%, rgb(82 109 124) 100%, rgba(0,212,255,1) 100%)
   }
   
   .header{

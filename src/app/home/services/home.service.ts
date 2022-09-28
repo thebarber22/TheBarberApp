@@ -6,17 +6,5 @@ import { Subject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HomeService {
-
-  private menuNotActive = new Subject<boolean>();
-
   constructor(private http: HttpClient) { }
-  //Close menu when route is on employee page
-  sendMenuNotActive(value:boolean){
-    this.menuNotActive.next(value)
-  }
-
-  getMenuNotActive():Observable<boolean>{
-    return this.menuNotActive.asObservable();
-  }
-  
 }

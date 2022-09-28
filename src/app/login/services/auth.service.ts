@@ -32,6 +32,14 @@ export class AuthService {
     return sessionStorage.getItem(TOKEN_KEY);
   }
 
+
+  public saveAuthResponse(response): void {
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.setItem(TOKEN_KEY, response.accessToken);
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(response.user));
+  }
+
   public saveUser(user): void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));

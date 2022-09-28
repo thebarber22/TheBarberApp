@@ -18,19 +18,13 @@ export class LoginPage {
   currentUser: any;
   errorMessage: any;
   selectedSection : any;
-  public sections: any = {
-    first: 'first',
-    second: 'second',
-    selectedSection: ''
- };
 
   constructor(private homeService: HomeService,
               private route: ActivatedRoute,
               private authService: AuthService,
               private router: Router) { }
 
-  async ngOnInit() { 
-    this.homeService.sendMenuNotActive(false);
+   ngOnInit() { 
     const token: string = this.route.snapshot.queryParamMap.get('token');  
   	if (this.authService.getToken()) {
       this.isLoggedIn = true;
@@ -46,11 +40,11 @@ export class LoginPage {
   		        this.isLoginFailed = true;
   		      }
   		  );
-  	}
-  }
+  	  }
+   }
 
-  register(){
-    
+  removeAuthFromSession(){
+    this.authService.signOut();
   }
 
   login(user): void {
@@ -58,8 +52,10 @@ export class LoginPage {
       this.isLoginFailed = false;
       this.isLoggedIn = true;
       this.currentUser = this.authService.getUser();
-      this.router.navigate(['/home']);
+      this.router.navigate(['/signup']);
   }
 
-
+  goToSingIn(){
+    this.router.navigate(['/signup']);
+  }
 }

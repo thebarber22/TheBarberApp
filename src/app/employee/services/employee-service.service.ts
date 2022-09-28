@@ -11,30 +11,19 @@ import { Subject, Observable } from 'rxjs';
 })
 export class EmployeeServiceService {
   private url = environment.url;
-  private menuNotActive = new Subject<boolean>();
 
   constructor(private http: HttpClient) { }
 
 
   getEmployeesByCompanyId(id) {
-    return this.http.get<Employee[]>(this.url + "user/company/" + id).pipe(map(response => {
+    return this.http.get<Employee[]>(this.url + "/api/company/" + id).pipe(map(response => {
       return response;
     }))
   }
-
+ 
   getServicesByEmployee(id) {
     return this.http.get<Service[]>(this.url + "employee-services/" + id).pipe(map(response => {
       return response;
     }))
   }
-
-  //Close menu when route is on employee page
-  sendMenuNotActive(value:boolean){
-    this.menuNotActive.next(value)
-  }
-
-  getMenuNotActive():Observable<boolean>{
-    return this.menuNotActive.asObservable();
-  }
-  
 }

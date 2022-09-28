@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeServiceService } from './employee/services/employee-service.service';
 import { AuthService } from './login/services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HomeService } from './home/services/home.service';
+import { Location } from '@angular/common';    
 
 
 @Component({
@@ -13,12 +14,21 @@ import { HomeService } from './home/services/home.service';
 export class AppComponent{
   constructor(private homeService: HomeService,
               private authService: AuthService,
-              private router: Router) {}
+              private router: Router,
+              private location: Location) {}
   showMenu:boolean=true;
   token : any = "";
   deviceId : any = "";
+  route = this.location.path();
   ngOnInit() {
-    this.homeService.getMenuNotActive().subscribe(val => this.showMenu=val)
-    console.log(this.showMenu)
+    this.checkShowMenu();
   } 
+
+  checkShowMenu(){
+    if(this.route === "/login" || this.route === "/signup"){
+      this.showMenu = false;
+    } else {
+      this.showMenu = true;
+    }
+  }
 }
