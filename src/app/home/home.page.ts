@@ -17,7 +17,6 @@ export class HomePage {
     this.empserservice.sendMenuNotActive(true)
     
     this.empserservice.getEmployeesByCompanyId(1).subscribe(res => {
-      console.log(res)
       this.employees=res;
     })
   }

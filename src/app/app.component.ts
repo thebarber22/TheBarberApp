@@ -12,7 +12,6 @@ export class AppComponent{
 
   ngOnInit() {
     this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
-    console.log(this.showMenu)
   }
 
 }

@@ -5,6 +5,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { Employee } from '../model/Employee';
 import { Service } from '../model/Service';
 import { Subject, Observable } from 'rxjs';
+import { AppointmentsService } from '../model/AppointmentsService';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,24 @@ export class EmployeeServiceService {
   getMenuNotActive():Observable<boolean>{
     return this.menuNotActive.asObservable();
   }
+
+  getFreeSlotsByEmployee(userId, date, services){
+    for(let i=0;i<services.length;i++){
+      delete services[i].selected
+    }
+    const params= {
+      employeeId: userId,
+      date: date,
+      services: services
+    }
+    return this.http.post<any>(this.url + "reservation/getFreeSlots", {employeeId: userId, date: date, services: services}).pipe(map(response => {
+      return response;
+    }))
+  }
   
+  makeReservation(appointment:AppointmentsService){
+    return this.http.post<any>(this.url + "reservation/reserve", appointment ).pipe(map(response => {
+      return response;
+    }))
+  }
 }
