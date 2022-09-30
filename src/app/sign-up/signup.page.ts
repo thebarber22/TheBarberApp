@@ -31,7 +31,7 @@ export class SignupPage {
         'email': ['', Validators.required],
         'phone': ['', Validators.required],
       });
-    }
+    } 
 
   async ngOnInit() { 
     if(this.authService.getUser() != null && this.authService.getUser() != undefined) {
