@@ -23,7 +23,7 @@ export class AppComponent{
   ngOnInit() {
     this.checkShowMenu();
   } 
-
+   
   checkShowMenu(){
     if(this.route === "/login" || this.route === "/signup"){
       this.showMenu = false;

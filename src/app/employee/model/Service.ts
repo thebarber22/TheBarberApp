@@ -6,4 +6,5 @@ export class Service{
     price:number;
     image:string;
     companyId:string;
+    selected:Boolean=false;
 }
