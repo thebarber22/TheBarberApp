@@ -23,7 +23,7 @@ export class EmployeeServiceService {
   }
  
   getServicesByEmployee(id) {
-    return this.http.get<Service[]>(this.url + "employee-services/" + id).pipe(map(response => {
+    return this.http.get<Service[]>(this.url + "/employee-services/" + id).pipe(map(response => {
       return response;
     }))
   }
@@ -37,13 +37,13 @@ getFreeSlotsByEmployee(userId, date, services){
     date: date,
     services: services
   }
-  return this.http.post<any>(this.url + "reservation/getFreeSlots", {employeeId: userId, date: date, services: services}).pipe(map(response => {
+  return this.http.post<any>(this.url + "/reservation/getFreeSlots", {employeeId: userId, date: date, services: services}).pipe(map(response => {
     return response;
   }))
 }
 
 makeReservation(appointment:AppointmentsService){
-  return this.http.post<any>(this.url + "reservation/reserve", appointment ).pipe(map(response => {
+  return this.http.post<any>(this.url + "/reservation/reserve", appointment ).pipe(map(response => {
     return response;
   }))
 }

@@ -20,12 +20,13 @@ export class AppComponent{
   token : any = "";
   deviceId : any = "";
   route = this.location.path();
+
   ngOnInit() {
     this.checkShowMenu();
   } 
    
   checkShowMenu(){
-    if(this.route === "/login" || this.route === "/signup"){
+    if(this.route === "/login" || this.route === "/signup" || this.route.toString().includes("employee/")){
       this.showMenu = false;
     } else {
       this.showMenu = true;
