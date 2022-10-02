@@ -32,4 +32,8 @@ export class AppComponent{
       this.showMenu = true;
     }
   }
+
+  goTo(value) {
+    this.router.navigate([value])
+  }
 }

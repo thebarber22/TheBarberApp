@@ -1,0 +1,203 @@
+.main{
+    background-image: url('../../assets/imgs/Rectangle\ 36.png');
+    background-size:100% 25%;
+    background-repeat: no-repeat;
+    background-position: top;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .content{
+        height: 100%;
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+        width: 100%;
+        background-color: white;
+
+        .header-row{
+            margin-top: 40px;
+            .back-button{
+                display: flex;
+                align-items: center;
+                font-size: 30px;
+                ion-icon{
+                    margin-left: 30px;
+                }
+            }
+
+            .header{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                :first-child{
+                    font-weight: 600;
+                    font-size: 32px;
+                    line-height: 39px;
+                    text-align: center;
+                    color: #2B2C34;
+                }
+                :nth-child(2){
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 20px;
+                    text-align: center;
+                    color: #2B2C34;
+                }
+            }
+        }
+
+        .card-row{
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            .card-wrapper{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                gap: 20px;
+                .card{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 80%;
+                    height: 100px;
+                    border-radius: 20px;
+                    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+                    .card-desc{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        gap: 10px;
+                        margin-left: 40px;
+                        :first-child{
+                            font-weight: 600;
+                            font-size: 16px;
+                            line-height: 20px;
+                            text-align: center;
+                            color: #2B2C34;
+                        }
+                        :nth-child(2){
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 20px;
+                            text-align: center;
+                            color: #7C7C7C;
+                            opacity: 0.5;
+                            text-align:left;
+                        }
+                    }
+                    
+                    .card-img{
+                        height: 80px;
+                        width: 80px;
+                        margin-right: 10px;
+                    }
+
+                    ion-icon{
+                        position: absolute; 
+                        font-size: 18pt;
+                        top: -3px; 
+                    }
+                }
+
+                .selected-card{
+                    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.3);
+                }
+            }
+        }
+    }
+
+    .button-section{
+        height: 140px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.15);
+        border-radius: 50px 50px 0px 0px;
+        background-color: white;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.main2{
+    @extend .main;
+    background-image: url('../../assets/imgs/Rectangle\ 37.png');
+    .content2{
+        @extend .content;
+
+        .card-wrapper2{
+            @extend .card-wrapper;
+            height: 300px;
+            justify-content: flex-start!important;
+            align-items: baseline!important;
+
+            ion-datetime{
+                --background:white;
+            }
+
+            span{
+                font-weight: 600;
+                font-size: 16px;
+                text-align: center;
+                color: #000000;
+                margin-left: 5%;
+            }
+
+            .time-select{
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                overflow-x: scroll;
+                margin-left: 5%;
+                white-space:nowrap;
+                width: 95%;
+                .scroll-wrap{
+                    width: 5000px;
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+                    .time-select-item{
+                        border: 1px solid #2B2C34;
+                        border-radius: 10px;
+                        height: 40px;
+                        width: 95px;
+                        text-align: center;
+                        line-height: 38px;
+                        font-weight: 600;
+                        font-size: 16px;
+                    }
+                }
+                
+            }
+        }
+
+        .selected-times{
+            ion-col{
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                span{
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 20px;
+                    text-align: center;
+                    color: #7C7C7C;
+                }
+                .selected-slot{
+                    font-weight: 600;
+                    font-size: 24px;
+                    line-height: 29px;
+                    text-align: center;
+                    color: #2B2C34;
+                }
+            }
+            
+        }
+    }
+}

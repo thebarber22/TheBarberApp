@@ -5,11 +5,11 @@
   <ion-router-outlet></ion-router-outlet>
   <ion-tabs *ngIf="showMenu">
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="home">
+      <ion-tab-button tab="home" (click)="goTo('/home')">
         <ion-icon name="apps-outline"></ion-icon>
       </ion-tab-button>
   
-      <ion-tab-button tab="speakers">
+      <ion-tab-button tab="speakers" (click)="goTo('/location')">
         <ion-icon name="location-outline"></ion-icon>
       </ion-tab-button>
   

@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./sign-up/signup.module').then( m => m.SignupPageModule)
   },
   {
+    path: 'location',
+    loadChildren: () => import('./location/location.module').then( m => m.LocationModule)
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
