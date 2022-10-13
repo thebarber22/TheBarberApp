@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { SuccessScreenComponent } from './shared/success-screen/success-screen.component';
+
 
 const routes: Routes = [
   {
@@ -14,6 +16,10 @@ const routes: Routes = [
   {
     path: 'employee/:userId',
     loadChildren: () => import('./employee/employee.module').then(m => m.EmployeePageModule)
+  },
+  {
+    path: 'success',
+    component: SuccessScreenComponent
   },
 ];
 

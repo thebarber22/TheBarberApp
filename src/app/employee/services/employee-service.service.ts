@@ -20,7 +20,7 @@ export class EmployeeServiceService {
 
 
   getEmployeesByCompanyId(id) {
-    return this.http.get<Employee[]>(this.url + "user/company/" + id).pipe(map(response => {
+    return this.http.get<Employee[]>(this.url + "api/company/" + id).pipe(map(response => {
       return response;
     }))
   }

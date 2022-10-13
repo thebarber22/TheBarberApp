@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "683792899058",
+    "project_id": "easy-reserve-1b729",
+    "storage_bucket": "easy-reserve-1b729.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683792899058:android:05f83b87f447b0d69fa96b",
+        "android_client_info": {
+          "package_name": "com.easyreserve.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683792899058-d1g86na0oqhsiskkclap8re7pq8f9b80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR027e77XtPUwk0nm4qoCiyMTrNuyfm9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683792899058-d1g86na0oqhsiskkclap8re7pq8f9b80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
