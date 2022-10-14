@@ -14,7 +14,9 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     BrowserModule, 
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'ios'
+    }),
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

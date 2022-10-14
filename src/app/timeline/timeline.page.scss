@@ -1,0 +1,141 @@
+
+    ion-content {
+      --background: url("../../assets/imgs/timeline-bg.png") no-repeat 50% 50%;
+    }
+
+  
+  .header{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 20px;
+    margin-bottom: 15px;
+    span{
+      text-align: center;
+      color: black;
+    }
+    :first-child{
+      font-style: normal;
+      font-weight: 600;
+      font-size: 23px;
+      line-height: 30px;
+    }
+    :nth-child(2){
+      margin-top: 10px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  .main{
+    ion-row {
+      justify-content: center;
+    }
+  }
+
+  .section-timeline { 
+    padding: 6%;
+
+    img {
+      border-radius: 20px;
+      margin-top: 4px;
+    }
+    ion-col {
+      place-items: center;
+      padding: 0px;
+    }
+
+    .ion-align {
+      justify-content: right;
+      margin-top: 4px;
+    }
+
+    .ion-col-2-align {
+      text-align-last: right;
+    }
+
+    ion-chip span {
+      font-size: 9px;
+      color:#2B2C34;
+    }
+
+    ion-chip {
+      background-color: #EAC646;
+    }
+
+    ion-segment {
+        background-color: #2B2C34;
+        border-radius: 7px;
+        height: 40px;
+        padding: 2px;
+        margin-bottom: 21px;
+        margin-top: 15px;
+    }
+
+    .select{
+      margin-top: -15px;
+    }
+
+    ion-select{
+      border-radius:7px;
+    }
+
+    .header-ion-col {
+      display: grid;
+      justify-items: left;
+      font-size: 11px;
+      align-content: center;
+    }
+
+    ion-card-header, ion-card-content{
+      padding: 3px;
+    }
+
+    ion-segment-button{
+        color:white;
+        --color-checked: #2B2C34;
+        --backgorund-checked: #ffffff;
+    }
+
+    ion-card {
+      border-left: 2px solid #EAC646;
+      width: 100%;
+      margin:4px;
+    }
+
+    .item-background-color{
+        --ion-item-background: #c3c3c3;
+    }
+}   
+
+ion-segment-button::part(indicator-background) {
+  background: #ffffff;
+}
+
+/* Material Design styles */
+ion-segment-button.md::part(native) {
+  color: #000;
+}
+
+.segment-button-checked.md::part(native) {
+  color: #08a391;
+}
+
+ion-segment-button.md::part(indicator-background) {
+  height: 4px;
+}
+
+/* iOS styles */
+ion-segment-button.ios::part(native) {
+  color: #ffffff;
+}
+
+.segment-button-checked.ios::part(native) {
+  color: #2B2C34;
+}
+
+ion-segment-button.ios::part(indicator-background) {
+  border-radius: 5px;
+}

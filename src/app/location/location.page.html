@@ -1,4 +1,4 @@
-<ion-content>
+<!-- <ion-content>
   <div class="main">
     <div class="content">
       <ion-row class="card-row">
@@ -36,4 +36,71 @@
         </ion-col>
       </ion-row>
     </div>
-  </div>
+  </div> -->
+
+  
+
+
+
+  <ion-content [fullscreen]="true" id="container">
+    <div class="header">
+      <ion-row>
+        <ion-col size="12">      
+          <img src="../../assets/imgs/testhaircut.png" width="120" height="120">
+        </ion-col>
+        <ion-col size="12">
+          <h4>Sweet Barbershop</h4>
+        </ion-col>
+        <ion-col size="4">
+          <span><ion-icon name="time"></ion-icon> 08:00 - 17:00</span>
+        </ion-col>
+        <ion-col size="3">
+          <span><ion-icon name="star-half"></ion-icon> 4.5</span>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div class="main">
+      <div class="section-location">
+        <ion-row>
+          <ion-col size="6">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M25 32C24.8 32 24.6 32 24.5 31.9L19.5 28.9C19.2 28.7 19 28.4 19 28V22C19 21.6 19.2 21.3 19.5 21.1L24.5 18.1C24.6 18 24.8 18 25 18C25.2 18 25.4 18 25.5 18.1L30.5 21.1C30.8 21.3 31 21.6 31 22V28C31 28.4 30.8 28.7 30.5 28.9L25.5 31.9C25.4 32 25.2 32 25 32ZM21 27.4L25 29.8L29 27.4V22.5L25 20.1L21 22.5V27.4Z" fill="#EAC646"/>
+              <path d="M25 40C24.8 40 24.7 40 24.5 39.9L12.5 32.9C12.2 32.7 12 32.4 12 32V18C12 17.6 12.2 17.3 12.5 17.1L24.5 10.1C24.7 10 24.8 10 25 10C25.2 10 25.3 10 25.5 10.1L37.5 17.1L36.5 18.8L25 12.2L14 18.6V31.5L25 37.9L36 31.5V24H38V32C38 32.4 37.8 32.7 37.5 32.9L25.5 39.9C25.3 40 25.2 40 25 40Z" fill="#EAC646"/>
+              <rect x="1" y="1" width="48" height="48" rx="9" stroke="#EAC646" stroke-width="2"/>
+            </svg>
+            <div>
+              <span>Услуги </span><br/>
+              <span>4+ услуги</span>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M25 32C24.8 32 24.6 32 24.5 31.9L19.5 28.9C19.2 28.7 19 28.4 19 28V22C19 21.6 19.2 21.3 19.5 21.1L24.5 18.1C24.6 18 24.8 18 25 18C25.2 18 25.4 18 25.5 18.1L30.5 21.1C30.8 21.3 31 21.6 31 22V28C31 28.4 30.8 28.7 30.5 28.9L25.5 31.9C25.4 32 25.2 32 25 32ZM21 27.4L25 29.8L29 27.4V22.5L25 20.1L21 22.5V27.4Z" fill="#EAC646"/>
+              <path d="M25 40C24.8 40 24.7 40 24.5 39.9L12.5 32.9C12.2 32.7 12 32.4 12 32V18C12 17.6 12.2 17.3 12.5 17.1L24.5 10.1C24.7 10 24.8 10 25 10C25.2 10 25.3 10 25.5 10.1L37.5 17.1L36.5 18.8L25 12.2L14 18.6V31.5L25 37.9L36 31.5V24H38V32C38 32.4 37.8 32.7 37.5 32.9L25.5 39.9C25.3 40 25.2 40 25 40Z" fill="#EAC646"/>
+              <rect x="1" y="1" width="48" height="48" rx="9" stroke="#EAC646" stroke-width="2"/>
+            </svg>
+            <div>
+              <span>Бербери </span><br/>
+              <span>4+ бербери</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <h6>Локација</h6>
+          </ion-col>
+          <ion-col size="12">       
+              <iframe width="280" 
+                height="420" 
+                frameborder="1" 
+                scrolling="no" 
+                marginheight="0" 
+                marginwidth="0" 
+                [src]="locationSrc" 
+                style="border: 1px solid black">
+            </iframe>
+          </ion-col>  
+        </ion-row>
+      </div>
+    </div> 
+  </ion-content>

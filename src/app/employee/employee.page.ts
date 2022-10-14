@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { HomeService } from '../home/services/home.service';
 import { AppointmentsService } from './model/AppointmentsService';
 import { Service } from './model/Service';
@@ -14,7 +15,8 @@ export class EmployeePage implements OnInit {
   constructor(private empserservice: EmployeeServiceService,
             private route:ActivatedRoute,
             private homeService:HomeService,
-            private cdRef: ChangeDetectorRef) { }
+            private cdRef: ChangeDetectorRef,
+            private router: Router,) { }
 
   services:Service[];
   userId:string;
@@ -24,7 +26,8 @@ export class EmployeePage implements OnInit {
   freeSlots:any[]=[];
   selectedSlot:any="/";
   selectedDateFormatted:string;
-
+  companyId = environment.companyId;
+  empName = JSON.parse(sessionStorage.getItem("employee")).displayName;
   async ngOnInit() {
     this.userId=this.route.snapshot.paramMap.get('userId')
     this.empserservice.getServicesByEmployee(this.userId).subscribe(res => {
@@ -83,19 +86,20 @@ export class EmployeePage implements OnInit {
     console.log(this.selectedSlot)
     let startDateTimeAppointment = this.selectedDateFormatted+'T'+this.selectedSlot.startHours.toString()+":"+this.selectedSlot.startMinutes.toString()+":00"
     let endDateTimeAppointment = this.selectedDateFormatted+'T'+this.selectedSlot.endHours.toString()+":"+this.selectedSlot.endMinutes.toString()+":00"
-
     reservation = {
       startDateTime:startDateTimeAppointment,
       endDateTime:endDateTimeAppointment,
-      companyId:'1',
-      clientId:'2',
-      employeeId:'1',
+      companyId:this.companyId,
+      clientId:JSON.parse(sessionStorage.getItem("auth-user")).id,
+      employeeId:this.userId,
       serviceList:this.selectedServices
     }
 
-
     this.empserservice.makeReservation(reservation).subscribe(res => {
-      console.log(res)
+      window.sessionStorage.removeItem("succ-reservs");
+      res.employeeId = this.empName;
+      window.sessionStorage.setItem("succ-reservs", JSON.stringify(res));
+      this.router.navigate(["/succ-appointment"]);
     })
   }
 
@@ -106,5 +110,6 @@ export class EmployeePage implements OnInit {
   }
 
   backToHome(){
+    this.router.navigate(["/home"]);
   }
 }

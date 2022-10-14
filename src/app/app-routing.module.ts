@@ -3,6 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
@@ -11,17 +16,16 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'signup',
-    loadChildren: () => import('./sign-up/signup.module').then( m => m.SignupPageModule)
+    path: 'timeline',
+    loadChildren: () => import('./timeline/timeline.module').then( m => m.TimelinePageModule)
   },
   {
     path: 'location',
     loadChildren: () => import('./location/location.module').then( m => m.LocationModule)
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    path: 'succ-appointment',
+    loadChildren: () => import('./successful-appointment/succ-appointment.module').then( m => m.SuccAppointmentPageModule)
   },
   {
     path: 'employee/:userId',

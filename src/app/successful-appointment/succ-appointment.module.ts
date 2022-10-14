@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { SignUpPageRoutingModule } from './signup-routing.module';
-import { SignupPage } from './signup.page';
+import { SuccAppointmentPage } from './succ-appointment.page';
+import { SuccAppointmentPageRoutingModule } from './succ-appointment-routing.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    SignUpPageRoutingModule,
+    SuccAppointmentPageRoutingModule,
     IonicModule, 
     ReactiveFormsModule,
     FormsModule,
   ],
-  declarations: [SignupPage],
+  declarations: [SuccAppointmentPage],
 })
-export class SignupPageModule { }
+export class SuccAppointmentPageModule { }

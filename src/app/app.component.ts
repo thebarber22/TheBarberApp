@@ -26,7 +26,7 @@ export class AppComponent{
   } 
    
   checkShowMenu(){
-    if(this.route === "/login" || this.route === "/signup" || this.route.toString().includes("employee/")){
+    if(this.route === "/login" || this.route === "/signup" || this.route.toString().includes("employee/") || this.route === "/succ-appointment"){
       this.showMenu = false;
     } else {
       this.showMenu = true;
