@@ -28,24 +28,24 @@ export class EmployeeServiceService {
     }))
   }
 
-getFreeSlotsByEmployee(userId, date, services){
-  for(let i=0;i<services.length;i++){
-    delete services[i].selected
+  getFreeSlotsByEmployee(userId, date, services){
+    for(let i=0;i<services.length;i++){
+      delete services[i].selected
+    }
+    const params= {
+      employeeId: userId,
+      date: date,
+      services: services
+    }
+    return this.http.post<any>(this.url + "/reservation/getFreeSlots", {employeeId: userId, date: date, services: services}).pipe(map(response => {
+      return response;
+    }))
   }
-  const params= {
-    employeeId: userId,
-    date: date,
-    services: services
-  }
-  return this.http.post<any>(this.url + "/reservation/getFreeSlots", {employeeId: userId, date: date, services: services}).pipe(map(response => {
-    return response;
-  }))
-}
 
-makeReservation(appointment:AppointmentsService){
-  return this.http.post<any>(this.url + "/reservation/reserve", appointment ).pipe(map(response => {
-    return response;
-  }))
-}
+  makeReservation(appointment:AppointmentsService){
+    return this.http.post<any>(this.url + "reservation/reserve", appointment ).pipe(map(response => {
+      return response;
+    }))
+  }
 }
  

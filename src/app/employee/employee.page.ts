@@ -28,6 +28,8 @@ export class EmployeePage implements OnInit {
   selectedDateFormatted:string;
   companyId = environment.companyId;
   empName = JSON.parse(sessionStorage.getItem("employee")).displayName;
+
+
   async ngOnInit() {
     this.userId=this.route.snapshot.paramMap.get('userId')
     this.empserservice.getServicesByEmployee(this.userId).subscribe(res => {

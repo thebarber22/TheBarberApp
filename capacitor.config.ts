@@ -1,21 +1,10 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.example.app',
-  appName: 'app',
+  appId: 'com.easyreserve.test',
+  appName: 'TheBarberApp',
   webDir: 'www',
-  bundledWebRuntime: false,
-  cordova: {
-    preferences: {
-      ScrollEnabled: 'false',
-      BackupWebStorage: 'none',
-      SplashMaintainAspectRatio: 'true',
-      FadeSplashScreenDuration: '300',
-      SplashShowOnlyFirstTime: 'false',
-      SplashScreen: 'screen',
-      SplashScreenDelay: '3000'
-    }
-  }
+  bundledWebRuntime: false
 };
 
 export default config;

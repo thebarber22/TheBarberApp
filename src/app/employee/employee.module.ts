@@ -10,6 +10,8 @@ import { EmployeePage } from './employee.page';
 
 import { ReserveButtonComponent } from '../shared/reserve-button/reserve-button.component';
 
+import { SuccessScreenComponent } from '../shared/success-screen/success-screen.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +19,6 @@ import { ReserveButtonComponent } from '../shared/reserve-button/reserve-button.
     IonicModule,
     EmployeePageRoutingModule
   ],
-  declarations: [EmployeePage, ReserveButtonComponent]
+  declarations: [EmployeePage, ReserveButtonComponent, SuccessScreenComponent]
 })
 export class EmployeePageModule {}

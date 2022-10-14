@@ -1,0 +1,35 @@
+.wrapper{
+    height: 100%;
+    .header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .thanks{
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 29px;
+            text-align: center;
+            color: #2B2C34;
+        }
+    }
+    .success-note{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 45%;
+        .message{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            height: 100%;
+            background: rgba(242, 242, 242, 0.45);
+            border-radius: 20px;
+        }
+    }
+    .footer{
+        display: flex;
+        align-items: center;
+    }
+}

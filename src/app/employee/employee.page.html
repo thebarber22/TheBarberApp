@@ -136,5 +136,20 @@
         </ion-col>
       </ion-row>
     </div>
+    
+  </div>
+
+  <div *ngIf="selectedPage==2" style="height: 100%;">
+    <ion-row style="height: 85%;">
+      <ion-col size="12" style="height: 100%;">
+        <app-success-screen></app-success-screen>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6" push="3" style="margin-top: 30px;">
+        <app-reserve-button [text]="'Резервирај'" (nextStep)="backToHome()"></app-reserve-button>
+      </ion-col>
+    </ion-row>
   </div>
 </ion-content>
