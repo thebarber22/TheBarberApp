@@ -27,6 +27,7 @@ export class LoginPage {
   showFields = true;
   user: User;
   signUpForm: FormGroup;
+  loading:Boolean=false;
   private companyId = environment.companyId;
 
   constructor(
@@ -77,6 +78,7 @@ export class LoginPage {
   }
 
   async signUp(){
+    this.loading=true;
     const info2 = await Device.getId();
     this.user = new User();
     this.user.name = this.signUpForm.controls["name"].value;
@@ -99,7 +101,7 @@ export class LoginPage {
           this.router.navigate(['/home']);
         }
      }
-    })
+    },()=>{this.loading=false},()=>{this.loading=false})
   }
   googleSignUp(){
     window.location.href = this.googleURL;

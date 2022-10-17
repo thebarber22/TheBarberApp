@@ -1,4 +1,4 @@
-<ion-content scrollY="false">
+<ion-content scrollY="false" *ngIf="!loading">
   <div class="main" *ngIf="selectedPage==0">
     <div class="content">
       <ion-row class="header-row">
@@ -62,6 +62,9 @@
             <div class="scroll-wrap" *ngIf="freeSlots==[]">
               <span>Нема слободен термин за избраниот ден!</span>
             </div>
+          </div>
+          <div class="time-select-loader" *ngIf="loadingTimes">
+            <ion-spinner name="dots" color="secondary"></ion-spinner>
           </div>
         </ion-col>  
       </ion-row>
@@ -151,5 +154,10 @@
         <app-reserve-button [text]="'Продолжи'" (nextStep)="backToHome()"></app-reserve-button>
       </ion-col>
     </ion-row>
+  </div>
+</ion-content>
+<ion-content [fullscreen]="true" id="loading" *ngIf="loading">
+  <div>
+    <ion-spinner name="dots" color="secondary"></ion-spinner>
   </div>
 </ion-content>

@@ -21,6 +21,7 @@ export class HomePage {
   allowPush = true;
   private readonly TOPIC_NAME = 'chuck';
   items: { id: number, text: string }[] = [];
+  loading:Boolean=false;
 
   constructor(private empserservice: EmployeeServiceService,
               private homeService: HomeService, 
@@ -48,19 +49,21 @@ export class HomePage {
   }
 
   checkIfCompanyExist() {
+    this.loading=true;
     if(!this.homeService.getCompany()){
         this.homeService.getCompanyById().subscribe(res => {
           if(res != null && res != undefined && res != ""){
             this.homeService.saveCompany(res);
           }
-        })
+        },()=>{this.loading=false}, ()=> {this.loading=false})
     }
   }
 
   getEmpByCompanyId(){
+    this.loading=true;
     this.empserservice.getEmployeesByCompanyId(this.companyId).subscribe(res => {
       this.employees=res;
-    })
+    },()=>{this.loading=false}, ()=> {this.loading=false})
   }
 
 

@@ -31,13 +31,16 @@ export class EmployeePage implements OnInit {
   startDateTimeReserve:any;
   servicesNameReserve:any;
   employeeNameReserve:any;
+  loading:Boolean=false;
+  loadingTimes:Boolean=false;
 
   async ngOnInit() {
     this.empserservice.sendMenuNotActive(false)
     this.userId=this.route.snapshot.paramMap.get('userId')
+    this.loading=true;
     this.empserservice.getServicesByEmployee(this.userId).subscribe(res => {
       this.services=res;
-    })
+    },()=>{this.loading=false}, ()=> {this.loading=false})
   }
 
   selection(serviceId){
@@ -60,7 +63,7 @@ export class EmployeePage implements OnInit {
   }
 
   selectDate(event){
-    console.log(event)
+    this.loadingTimes=true;
     const date = event.split("T")[0]
     this.selectedDateFormatted = date;
     this.empserservice.getFreeSlotsByEmployee(this.userId, date, this.selectedServices).subscribe(res => {
@@ -72,7 +75,7 @@ export class EmployeePage implements OnInit {
         });
         this.freeSlots=res
       }
-    },err => console.log(err))
+    },()=>{this.loadingTimes=false}, ()=> {this.loadingTimes=false})
   }
 
   selectionTime(time){
@@ -92,6 +95,7 @@ export class EmployeePage implements OnInit {
   }
 
   async reserve(){
+    this.loading=true;
     if(this.selectedSlot.startMinutes == "00"){
       this.selectedSlot.startMinutes = 0;
     }
@@ -112,7 +116,7 @@ export class EmployeePage implements OnInit {
       this.servicesNameReserve = res.serviceList[0].name;
       this.employeeNameReserve = this.empName
       this.selectedPage=2;
-    })
+    },()=>{this.loading=false}, ()=> {this.loading=false})
   }
 
   back(){
