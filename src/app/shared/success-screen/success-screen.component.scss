@@ -1,35 +1,89 @@
-.wrapper{
-    height: 100%;
-    .header{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        .thanks{
-            font-weight: 500;
-            font-size: 24px;
-            line-height: 29px;
-            text-align: center;
-            color: #2B2C34;
+.header{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 30px;
+    margin-bottom: 30px;
+    span{
+      text-align: center;
+      color: black;
+    }
+    :first-child{
+      font-style: normal;
+      font-weight: 600;
+      font-size: 21px;
+      line-height: 30px;
+    }
+    :nth-child(2){
+      margin-top: 10px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  .main{
+    ion-row {
+      justify-content: center;
+    }
+  }
+
+
+  .section-card { 
+    padding-left: 6%;
+    padding-right: 6%;
+    ion-button {
+        margin-top: 5px;
+        --background: #2B2C34;
+        color:#ffffff;
+        --border-radius: 30px !important;
+        height: 46px;
+        span {
+          font-size: 13px;
+          padding: 45px;
+          height: 45px;
+          display: inline-table;
+        }
+      }
+    
+    .card-info {
+        background-color: #F2F2F2;
+        border-radius: 10px;
+        padding:25px;
+    }
+
+    .svg-stick {
+        :first-child{
+           margin-top: -30px;
+        }
+        :nth-child(2){
+            margin-top: -37px;
+            display: block;
         }
     }
-    .success-note{
-        width: 100%;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        height: 45%;
-        .message{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 80%;
-            height: 100%;
-            background: rgba(242, 242, 242, 0.45);
-            border-radius: 20px;
-        }
-    }
-    .footer{
-        display: flex;
-        align-items: center;
-    }
-}
+   }
+
+   ion-col span {
+    font-size: 10.5px;
+    float:left;
+   }
+
+  .value {
+    font-size: 10.5px;
+    font-weight: 600;
+   }
+
+   .value span {
+    float: right;
+   }
+
+   .succ-app{
+    float: left;
+    font-size: 10.5px;
+    font-weight: 650;
+   }
+
+   hr {
+    background: black;
+   }

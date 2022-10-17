@@ -28,9 +28,12 @@ export class EmployeePage implements OnInit {
   selectedDateFormatted:string;
   companyId = environment.companyId;
   empName = JSON.parse(sessionStorage.getItem("employee")).displayName;
-
+  startDateTimeReserve:any;
+  servicesNameReserve:any;
+  employeeNameReserve:any;
 
   async ngOnInit() {
+    this.empserservice.sendMenuNotActive(false)
     this.userId=this.route.snapshot.paramMap.get('userId')
     this.empserservice.getServicesByEmployee(this.userId).subscribe(res => {
       this.services=res;
@@ -62,6 +65,11 @@ export class EmployeePage implements OnInit {
     this.selectedDateFormatted = date;
     this.empserservice.getFreeSlotsByEmployee(this.userId, date, this.selectedServices).subscribe(res => {
       if(res != null && res != undefined){
+        res.forEach(element => {
+          if(element.startMinutes == 0){
+            element.startMinutes="00"
+          }
+        });
         this.freeSlots=res
       }
     },err => console.log(err))
@@ -84,8 +92,10 @@ export class EmployeePage implements OnInit {
   }
 
   async reserve(){
+    if(this.selectedSlot.startMinutes == "00"){
+      this.selectedSlot.startMinutes = 0;
+    }
     let reservation:AppointmentsService;
-    console.log(this.selectedSlot)
     let startDateTimeAppointment = this.selectedDateFormatted+'T'+this.selectedSlot.startHours.toString()+":"+this.selectedSlot.startMinutes.toString()+":00"
     let endDateTimeAppointment = this.selectedDateFormatted+'T'+this.selectedSlot.endHours.toString()+":"+this.selectedSlot.endMinutes.toString()+":00"
     reservation = {
@@ -98,10 +108,10 @@ export class EmployeePage implements OnInit {
     }
 
     this.empserservice.makeReservation(reservation).subscribe(res => {
-      window.sessionStorage.removeItem("succ-reservs");
-      res.employeeId = this.empName;
-      window.sessionStorage.setItem("succ-reservs", JSON.stringify(res));
-      this.router.navigate(["/succ-appointment"]);
+      this.startDateTimeReserve = res.startDateTime;
+      this.servicesNameReserve = res.serviceList[0].name;
+      this.employeeNameReserve = this.empName
+      this.selectedPage=2;
     })
   }
 

@@ -1,13 +1,61 @@
-<div class="wrapper">
+
+<ion-content [fullscreen]="true" id="container">
   <div class="header">
-    <p class="thanks">Ви благодариме!</p>
-    <img src="../../../assets/icon/bell.gif" alt="">
+    <span>
+      Ви благодариме!
+    </span>
   </div>
-  <div class="success-note">
-    <div class="message">
-      
+  <div class="main">
+    <div class="section-card">
+        <ion-row>
+          <ion-col size="12" class="ion-margin-bottom ion-text-center">
+              <svg width="70" height="60" viewBox="0 0 99 89" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M48.2625 28.7941C47.2779 28.7941 46.3336 29.2078 45.6374 29.9442C44.9411 30.6805 44.55 31.6792 44.55 32.7206C44.55 33.762 44.9411 34.7607 45.6374 35.497C46.3336 36.2334 47.2779 36.6471 48.2625 36.6471C54.8064 36.6471 61.6869 40.6206 65.142 45.8402C65.4215 46.2627 65.777 46.6228 66.1881 46.9C66.5992 47.1772 67.0579 47.366 67.538 47.4557C68.0181 47.5454 68.5102 47.5342 68.9862 47.4228C69.4622 47.3113 69.9128 47.1018 70.3123 46.8061C70.7117 46.5105 71.0522 46.1346 71.3143 45.6998C71.5764 45.265 71.7549 44.7798 71.8397 44.2721C71.9245 43.7643 71.9139 43.2438 71.8086 42.7404C71.7032 42.2369 71.5051 41.7604 71.2255 41.3379C66.3943 34.0399 57.2566 28.7941 48.2625 28.7941ZM37.125 13.0882C37.125 9.61702 38.4288 6.28798 40.7496 3.83346C43.0703 1.37894 46.2179 0 49.5 0C52.7821 0 55.9297 1.37894 58.2504 3.83346C60.5712 6.28798 61.875 9.61702 61.875 13.0882V17.6953C70.1438 20.4719 77.3609 25.963 82.4789 33.3718C87.597 40.7806 90.3497 49.7215 90.3375 58.8971C90.3375 59.9384 89.9464 60.9371 89.2501 61.6735C88.5539 62.4099 87.6096 62.8235 86.625 62.8235H12.375C11.3904 62.8235 10.4461 62.4099 9.74987 61.6735C9.05364 60.9371 8.6625 59.9384 8.6625 58.8971C8.6625 39.6364 20.6514 23.3337 37.125 17.7581V13.0882ZM54.45 13.0882C54.45 11.6997 53.9285 10.3681 53.0002 9.38632C52.0719 8.40452 50.8128 7.85294 49.5 7.85294C48.1872 7.85294 46.9281 8.40452 45.9998 9.38632C45.0715 10.3681 44.55 11.6997 44.55 13.0882V16.0357C47.837 15.6066 51.161 15.5978 54.45 16.0095V13.0882ZM16.2954 54.9706H82.7095C80.878 37.2962 66.7903 23.5588 49.6039 23.5588C32.4027 23.5588 18.1516 37.3172 16.2904 54.9706H16.2954ZM9.9 68.0588C7.27436 68.0588 4.75625 69.162 2.89964 71.1256C1.04303 73.0892 0 75.7524 0 78.5294C0 81.3064 1.04303 83.9696 2.89964 85.9332C4.75625 87.8969 7.27436 89 9.9 89H89.1C91.7256 89 94.2437 87.8969 96.1003 85.9332C97.957 83.9696 99 81.3064 99 78.5294C99 75.7524 97.957 73.0892 96.1003 71.1256C94.2437 69.162 91.7256 68.0588 89.1 68.0588H9.9ZM7.425 78.5294C7.425 77.8352 7.68576 77.1694 8.14991 76.6785C8.61406 76.1876 9.24359 75.9118 9.9 75.9118H89.1C89.7564 75.9118 90.3859 76.1876 90.8501 76.6785C91.3142 77.1694 91.575 77.8352 91.575 78.5294C91.575 79.2237 91.3142 79.8895 90.8501 80.3804C90.3859 80.8713 89.7564 81.1471 89.1 81.1471H9.9C9.24359 81.1471 8.61406 80.8713 8.14991 80.3804C7.68576 79.8895 7.425 79.2237 7.425 78.5294Z" fill="#2B2C34"/>
+              </svg>
+           </ion-col>
+        </ion-row>
+
+        <ion-row class="card-info">
+          <ion-col size="9" class="ion-margin-bottom ion-text-center succ-app">
+              <span>Успешна резервација</span>
+           </ion-col>
+           <ion-col size="3" class="ion-margin-bottom ion-text-center svg-stick">
+              <svg width="43" height="45" viewBox="0 0 43 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 0H43V38C43 43.5229 38.5228 48 33 48H10C4.47715 48 0 43.5228 0 38V0Z" fill="#2B2C34"/>
+              </svg>
+              <svg width="43" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.60938 11.4844L8.20312 16.0781L17.3906 6.23438" stroke="#F6F2F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg> 
+           </ion-col>            
+           <ion-col size="6" class="ion-margin-bottom ion-text-center">
+              <span>Бербер</span>
+           </ion-col>
+           <ion-col size="6" class="ion-margin-bottom ion-text-center value">
+              <span>{{employee}}</span>
+          </ion-col>
+          <ion-col size="6" class="ion-margin-bottom ion-text-center">
+              <span>Услуга</span>
+           </ion-col>
+           <ion-col size="6" class="ion-margin-bottom ion-text-center value">
+              <span>{{services}}</span>
+          </ion-col>
+          <ion-col size="6" class="ion-margin-bottom ion-text-center">
+              <span>Време</span>
+           </ion-col>
+           <ion-col size="6" class="ion-margin-bottom ion-text-center value">
+              <span>{{start}}</span>
+          </ion-col>
+          <ion-col class="ion-margin-bottom ion-text-center">
+              <hr /> 
+              <svg width="115" height="115" viewBox="0 0 135 135" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:-18px">
+                  <path d="M106.875 22.5H28.125C25.0184 22.5 22.5 25.0184 22.5 28.125V106.875C22.5 109.982 25.0184 112.5 28.125 112.5H106.875C109.982 112.5 112.5 109.982 112.5 106.875V28.125C112.5 25.0184 109.982 22.5 106.875 22.5Z" stroke="#2B2C34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M39.375 22.5V11.25M95.625 22.5V11.25" stroke="#2B2C34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M39.375 61.875H95.625" stroke="#2B2C34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M39.375 84.375H78.75" stroke="#2B2C34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M106.875 28.125H28.125V45H106.875V28.125Z" fill="#2B2C34"/>
+              </svg>   
+          </ion-col>
+      </ion-row> 
     </div>
-  </div>
-  <div class="footer">
-  </div>
-</div>
+  </div> 
+</ion-content>

@@ -10,12 +10,14 @@ import { ReserveButtonComponent } from '../../shared/reserve-button/reserve-butt
 export class SuccessScreenComponent implements OnInit {
 
   @Input() reserve?:ReserveButtonComponent
+  @Input() employee;
+  @Input() services;
+  @Input() start;
   
   constructor(private empserservice: EmployeeServiceService) { }
 
   ngOnInit() {
     this.empserservice.sendMenuNotActive(false);
-
   }
 
 }

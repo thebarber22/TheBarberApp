@@ -12,6 +12,7 @@ import { AppointmentsService } from '../model/AppointmentsService';
 })
 export class EmployeeServiceService {
   private url = environment.url;
+  private menuNotActive = new Subject<boolean>();
 
   constructor(private http: HttpClient) { }
 
@@ -43,9 +44,18 @@ export class EmployeeServiceService {
   }
 
   makeReservation(appointment:AppointmentsService){
-    return this.http.post<any>(this.url + "reservation/reserve", appointment ).pipe(map(response => {
+    return this.http.post<any>(this.url + "/reservation/reserve", appointment ).pipe(map(response => {
       return response;
     }))
+  }
+
+   //Close menu when route is on employee page
+   sendMenuNotActive(value:boolean){
+    this.menuNotActive.next(value)
+  }
+
+  getMenuNotActive():Observable<boolean>{
+    return this.menuNotActive.asObservable();
   }
 }
  

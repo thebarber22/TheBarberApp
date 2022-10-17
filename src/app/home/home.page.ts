@@ -29,6 +29,7 @@ export class HomePage {
               private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit() {
+    this.empserservice.sendMenuNotActive(true)
     window.sessionStorage.removeItem("succ-reservs");
     window.sessionStorage.removeItem("employee");
     this.checkIfUserExist();
@@ -58,8 +59,8 @@ export class HomePage {
 
   getEmpByCompanyId(){
     this.empserservice.getEmployeesByCompanyId(this.companyId).subscribe(res => {
-      this.employees=res; 
-    }
+      this.employees=res;
+    })
   }
 
 

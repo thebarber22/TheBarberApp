@@ -26,16 +26,8 @@ const routes: Routes = [
     loadChildren: () => import('./location/location.module').then( m => m.LocationModule)
   },
   {
-    path: 'succ-appointment',
-    loadChildren: () => import('./successful-appointment/succ-appointment.module').then( m => m.SuccAppointmentPageModule)
-  },
-  {
     path: 'employee/:userId',
     loadChildren: () => import('./employee/employee.module').then(m => m.EmployeePageModule)
-  },
-  {
-    path: 'success',
-    component: SuccessScreenComponent
   },
 ];
 

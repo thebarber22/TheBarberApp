@@ -15,22 +15,15 @@ export class AppComponent{
   constructor(private homeService: HomeService,
               private authService: AuthService,
               private router: Router,
-              private location: Location) {}
+              private location: Location,
+              private empService: EmployeeServiceService) {}
   showMenu:boolean=true;
   token : any = "";
   deviceId : any = "";
   route = this.location.path();
 
   ngOnInit() {
-    this.checkShowMenu();
-  } 
-   
-  checkShowMenu(){
-    if(this.route === "/login" || this.route === "/signup" || this.route.toString().includes("employee/") || this.route === "/succ-appointment"){
-      this.showMenu = false;
-    } else {
-      this.showMenu = true;
-    }
+    this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
   }
 
   goTo(value) {

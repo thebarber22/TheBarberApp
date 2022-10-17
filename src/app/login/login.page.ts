@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from './services/login.service';
+import { EmployeeServiceService } from '../employee/services/employee-service.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,8 @@ export class LoginPage {
               private authService: AuthService,
               private loginService: LoginService,
               private router: Router,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private empserservice: EmployeeServiceService) {
                 this.signUpForm = fb.group({
                   'name' : ['', Validators.required],
                   'surname' : ['', Validators.required ],
@@ -43,6 +45,7 @@ export class LoginPage {
                }
 
    ngOnInit() { 
+    this.empserservice.sendMenuNotActive(false)
     const token: string = this.route.snapshot.queryParamMap.get('token');  
   	if (this.authService.getToken()) {
       this.isLoggedIn = true;
