@@ -5,7 +5,7 @@ import { AuthService } from './services/auth.service';
 import { Device } from '@capacitor/device';
 import { HomeService } from '../home/services/home.service';
 import { User } from './models/User';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from './services/login.service';
@@ -29,7 +29,8 @@ export class LoginPage {
   signUpForm: FormGroup;
   loading:Boolean=false;
   private companyId = environment.companyId;
-
+  submitted = false;
+  
   constructor(
              private route: ActivatedRoute,
               private authService: AuthService,
@@ -37,11 +38,11 @@ export class LoginPage {
               private router: Router,
               private fb: FormBuilder,
               private empserservice: EmployeeServiceService) {
-                this.signUpForm = fb.group({
-                  'name' : ['', Validators.required],
-                  'surname' : ['', Validators.required ],
-                  'email': ['', Validators.required],
-                  'phone': ['', Validators.required],
+                this.signUpForm = this.fb.group({
+                  name : ['', Validators.required],
+                  surname : ['', Validators.required],
+                  email: ['', Validators.required, Validators.email],
+                  phone: ['', Validators.required],
                 });
                }
 
@@ -51,6 +52,7 @@ export class LoginPage {
   	if (this.authService.getToken()) {
       this.isLoggedIn = true;
       this.currentUser = this.authService.getUser();
+      this.router.navigate(['/home']);
     }
   	else if(token){
   		this.authService.saveToken(token);
@@ -75,9 +77,16 @@ export class LoginPage {
       this.isLoggedIn = true;
       this.currentUser = this.authService.getUser();
       this.showFields = false;
+      this.router.navigate(['/home']);
+  }
+
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.signUpForm.controls;
   }
 
   async signUp(){
+    if(this.checkRequired()){
     this.loading=true;
     const info2 = await Device.getId();
     this.user = new User();
@@ -90,8 +99,6 @@ export class LoginPage {
     if(this.authService.getUser() != null && this.authService.getUser() != undefined){
       this.user.userId = this.authService.getUser().id;
     }
-
-
     this.loginService.finishRegistration(this.user).subscribe(response => {
       if(response != null && response != "" && response != undefined) {
         if(response.userId){
@@ -100,9 +107,21 @@ export class LoginPage {
           this.authService.saveAuthResponse(response);
           this.router.navigate(['/home']);
         }
-     }
+    }
     },()=>{this.loading=false},()=>{this.loading=false})
   }
+}
+
+  checkRequired(){
+    this.submitted = true;
+    if (this.signUpForm.invalid) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
   googleSignUp(){
     window.location.href = this.googleURL;
   }
@@ -110,4 +129,5 @@ export class LoginPage {
   facebookSignUp(){
     window.location.href = this.facebookURL;
   }
+
 }

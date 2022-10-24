@@ -13,13 +13,15 @@
               <ion-input
                [formControl]="signUpForm.controls['name']"
                 type="text"
-                inputmode="email"
                 autocomplete="off"
                 autocorrect="off"
-                required
                 autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
               ></ion-input>
             </ion-item>
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Name is required</div>
+            </div>
           </ion-col>
         </ion-row>
         <ion-row *ngIf="showFields">
@@ -29,13 +31,15 @@
               <ion-input
                 [formControl]="signUpForm.controls['surname']"
                 type="text"
-                inputmode="email"
                 autocomplete="off"
                 autocorrect="off"
-                required
                 autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.surname.errors }"
               ></ion-input>
             </ion-item>
+            <div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
+              <div *ngIf="f.surname.errors.required">Surname is required</div>
+            </div>
           </ion-col>
         </ion-row>
         <ion-row *ngIf="showFields">
@@ -48,10 +52,14 @@
                 inputmode="email"
                 autocomplete="off"
                 autocorrect="off"
-                required
                 autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
               ></ion-input>
             </ion-item>
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email is invalid</div>
+            </div>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -61,13 +69,15 @@
               <ion-input
                 [formControl]="signUpForm.controls['phone']"
                 type="text"
-                inputmode="email"
                 autocomplete="off"
                 autocorrect="off"
-                required
                 autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
               ></ion-input>
             </ion-item>
+            <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+              <div *ngIf="f.phone.errors.required">Phone is required</div>
+            </div>
           </ion-col>
         </ion-row>
         <ion-row>

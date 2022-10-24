@@ -24,12 +24,12 @@
           </div>
         </ion-col>  
       </ion-row>
-      <div class="button-section">
-        <app-reserve-button [text]="'Продолжи'"></app-reserve-button>
-      </div>
+      <!-- <div class="button-section">
+        <app-reserve-button [text]="'Продолжи12'"></app-reserve-button>
+      </div> -->
     </div>
     <div class="button-section">
-      <app-reserve-button [text]="'Продолжи'" (nextStep)="nextStep($event)"></app-reserve-button>
+      <app-reserve-button [text]="'Продолжи'" [disabled]="disabled" (nextStep)="nextStep($event)"></app-reserve-button>
     </div>
   </div>
 
@@ -49,7 +49,7 @@
       </ion-row>
       <ion-row class="card-row" style="margin-top: 30px; height: 250px;">
         <ion-col class="card-wrapper2">  
-          <ion-datetime presentation="date" mode="ios" size="cover" [(ngModel)]="selectedDate" (ngModelChange)="selectDate($event)"></ion-datetime>
+          <ion-datetime [min]="today" [value]="today" presentation="date" mode="ios" size="cover" [(ngModel)]="selectedDate" (ngModelChange)="selectDate($event)"></ion-datetime>
         </ion-col>  
       </ion-row>
       <ion-row class="card-row" style="margin-top: 30px;">
@@ -83,7 +83,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="6" push="3" style="margin-top: 30px;">
-          <app-reserve-button [text]="'Резервирај'" (nextStep)="reserve()"></app-reserve-button>
+          <app-reserve-button [text]="'Резервирај'" [disabled]="disabled" (nextStep)="reserve()"></app-reserve-button>
         </ion-col>
       </ion-row>
     </div>
@@ -151,7 +151,7 @@
 
     <ion-row>
       <ion-col size="6" push="3" style="margin-top: 30px;">
-        <app-reserve-button [text]="'Продолжи'" (nextStep)="backToHome()"></app-reserve-button>
+        <app-reserve-button [text]="'Продолжи'" [disabled]="false" (nextStep)="backToHome()"></app-reserve-button>
       </ion-col>
     </ion-row>
   </div>

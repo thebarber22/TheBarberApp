@@ -9,6 +9,7 @@ export class ReserveButtonComponent implements OnInit {
 
   @Output() nextStep = new EventEmitter<Boolean>();
   @Input() text:string;
+  @Input() disabled:boolean = true;
   constructor() { }
 
   ngOnInit() {}

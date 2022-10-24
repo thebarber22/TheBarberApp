@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-  ],
+    ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, authInterceptorProviders],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -79,6 +79,13 @@
       }
     }
 
+    .invalid-feedback div{
+      margin-top: 20px !important;
+      margin-bottom: -20px !important;
+      color: red !important ;
+      text-align-last: center;
+      font-size: 10px;
+    }
 
 
   .text-small {
@@ -146,6 +153,4 @@
       color:lightgrey !important;
     }
   }
-  
- 
-  }
+}

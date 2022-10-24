@@ -1,4 +1,4 @@
-div{
+button{
     width: 50vw;
     height: 60px;
     background: #2B2C34;
@@ -7,4 +7,11 @@ div{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background: #000000;
+  color: white;
 }

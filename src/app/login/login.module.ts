@@ -11,7 +11,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
     LoginPageRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    IonicModule, 
+    IonicModule,  
   ],
   declarations: [LoginPage],
 })

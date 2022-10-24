@@ -23,10 +23,19 @@ export class AppComponent{
   route = this.location.path();
 
   ngOnInit() {
+    this.refreshCurrentUser();
     this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
   }
 
   goTo(value) {
     this.router.navigate([value])
+  }
+
+  refreshCurrentUser(){
+    this.authService.getCurrentUser().subscribe(data => { 
+      if(data != null && data != undefined) {
+        this.authService.saveUser(data);
+      }
+    });
   }
 }
