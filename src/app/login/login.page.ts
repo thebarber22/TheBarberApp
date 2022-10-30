@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { EmployeeServiceService } from '../employee/services/employee-service.service';
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-login',
@@ -24,13 +25,13 @@ export class LoginPage {
   currentUser: any;
   errorMessage: any;
   selectedSection : any;
-  showFields = true;
+  showFields = null;
   user: User;
   signUpForm: FormGroup;
   loading:Boolean=false;
   private companyId = environment.companyId;
   submitted = false;
-  
+  prefix: any = "+389";
   constructor(
              private route: ActivatedRoute,
               private authService: AuthService,
@@ -48,24 +49,22 @@ export class LoginPage {
 
    ngOnInit() { 
     this.empserservice.sendMenuNotActive(false)
-    const token: string = this.route.snapshot.queryParamMap.get('token');  
-  	if (this.authService.getToken()) {
-      this.isLoggedIn = true;
-      this.currentUser = this.authService.getUser();
-      this.router.navigate(['/home']);
-    }
-  	else if(token){
+     if(this.route.snapshot.queryParamMap.get('token')){
+      this.showFields = false;
+      const token = this.route.snapshot.queryParamMap.get('token');
+      const decoded = jwt_decode(token);
   		this.authService.saveToken(token);
-  		this.authService.getCurrentUser().subscribe(data => { 
-  		        this.login(data);
-  		      },
-  		      err => {
-  		        this.errorMessage = err.error.message;
-  		        this.isLoginFailed = true;
-  		      }
-  		  );
-  	  }
-   }
+        this.authService.getCurrentUser(decoded['sub']).subscribe(data => { 
+          this.login(data);
+        },
+        err => {
+          this.errorMessage = err.error.message;
+          this.isLoginFailed = true;
+        }
+      )} else {
+        this.showFields = true;
+      }
+    } 
 
   removeAuthFromSession(){
     this.authService.signOut();
@@ -76,8 +75,6 @@ export class LoginPage {
       this.isLoginFailed = false;
       this.isLoggedIn = true;
       this.currentUser = this.authService.getUser();
-      this.showFields = false;
-      this.router.navigate(['/home']);
   }
 
 
@@ -86,19 +83,21 @@ export class LoginPage {
   }
 
   async signUp(){
-    if(this.checkRequired()){
+    if((this.checkRequired()) || (this.checkRequired() || this.signUpForm.controls["phone"].value != "")){
     this.loading=true;
     const info2 = await Device.getId();
     this.user = new User();
     this.user.name = this.signUpForm.controls["name"].value;
     this.user.surname = this.signUpForm.controls["surname"].value;
     this.user.email = this.signUpForm.controls["email"].value;
-    this.user.mobile = this.signUpForm.controls["phone"].value;
+    this.user.mobile = this.prefix + "" +this.signUpForm.controls["phone"].value;
     this.user.deviceId = info2.uuid;
     this.user.companyId = this.companyId;
-    if(this.authService.getUser() != null && this.authService.getUser() != undefined){
-      this.user.userId = this.authService.getUser().id;
+    let sessionUserId = this.authService.getUser();
+    if(sessionUserId != null && sessionUserId != undefined){
+      this.user.userId = sessionUserId.userId;
     }
+
     this.loginService.finishRegistration(this.user).subscribe(response => {
       if(response != null && response != "" && response != undefined) {
         if(response.userId){

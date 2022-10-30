@@ -49,9 +49,7 @@ export class AuthService {
     return JSON.parse(sessionStorage.getItem(USER_KEY));
   }
 
-  getCurrentUser(): Observable<any> {
-     this.obj = this.http.get(AppConstants.API_URL + 'user/me', httpOptions);
-     console.log(this.obj);
-     return this.obj;
+  getCurrentUser(userId): Observable<any> {
+     return this.http.get(AppConstants.API_URL + 'user/me/' + userId, httpOptions);
   }
 }

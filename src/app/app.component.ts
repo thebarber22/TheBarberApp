@@ -32,10 +32,10 @@ export class AppComponent{
   }
 
   refreshCurrentUser(){
-    this.authService.getCurrentUser().subscribe(data => { 
-      if(data != null && data != undefined) {
-        this.authService.saveUser(data);
-      }
-    });
+    // this.authService.getCurrentUser().subscribe(data => { 
+    //   if(data != null && data != undefined) {
+    //     this.authService.saveUser(data);
+    //   }
+    // });
   }
 }

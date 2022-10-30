@@ -20,7 +20,7 @@
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-              <div *ngIf="f.name.errors.required">Name is required</div>
+              <div *ngIf="f.name.errors.required">Име е задолжително</div>
             </div>
           </ion-col>
         </ion-row>
@@ -31,14 +31,14 @@
               <ion-input
                 [formControl]="signUpForm.controls['surname']"
                 type="text"
-                autocomplete="off"
+                autocomplete="off" 
                 autocorrect="off"
                 autofocus
                 [ngClass]="{ 'is-invalid': submitted && f.surname.errors }"
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
-              <div *ngIf="f.surname.errors.required">Surname is required</div>
+              <div *ngIf="f.surname.errors.required">Презиме е задолжително</div>
             </div>
           </ion-col>
         </ion-row>
@@ -57,8 +57,8 @@
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-              <div *ngIf="f.email.errors.required">Email is required</div>
-              <div *ngIf="f.email.errors.email">Email is invalid</div>
+              <div *ngIf="f.email.errors.required">Е-маил полето е задолжителен</div>
+              <div *ngIf="f.email.errors.email">Внесениот е-маил не е валиден</div>
             </div>
           </ion-col>
         </ion-row>
@@ -66,17 +66,19 @@
           <ion-col size="12" class="ion-margin-bottom">
             <div class="ion-text-center">Телефонски број</div>
             <ion-item fill="outline" mode="md">
+              <ion-text matPrefix>{{prefix}} &nbsp;</ion-text>
               <ion-input
                 [formControl]="signUpForm.controls['phone']"
-                type="text"
+                type="tel"
                 autocomplete="off"
                 autocorrect="off"
                 autofocus
+                placeholder="77 123 456"
                 [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-              <div *ngIf="f.phone.errors.required">Phone is required</div>
+              <div *ngIf="f.phone.errors.required">Телефонскиот број е задолжителен</div>
             </div>
           </ion-col>
         </ion-row>
