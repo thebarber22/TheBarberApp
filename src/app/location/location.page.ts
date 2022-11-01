@@ -17,6 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class LocationPage {
   company : any;
   locationSrc : any;
+  companyName : any;
   constructor(private homeService: HomeService,
               private sanitizer: DomSanitizer) {} 
 
@@ -26,6 +27,7 @@ export class LocationPage {
 
   getCompanyData(){
     this.company = this.homeService.getCompany();
+    this.companyName = this.company.name;
     this.locationSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.company.iframeMapUrl);
   }
 

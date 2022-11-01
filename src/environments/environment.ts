@@ -6,6 +6,7 @@ export const environment = {
   companyId: "1",
   production: false,
   url: 'http://localhost:8080'
+ // url: 'http://192.168.0.101:8080/thebarber'
 };
 
 /*

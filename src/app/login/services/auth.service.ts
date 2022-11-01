@@ -34,10 +34,14 @@ export class AuthService {
 
 
   public saveAuthResponse(response): void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, response.accessToken);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(response.user));
+    if(response.accessToken != null) {
+      window.sessionStorage.removeItem(USER_KEY);
+      window.sessionStorage.removeItem(TOKEN_KEY);
+      window.sessionStorage.setItem(TOKEN_KEY, response.accessToken);
+      window.sessionStorage.setItem(USER_KEY, JSON.stringify(response.user));
+    } else {
+      window.sessionStorage.setItem(USER_KEY, JSON.stringify(response.user));
+    }
   }
 
   public saveUser(user): void {
