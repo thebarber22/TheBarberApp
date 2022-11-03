@@ -28,7 +28,11 @@ const routes: Routes = [
   {
     path: 'employee/:userId',
     loadChildren: () => import('./employee/employee.module').then(m => m.EmployeePageModule)
+  },  {
+    path: 'scheduler',
+    loadChildren: () => import('./scheduler/scheduler.module').then( m => m.SchedulerPageModule)
   },
+
 ];
 
 @NgModule({
