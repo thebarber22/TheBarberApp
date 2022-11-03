@@ -24,7 +24,7 @@ export class EmployeePage implements OnInit {
   userId:string;
   selectedServices:Service[]=[];
   selectedPage:number=0;
-  selectedDate: any;
+  selectedDate:string=new Date(Date.now()).toISOString();
   freeSlots:any[]=[];
   selectedSlot:any="/";
   selectedDateFormatted:string;
@@ -42,6 +42,7 @@ export class EmployeePage implements OnInit {
     this.empserservice.sendMenuNotActive(false)
     this.userId=this.route.snapshot.paramMap.get('userId')
     this.loading=true;
+    console.log(this.selectedDate)
     this.empserservice.getServicesByEmployee(this.userId).subscribe(res => {
       this.services=res;
     },()=>{this.loading=false}, ()=> {this.loading=false})

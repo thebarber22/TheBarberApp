@@ -1,0 +1,90 @@
+.wrapper{
+    width: 100%;
+    height: 100%;
+
+
+    .header{
+        height: 15%;
+        padding: 4%;
+        padding-top: 6%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        .left{
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3%;
+
+            img{
+                border-radius: 50%;
+                max-height: 60%;
+            }
+        }
+        .right{
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3%;
+            img{
+                border-radius: 50%;
+                max-height: 80%;
+            }
+            ion-icon{
+                font-size: 1.5em;
+            }
+        }
+    }
+    
+    .main{
+        .list-item{
+            height: 60px;
+            border-top: 1px solid rgb(182, 182, 182);
+            border-bottom: 1px solid rgb(182, 182, 182);
+            opacity: 0.5;
+            span{
+                color: black;
+            }
+        }
+    }
+}
+
+.modal-wrapper{ 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10%;
+    height: 100%;
+}
+
+ion-modal#example-modal {
+    --width: fit-content;
+    --min-width: 380px;
+    --height: 400px;
+    --border-radius: 6px;
+    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+  }
+  
+  ion-modal#example-modal h1 {
+    margin: 20px 20px 10px 20px;
+  }
+  
+  ion-modal#example-modal ion-icon {
+    margin-right: 6px;
+  
+    width: 48px;
+    height: 48px;
+  
+    padding: 4px 0;
+  
+    color: #aaaaaa;
+  }
+  
+  ion-modal#example-modal .wrapper {
+    margin-bottom: 10px;
+  }

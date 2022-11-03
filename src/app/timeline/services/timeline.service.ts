@@ -18,4 +18,11 @@ export class TimelineService {
         return response;
     }))
   }
+
+  getTimelineEmployee(userId, dateSelected){
+    console.log(dateSelected)
+    return this.http.get<any>(this.url + '/reservation/get-timeline-emp/'+userId+"/"+dateSelected).pipe(map(response => {
+        return response;
+    }))
+  }
 }

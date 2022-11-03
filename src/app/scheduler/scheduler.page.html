@@ -1,0 +1,73 @@
+<ion-content *ngIf="!loading">
+  <div class="wrapper">
+    <div class="header">
+      <div class="left" id="open-modal2" expand="block">
+        <img src="../../assets/imgs/testhaircut.png" alt="">
+        <span>Бербер Маци</span>
+      </div>
+      <div class="right" id="open-custom-dialog" expand="block">
+        <span>{{selectedDateFormatted}}</span>
+        <ion-icon name="calendar-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="main">
+      <div *ngFor="let i of matrix" class="list-item" [ngStyle]="{         
+        'background-color': i[1].color
+      }">
+        <span>{{i[0].startH}}:</span>
+        <span *ngIf="i[0].startM!=0">{{i[0].startM}}</span>
+        <span *ngIf="i[0].startM==0">00</span>
+        <p>{{i[1].services}}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+
+
+<!-- modal -->
+<ion-modal #modal id="example-modal" trigger="open-custom-dialog"  *ngIf="!loading">
+  <ng-template>
+    <ion-content>
+      <div class="modal-wrapper">
+        <h3>Одберете датум</h3>
+        <ion-datetime [(ngModel)]="selectedDate" (ngModelChange)="selectDate($event)" mode="ios" presentation="date"></ion-datetime>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- modal2 -->
+<ion-modal #modal2 trigger="open-modal2" *ngIf="!loading">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="modal2.dismiss()">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="modal-wrapper">
+        <h3>Одберете вработен</h3>
+        <ion-list>
+          <ion-item *ngFor="let emp of employees">
+            <ion-avatar slot="start">
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-label>
+              {{emp.displayName}}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<ion-content [fullscreen]="true" id="loading" *ngIf="loading">
+  <div>
+    <ion-spinner name="dots" color="secondary"></ion-spinner>
+  </div>
+</ion-content>
