@@ -25,7 +25,8 @@ export class SchedulerPage implements OnInit {
   endMinute:Number=0;
   timeStamps:any=[];
   matrix: any;
-
+  isOpen = false;
+  id;
   constructor(private animationCtrl: AnimationController,private timelineService : TimelineService,private authService: AuthService,private empService: EmployeeServiceService) { }
 
   ngOnInit() {
@@ -33,13 +34,14 @@ export class SchedulerPage implements OnInit {
     this.selectedDateFormatted = date;
     this.getEmployees()
     this.selectEmployee()
+    this.empService.sendMenuNotActive(false)
   }
 
   getEmployees(){
     this.loading=true;
     this.empService.getEmployeesByCompanyId(this.companyId).subscribe(res => {
       this.employees=res;
-    },()=>{this.loading=false}, ()=> {console.log(this.employees);this.loading=false})
+    },()=>{this.loading=false}, ()=> {this.getTimeline(this.employees[0].userId);this.loading=false})
   }
 
   selectDate(event){
@@ -59,16 +61,16 @@ export class SchedulerPage implements OnInit {
         this.appointmentsList = res;
       }
     },err => console.log(err),()=>{
+      let id = 0;
       this.matrix=[]
       for(let i of this.timeStamps){
         this.matrix.push([i, {'filled': false}])
       }
-      console.log(this.matrix)
 
       for(let item of this.appointmentsList){
         let splitedDate = item.startDate.split("-")
         let splitedTime = item.startTime.split(":")
-
+        console.log(item)
         let startDate:Date = new Date(
           parseInt(splitedDate[0]),
           parseInt(splitedDate[1]),
@@ -98,7 +100,8 @@ export class SchedulerPage implements OnInit {
             startH: startH,
             startM: startM,
             services: item.services,
-            color: color
+            color: color,
+            id: item.id
           } 
           stampsFromReservation.push(obj)
       
@@ -114,7 +117,7 @@ export class SchedulerPage implements OnInit {
         for(let j of stampsFromReservation){
           this.matrix.forEach(element => {
             if(element[0].startH === j.startH && element[0].startM === j.startM){
-              this.matrix[element[0].id] = [element[0], {'filled': true, 'color':j.color, 'services': j.services}]
+              this.matrix[element[0].id] = [element[0], {'filled': true, 'color':j.color, 'services': j.services, 'id': j.id}]
             }
           });
         }
@@ -124,27 +127,41 @@ export class SchedulerPage implements OnInit {
 
   }
 
-selectEmployee(){
-  var startH:any = this.startHour;
-  var startM:any = this.startMinute;
-  var endH:any = this.endHour;
-  var endM:any = this.endMinute;
-  var i=0;
-  do{
-    let obj = {
-      id:i,
-      startH: startH,
-      startM: startM
-    } 
-    this.timeStamps.push(obj)
+  selectEmployee(){
+    var startH:any = this.startHour;
+    var startM:any = this.startMinute;
+    var endH:any = this.endHour;
+    var endM:any = this.endMinute;
+    var i=0;
+    do{
+      let obj = {
+        id:i,
+        startH: startH,
+        startM: startM
+      } 
+      this.timeStamps.push(obj)
 
-    if(startM+10 === 60){
-      startH++;
-      startM=0;
-    }else{
-      startM=startM+10;
-    }
-    i++
-  }while((startH+startM) !== (endH+endM))
-}
+      if(startM+10 === 60){
+        startH++;
+        startM=0;
+      }else{
+        startM=startM+10;
+      }
+      i++
+    }while((startH+startM) !== (endH+endM))
+  }
+
+
+  onHold(id){
+    this.id = id;
+    this.isOpen=true;
+  }
+
+  deleteReservation(){
+    this.isOpen=false;
+    this.loading=true
+    this.timelineService.deleteAppointment(this.id.toString()).subscribe(res => {
+      this.matrix=this.matrix.filter(x => x[1].id != this.id)
+    },(err)=>{console.log(err)},()=>{this.loading=false; this.isOpen=false})
+  }
 }

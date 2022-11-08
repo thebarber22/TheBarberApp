@@ -7,13 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { SchedulerPageRoutingModule } from './scheduler-routing.module';
 
 import { SchedulerPage } from './scheduler.page';
-
+import { LongPressModule } from 'ionic-long-press';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SchedulerPageRoutingModule
+    SchedulerPageRoutingModule,
+    LongPressModule
   ],
   declarations: [SchedulerPage]
 })

@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="main">
-      <div *ngFor="let i of matrix" class="list-item" [ngStyle]="{         
+      <div ion-long-press [interval]="1000" *ngFor="let i of matrix" (longPressed)="onHold(i[1].id)" class="list-item" [ngStyle]="{         
         'background-color': i[1].color
       }">
         <span>{{i[0].startH}}:</span>
@@ -19,6 +19,11 @@
         <span *ngIf="i[0].startM==0">00</span>
         <p>{{i[1].services}}</p>
       </div>
+      <ion-popover id="popover" #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
+        <ng-template>
+          <ion-content (click)="deleteReservation()" class="ion-padding cancelPopover">Откажи термин <ion-icon name="trash-outline"></ion-icon></ion-content>
+        </ng-template>
+      </ion-popover>
     </div>
   </div>
 </ion-content>

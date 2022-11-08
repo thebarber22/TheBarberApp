@@ -25,4 +25,11 @@ export class TimelineService {
         return response;
     }))
   }
+
+  deleteAppointment(id){
+    console.log(id)
+    return this.http.delete<any>(this.url + '/reservation/delete/'+id).pipe(map(response => {
+        return response;
+    }))
+  }
 }
