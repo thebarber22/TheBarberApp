@@ -160,7 +160,7 @@ export class SchedulerPage implements OnInit {
   deleteReservation(){
     this.isOpen=false;
     this.loading=true
-    this.timelineService.deleteAppointment(this.id.toString()).subscribe(res => {
+    this.timelineService.removeAppointments(this.id.toString()).subscribe(res => {
       this.matrix=this.matrix.filter(x => x[1].id != this.id)
     },(err)=>{console.log(err)},()=>{this.loading=false; this.isOpen=false})
   }

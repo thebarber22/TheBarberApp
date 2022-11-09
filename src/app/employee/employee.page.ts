@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isTabSwitch } from '@ionic/angular/directives/navigation/stack-utils';
@@ -82,7 +83,9 @@ export class EmployeePage implements OnInit {
     this.loadingTimes=true;
     const date = event.split("T")[0]
     this.selectedDateFormatted = date;
-    this.empserservice.getFreeSlotsByEmployee(this.userId, date, this.selectedServices).subscribe(res => {
+    let pipe = new DatePipe('en-US');
+    let weekDay = pipe.transform(date, 'EEEE');
+    this.empserservice.getFreeSlotsByEmployee(this.userId, date, this.selectedServices, weekDay).subscribe(res => {
       if(res != null && res != undefined){
         res.forEach(element => {
           if(element.startMinutes == 0){
