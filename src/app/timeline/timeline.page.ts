@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { EmployeeServiceService } from '../employee/services/employee-service.service';
 import { AuthService } from '../login/services/auth.service';
 import { TimelineService } from './services/timeline.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-timeline',
@@ -21,7 +22,8 @@ export class TimelinePage implements OnInit {
   constructor(private authService: AuthService,
               private timelineService : TimelineService,
               private employeeService : EmployeeServiceService,
-              private fb: FormBuilder) { 
+              private fb: FormBuilder,
+              private alertController: AlertController) { 
                 this.selectForm = fb.group({
                   'empId' : ['', Validators.required],
                 });
@@ -38,12 +40,38 @@ export class TimelinePage implements OnInit {
     }
   }
 
+  async removeAppointmentAlert(appointmentId) {
+    const alert = await this.alertController.create({
+      header: 'Внимание',
+      message: 'Дали сте сигурни дека сакате да ја откажете резервацијата?',
+      buttons: [{
+          text: 'Да',
+          role: 'confirm',
+          handler: () => {
+            this.removeAppointment(appointmentId)
+          },
+        },
+    ],
+    });
+
+    await alert.present();
+  }
+
   getEmployeeByCompanyId(){
     this.employeeService.getEmployeesByCompanyId(environment.companyId).subscribe(res => {
       if(res != null && res != undefined){
         this.employeeList = res;
       }
     })
+  }
+  
+  removeAppointment(appointmentId){
+    this.timelineService.removeAppointments(appointmentId).subscribe(res => {
+      if(res != null && res != undefined){
+        this.showAdminPanel = false;
+        this.getTimeline(this.authService.getUser().id);
+      }
+    },err => console.log(err))
   }
 
   changeEmpInSelect(){

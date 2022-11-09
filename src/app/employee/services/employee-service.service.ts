@@ -29,16 +29,17 @@ export class EmployeeServiceService {
     }))
   }
 
-  getFreeSlotsByEmployee(userId, date, services){
+  getFreeSlotsByEmployee(userId, date, services, weekday){
     for(let i=0;i<services.length;i++){
       delete services[i].selected
     }
     const params= {
       employeeId: userId,
       date: date,
-      services: services
+      services: services,
+      weekday: weekday
     }
-    return this.http.post<any>(this.url + "/reservation/getFreeSlots", {employeeId: userId, date: date, services: services}).pipe(map(response => {
+    return this.http.post<any>(this.url + "/reservation/getFreeSlots", {employeeId: userId, date: date, services: services, weekday: weekday}).pipe(map(response => {
       return response;
     }))
   }

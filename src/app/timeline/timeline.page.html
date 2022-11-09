@@ -29,7 +29,7 @@
 
       <div [ngSwitch]="segment">
         <ion-row *ngSwitchCase="'past'">
-          <ion-card  *ngFor="let appointments of pastAppointmentsList;">
+          <ion-card  *ngFor="let appointments of pastAppointmentsList;" >
             <ion-card-header>
               <ion-row class="ion-align">
                 <ion-col size="3" style="text-align: -webkit-center;">
@@ -56,7 +56,7 @@
           </ion-card>
         </ion-row>
         <ion-row *ngSwitchCase="'future'">
-          <ion-card  *ngFor="let appointments of futureAppointmentsList;">
+          <ion-card  *ngFor="let appointments of futureAppointmentsList;" (click)="removeAppointmentAlert(appointments.appointmentId)">
             <ion-card-header>
               <ion-row class="ion-align">
                 <ion-col size="3" style="text-align: -webkit-center;">
