@@ -27,14 +27,16 @@ export class SchedulerPage implements OnInit {
   matrix: any;
   isOpen = false;
   id;
-  constructor(private animationCtrl: AnimationController,private timelineService : TimelineService,private authService: AuthService,private empService: EmployeeServiceService) { }
+  constructor(private animationCtrl: AnimationController,
+    private timelineService : TimelineService,
+    private authService: AuthService,
+    private empService: EmployeeServiceService) { }
 
   ngOnInit() {
     const date = this.selectedDate.split("T")[0]
     this.selectedDateFormatted = date;
     this.getEmployees()
     this.selectEmployee()
-    this.empService.sendMenuNotActive(false)
   }
 
   getEmployees(){

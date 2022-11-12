@@ -5,19 +5,23 @@
   <ion-router-outlet></ion-router-outlet>
   <ion-tabs *ngIf="showMenu">
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="home" (click)="goTo('/home')">
+      <ion-tab-button tab="home">
         <ion-icon name="apps-outline"></ion-icon>
       </ion-tab-button>
   
-      <ion-tab-button tab="speakers" (click)="goTo('/location')">
+      <ion-tab-button tab="location">
         <ion-icon name="location-outline"></ion-icon>
       </ion-tab-button>
   
-      <ion-tab-button tab="map">
+      <ion-tab-button>
         <ion-icon name="settings-outline"></ion-icon>
       </ion-tab-button>
   
-      <ion-tab-button tab="about" (click)="goTo('/timeline')">
+      <ion-tab-button tab="timeline" *ngIf="isUser">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-tab-button>
+
+      <ion-tab-button tab="scheduler" *ngIf="!isUser">
         <ion-icon name="calendar-outline"></ion-icon>
       </ion-tab-button>
     </ion-tab-bar>

@@ -4,6 +4,7 @@ import { AuthService } from './login/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomeService } from './home/services/home.service';
 import { Location } from '@angular/common';    
+import { LoginService } from './login/services/login.service';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { Location } from '@angular/common';
 export class AppComponent{
   constructor(private homeService: HomeService,
               private authService: AuthService,
+              private loginService: LoginService,
               private router: Router,
               private location: Location,
               private empService: EmployeeServiceService) {}
@@ -21,21 +23,16 @@ export class AppComponent{
   token : any = "";
   deviceId : any = "";
   route = this.location.path();
-
+  isUser = true;
   ngOnInit() {
-    this.refreshCurrentUser();
+    this.checkCurrentUser();
     this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
   }
 
-  goTo(value) {
-    this.router.navigate([value])
-  }
-
-  refreshCurrentUser(){
-    // this.authService.getCurrentUser().subscribe(data => { 
-    //   if(data != null && data != undefined) {
-    //     this.authService.saveUser(data);
-    //   }
-    // });
+  checkCurrentUser(){
+    let user = this.authService.getUser();
+    if(user != null && !user.roles.includes("ROLE_USER")){
+      this.isUser = false;
+    }
   }
 }

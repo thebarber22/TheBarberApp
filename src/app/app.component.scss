@@ -10,7 +10,7 @@ ion-tab-bar  {
     justify-content: center;
 
     ion-tab-button{
-      --color-selected:#b99c33;
+      --color-selected:#b99c33 !important;
       --color:black;
       height: 30px;
       width: 30px;

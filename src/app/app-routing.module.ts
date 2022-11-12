@@ -28,9 +28,14 @@ const routes: Routes = [
   {
     path: 'employee/:userId',
     loadChildren: () => import('./employee/employee.module').then(m => m.EmployeePageModule)
-  },  {
+  },
+  {
     path: 'scheduler',
     loadChildren: () => import('./scheduler/scheduler.module').then( m => m.SchedulerPageModule)
+  },
+  {
+    path: 'hidden-login',
+    loadChildren: () => import('./hidden-login/hidden-login.module').then( m => m.HiddenLoginPageModule)
   },
 
 ];

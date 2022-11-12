@@ -32,6 +32,7 @@ export class LoginPage {
   private companyId = environment.companyId;
   submitted = false;
   prefix: any = "+389";
+  counter = 0;
   constructor(
              private route: ActivatedRoute,
               private authService: AuthService,
@@ -127,6 +128,19 @@ export class LoginPage {
 
   facebookSignUp(){
     window.location.href = this.facebookURL;
+  }
+
+  countClicks(){
+    this.counter++;
+    
+    
+    setTimeout(() => {  
+      this.counter = 0;
+    }, 5000);
+
+    if(this.counter == 10){
+      this.router.navigate(["/hidden-login"]);
+    }
   }
 
 }

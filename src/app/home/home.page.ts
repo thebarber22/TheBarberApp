@@ -50,13 +50,11 @@ export class HomePage {
 
   checkIfCompanyExist() {
     this.loading=true;
-    if(!this.homeService.getCompany()){
         this.homeService.getCompanyById().subscribe(res => {
           if(res != null && res != undefined && res != ""){
             this.homeService.saveCompany(res);
           }
         },()=>{this.loading=false}, ()=> {this.loading=false})
-    }
   }
 
   getEmpByCompanyId(){
