@@ -36,9 +36,9 @@ export class HomePage {
     this.checkIfUserExist();
     this.checkIfCompanyExist();
     this.getEmpByCompanyId();
-    this.initFCM().then(() => {
-      this.onChange();
-    });
+    // this.initFCM().then(() => {
+    //   this.onChange();
+    // });
   }
 
 
@@ -65,15 +65,15 @@ export class HomePage {
   }
 
 
-  onChange(): void {
-    localStorage.setItem('allowPush', JSON.stringify(this.allowPush));
+  // onChange(): void {
+  //   localStorage.setItem('allowPush', JSON.stringify(this.allowPush));
 
-    if (this.allowPush) {
-      FCM.subscribeTo({topic: this.TOPIC_NAME});
-    } else {
-      FCM.unsubscribeFrom({topic: this.TOPIC_NAME});
-    }
-  }
+  //   if (this.allowPush) {
+  //     FCM.subscribeTo({topic: this.TOPIC_NAME});
+  //   } else {
+  //     FCM.unsubscribeFrom({topic: this.TOPIC_NAME});
+  //   }
+  // }
 
   openBarber(emp){
     window.sessionStorage.removeItem("employee");
@@ -81,56 +81,56 @@ export class HomePage {
     this.router.navigate(['employee', emp.userId])
   }
 
-  private async initFCM(): Promise<void> {
-    await PushNotifications.requestPermissions();
+  // private async initFCM(): Promise<void> {
+  //   await PushNotifications.requestPermissions();
 
-    PushNotifications.addListener('registrationError',
-      error => console.log('Error on registration: ' + JSON.stringify(error)));
+  //   PushNotifications.addListener('registrationError',
+  //     error => console.log('Error on registration: ' + JSON.stringify(error)));
 
-    // Only called when app in foreground
-    PushNotifications.addListener('pushNotificationReceived',
-      notification => {
-        this.handleNotification(notification.data);
+  //   // Only called when app in foreground
+  //   PushNotifications.addListener('pushNotificationReceived',
+  //     notification => {
+  //       this.handleNotification(notification.data);
 
-        LocalNotifications.schedule({
-          notifications: [{
-            title: notification.title ?? '',
-            body: notification.body ?? '',
-            id: Date.now(),
-            extra: notification.data,
-            smallIcon: 'res://ic_stat_name'
-          }]
-        });
-      }
-    );
+  //       LocalNotifications.schedule({
+  //         notifications: [{
+  //           title: notification.title ?? '',
+  //           body: notification.body ?? '',
+  //           id: Date.now(),
+  //           extra: notification.data,
+  //           smallIcon: 'res://ic_stat_name'
+  //         }]
+  //       });
+  //     }
+  //   );
 
-    // called when app in background and user taps on notification
-    PushNotifications.addListener('pushNotificationActionPerformed',
-      (event: ActionPerformed) => {
-        this.handleNotification(event.notification.data);
-      }
-    );
+  //   // called when app in background and user taps on notification
+  //   PushNotifications.addListener('pushNotificationActionPerformed',
+  //     (event: ActionPerformed) => {
+  //       this.handleNotification(event.notification.data);
+  //     }
+  //   );
 
-    // called when app in foreground and user taps on local notification
-    LocalNotifications.addListener('localNotificationActionPerformed',
-      (event: LocalActionPerformed) => {
-        this.handleNotification(event.notification.extra);
-      });
+  //   // called when app in foreground and user taps on local notification
+  //   LocalNotifications.addListener('localNotificationActionPerformed',
+  //     (event: LocalActionPerformed) => {
+  //       this.handleNotification(event.notification.extra);
+  //     });
 
-  }
+  // }
 
-  handleNotification(data: { text: string, id: number }): void {
-    if (!data.text) {
-      return;
-    }
+  // handleNotification(data: { text: string, id: number }): void {
+  //   if (!data.text) {
+  //     return;
+  //   }
 
-    this.items.splice(0, 0, {id: data.id, text: data.text});
+  //   this.items.splice(0, 0, {id: data.id, text: data.text});
 
-    // only keep the last 5 entries
-    if (this.items.length > 5) {
-      this.items.pop();
-    }
+  //   // only keep the last 5 entries
+  //   if (this.items.length > 5) {
+  //     this.items.pop();
+  //   }
 
-    this.changeDetectorRef.detectChanges();
-  }
+  //   this.changeDetectorRef.detectChanges();
+  // }
 }

@@ -15,12 +15,12 @@
       <ion-row class="card-row">
         <ion-col class="card-wrapper">       
           <div class="card" *ngFor="let service of services" (click)="selection(service.serviceId)" [ngClass]="service.selected ? 'selected-card' : '' ">
-            <ion-icon name="checkmark-circle-outline" *ngIf="service.selected == true"></ion-icon>
+            <ion-icon name="checkmark-circle-outline" *ngIf="service.selected"></ion-icon>
             <div class="card-desc">
               <span>{{service.name}}</span>
               <span>{{service.price}}ден - {{service.duration}}мин</span>
             </div>
-            <img class="card-img" src="" alt="">
+            <img class="card-img" src={{service.image}} alt="">
           </div>
         </ion-col>  
       </ion-row>
@@ -157,7 +157,7 @@
     </ion-row>
   </div>
 </ion-content>
-<ion-content [fullscreen]="true" id="loading" *ngIf="loading">
+<ion-content id="loading" *ngIf="loading">
   <div>
     <ion-spinner name="dots" color="secondary"></ion-spinner>
   </div>

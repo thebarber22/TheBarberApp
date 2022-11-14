@@ -13,9 +13,7 @@ dependencies {
     implementation project(':capacitor-device')
     implementation project(':capacitor-local-notifications')
     implementation project(':capacitor-push-notifications')
-    implementation platform('com.google.firebase:firebase-bom:30.3.1')
-    implementation "com.google.firebase:firebase-messaging"
-    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
+
 }
 
 

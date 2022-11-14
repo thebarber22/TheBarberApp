@@ -43,7 +43,7 @@ export class LoginPage {
                 this.signUpForm = this.fb.group({
                   name : ['', Validators.required],
                   surname : ['', Validators.required],
-                  email: ['', Validators.required, Validators.email],
+                  email: ['', [Validators.required, Validators.email]],
                   phone: ['', Validators.required],
                 });
                }

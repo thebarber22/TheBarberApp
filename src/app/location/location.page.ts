@@ -18,6 +18,7 @@ export class LocationPage {
   company : any;
   locationSrc : any;
   companyName : any;
+  companyPhone : any;
   constructor(private homeService: HomeService,
               private sanitizer: DomSanitizer) {} 
 
@@ -28,6 +29,7 @@ export class LocationPage {
   getCompanyData(){
     this.company = this.homeService.getCompany();
     this.companyName = this.company.name;
+    this.companyPhone = this.company.mobilePhone
     this.locationSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.company.iframeMapUrl);
   }
 

@@ -50,6 +50,7 @@ export class EmployeePage implements OnInit {
   }
 
   selection(serviceId){
+    console.log(serviceId)
     let selected = this.services.find(el=>el.serviceId == serviceId)
     let index = this.selectedServices.indexOf(selected)
     if (index > -1) { 
@@ -66,7 +67,7 @@ export class EmployeePage implements OnInit {
     } else {
       this.disableButton(true);
     }
-
+    console.log(this.selectedServices)
   }
 
   nextStep(event){
