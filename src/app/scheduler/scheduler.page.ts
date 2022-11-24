@@ -17,7 +17,7 @@ export class SchedulerPage implements OnInit {
   selectedDate:string=new Date(Date.now()).toISOString();
   selectedDateFormatted:string;
   selectedEmployee:any;
-  employees:any;
+  employees:any=[];
   loading:Boolean=false;
   startHour:Number=9;
   startMinute:Number=0;
@@ -36,14 +36,18 @@ export class SchedulerPage implements OnInit {
     const date = this.selectedDate.split("T")[0]
     this.selectedDateFormatted = date;
     this.getEmployees()
-    this.selectEmployee()
   }
 
   getEmployees(){
     this.loading=true;
     this.empService.getEmployeesByCompanyId(this.companyId).subscribe(res => {
       this.employees=res;
-    },()=>{this.loading=false}, ()=> {this.getTimeline(this.employees[0].userId);this.loading=false})
+    },()=>{this.loading=false}, ()=> {
+      this.selectEmployee(this.employees[0])
+      this.getTimeline(this.employees[0].userId);
+      this.selectedEmployee=this.employees[0];
+      this.loading=false;
+    })
   }
 
   selectDate(event){
@@ -129,7 +133,9 @@ export class SchedulerPage implements OnInit {
 
   }
 
-  selectEmployee(){
+  selectEmployee(emp){
+    let today = new Date(Date.now()).getDay()
+    console.log(today)
     var startH:any = this.startHour;
     var startM:any = this.startMinute;
     var endH:any = this.endHour;

@@ -31,6 +31,7 @@ export class HomePage {
 
   async ngOnInit() {
     this.empserservice.sendMenuNotActive(true)
+    this.getCompanyInfo();
     window.sessionStorage.removeItem("succ-reservs");
     window.sessionStorage.removeItem("employee");
     this.checkIfUserExist();
@@ -42,8 +43,27 @@ export class HomePage {
   }
 
 
-  checkIfUserExist() {
-    if(!this.auth.getToken() || !this.auth.getUser()!){
+  getCompanyInfo(){
+    this.loading=true;
+    this.homeService.getCompanyById().subscribe(res => {
+      console.log(res)
+      this.company=res;
+    },()=>{this.loading=false}, ()=> {this.loading=false})
+  }
+
+  async checkIfUserExist() {
+    let token;
+    let user;
+    await this.auth.getToken().then(res => {
+      token = res;
+    })
+    await this.auth.getUser().then(res => {
+      console.log(JSON.parse(res))
+      user = res;
+    })
+    console.log(token)
+    console.log(user)
+    if(!token || !JSON.parse(user!)){
       this.router.navigate(['login'])
     }
   }

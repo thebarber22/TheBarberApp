@@ -50,6 +50,14 @@
     .ion-align {
       justify-content: right;
       margin-top: 4px;
+      .trash{
+        display: flex;
+        justify-content: flex-end;
+        
+        ion-icon{
+          margin-right: 10px;
+        }
+      }
     }
 
     .ion-col-2-align {

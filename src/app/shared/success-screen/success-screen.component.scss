@@ -59,8 +59,14 @@
         }
         :nth-child(2){
             margin-top: -37px;
+            margin-left: 10px;
             display: block;
         }
+    }
+
+    img{
+      max-width: 100px;
+      max-height: 100px;
     }
    }
 

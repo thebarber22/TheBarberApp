@@ -9,10 +9,12 @@ import { authInterceptorProviders } from './login/services/auth.interceptor';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IonicGestureConfig } from '../shared/utils/IonicGestureConfig'
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    IonicStorageModule.forRoot(),
     CommonModule,
     BrowserModule, 
     IonicModule.forRoot({

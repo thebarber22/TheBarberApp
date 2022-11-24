@@ -29,8 +29,8 @@ export class AppComponent{
     this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
   }
 
-  checkCurrentUser(){
-    let user = this.authService.getUser();
+  async checkCurrentUser(){
+    let user = await this.authService.getUser();
     if(user != null && !user.roles.includes("ROLE_USER")){
       this.isUser = false;
     }

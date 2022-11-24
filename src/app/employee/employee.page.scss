@@ -27,7 +27,7 @@
         width: 100%;
         background-color: white;
         border-radius: 50px 50px 0px 0px;
-
+        overflow-y: scroll;
         .header-row{
             margin-top: 40px;
             .back-button{
@@ -86,12 +86,11 @@
                         flex-direction: column;
                         justify-content: center;
                         gap: 10px;
-                        margin-left: 40px;
                         :first-child{
                             font-weight: 600;
                             font-size: 16px;
                             line-height: 20px;
-                            text-align: center;
+                            text-align: left;
                             color: #2B2C34;
                         }
                         :nth-child(2){
@@ -112,10 +111,14 @@
                         border-radius: 20px;
                     }
 
+                    .no-icon{
+                        width:24px;
+                    }
+
                     ion-icon{
-                        position: absolute; 
+                        position: relative;
                         font-size: 18pt;
-                        top: -3px; 
+                        top: -45px;
                     }
                 }
 

@@ -15,11 +15,21 @@
   
 }
 
+.notif{
+  height: 60px;
+  display: flex;
+  justify-content: flex-end;
+  img{
+    max-height: 100%;
+    max-width: 10%;
+    border-radius: 10px;
+  }
+}
+
 .header{
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-top: 60px;
   margin-bottom: 60px;
   span{
     text-align: center;

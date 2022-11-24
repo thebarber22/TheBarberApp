@@ -12,13 +12,13 @@ export class AuthInterceptor implements HttpInterceptor {
 	constructor(
         private token: AuthService, 
         private router: Router) {
-
 	}
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		let authReq = req;
 		const loginPath = '/login';
 		const token = this.token.getToken();
+		console.log(token)
 		if (token != null) {
 			authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
 		}

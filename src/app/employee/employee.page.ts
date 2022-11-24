@@ -5,6 +5,7 @@ import { isTabSwitch } from '@ionic/angular/directives/navigation/stack-utils';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { HomeService } from '../home/services/home.service';
+import { AuthService } from '../login/services/auth.service';
 import { AppointmentsService } from './model/AppointmentsService';
 import { Service } from './model/Service';
 import { EmployeeServiceService } from './services/employee-service.service';
@@ -19,7 +20,8 @@ export class EmployeePage implements OnInit {
             private route:ActivatedRoute,
             private homeService:HomeService,
             private cdRef: ChangeDetectorRef,
-            private router: Router,) { }
+            private router: Router,
+            private auth: AuthService) { }
 
   services:Service[];
   userId:string;
@@ -122,14 +124,21 @@ export class EmployeePage implements OnInit {
     let reservation:AppointmentsService;
     let startDateTimeAppointment = this.selectedDateFormatted+'T'+this.selectedSlot.startHours.toString()+":"+this.selectedSlot.startMinutes.toString()+":00"
     let endDateTimeAppointment = this.selectedDateFormatted+'T'+this.selectedSlot.endHours.toString()+":"+this.selectedSlot.endMinutes.toString()+":00"
-    reservation = {
-      startDateTime:startDateTimeAppointment,
-      endDateTime:endDateTimeAppointment,
-      companyId:this.companyId,
-      clientId:JSON.parse(sessionStorage.getItem("auth-user")).id,
-      employeeId:this.userId,
-      serviceList:this.selectedServices
-    }
+    let clientId;
+    await this.auth.getUser().then(res => {
+      let client = JSON.parse(res)
+      clientId = client.id
+    }).finally(()=>{
+      console.log(clientId)
+      reservation = {
+        startDateTime:startDateTimeAppointment,
+        endDateTime:endDateTimeAppointment,
+        companyId:this.companyId,
+        clientId:clientId,
+        employeeId:this.userId,
+        serviceList:this.selectedServices
+      }
+    })
 
     this.empserservice.makeReservation(reservation).subscribe(res => {
       this.startDateTimeReserve = reservation.startDateTime.replace('T', ' ');

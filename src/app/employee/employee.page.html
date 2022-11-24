@@ -16,6 +16,7 @@
         <ion-col class="card-wrapper">       
           <div class="card" *ngFor="let service of services" (click)="selection(service.serviceId)" [ngClass]="service.selected ? 'selected-card' : '' ">
             <ion-icon name="checkmark-circle-outline" *ngIf="service.selected"></ion-icon>
+            <div class="no-icon" *ngIf="!service.selected"></div>
             <div class="card-desc">
               <span>{{service.name}}</span>
               <span>{{service.price}}ден - {{service.duration}}мин</span>

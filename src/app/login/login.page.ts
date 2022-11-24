@@ -94,13 +94,15 @@ export class LoginPage {
     this.user.mobile = this.prefix + "" +this.signUpForm.controls["phone"].value;
     this.user.deviceId = info2.uuid;
     this.user.companyId = this.companyId;
-    let sessionUserId = this.authService.getUser();
+    let sessionUserId = await this.authService.getUser();
+    console.log(sessionUserId)
     if(sessionUserId != null && sessionUserId != undefined){
       this.user.userId = sessionUserId.userId;
     }
-
+    console.log(this.user)
     this.loginService.finishRegistration(this.user).subscribe(response => {
       if(response != null && response != "" && response != undefined) {
+        console.log(response)
         if(response.userId){
           this.router.navigate(['/home']);
         } else {

@@ -30,13 +30,18 @@ export class TimelinePage implements OnInit {
               }
 
 
-  ngOnInit() {
-    if(this.authService.getUser().roles == "ROLE_MODERATOR"){
+  async ngOnInit() {
+    let user;
+    await this.authService.getUser().then((res)=>{
+      user = JSON.parse(res)
+    });
+    console.log(user)
+    if(user.roles == "ROLE_MODERATOR"){
       this.getEmployeeByCompanyId();
       this.showAdminPanel = true;
     } else {
       this.showAdminPanel = false;
-      this.getTimeline(this.authService.getUser().id);
+      this.getTimeline(user.id);
     }
   }
 
@@ -65,11 +70,12 @@ export class TimelinePage implements OnInit {
     })
   }
   
-  removeAppointment(id){
-    this.timelineService.removeAppointments(id).subscribe(res => {
+  async removeAppointment(id){
+    this.timelineService.removeAppointments(id).subscribe(async res => {
       if(res != null && res != undefined){
         this.showAdminPanel = false;
-        this.getTimeline(this.authService.getUser().id);
+        let user = await this.authService.getUser()
+        this.getTimeline(user.id);
       }
     },err => console.log(err))
   }
