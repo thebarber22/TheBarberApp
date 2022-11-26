@@ -1,0 +1,32 @@
+ion-content {
+    --background: url("../../assets/imgs/welcome-bg.png") no-repeat 50% 50%;
+}
+
+
+ion-row {
+    color:white;
+
+    ion-col {
+        text-align: center;
+    }
+
+   
+}
+
+ion-button {
+    margin-top: 18px;
+    --background: white;
+    color:black;
+    --border-radius: 30px !important;
+    height: 42px;
+    span {
+      font-size: 13px;
+      padding: 45px;
+      height: 45px;
+      display: inline-table;
+    }
+  }
+
+  .section-welcome {
+      padding-top: 100%;
+  }

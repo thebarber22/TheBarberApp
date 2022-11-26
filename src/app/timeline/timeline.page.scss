@@ -9,7 +9,6 @@
     flex-direction: column;
     gap: 10px;
     padding-top: 20px;
-    margin-bottom: 15px;
     span{
       text-align: center;
       color: black;
@@ -17,8 +16,8 @@
     :first-child{
       font-style: normal;
       font-weight: 600;
-      font-size: 23px;
-      line-height: 30px;
+      font-size: 20px;
+      line-height: 44px;
     }
     :nth-child(2){
       margin-top: 10px;

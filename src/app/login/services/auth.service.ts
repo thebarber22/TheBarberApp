@@ -64,4 +64,15 @@ export class AuthService {
   getCurrentUser(userId): Observable<any> {
      return this.http.get(AppConstants.API_URL + 'user/me/' + userId, httpOptions);
   }
+
+  getUserById(userId): Observable<any> {
+    return this.http.get(AppConstants.API_URL + 'user/' + userId, httpOptions);
+  }
+
+  public removeUserFromStorage(){
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.removeItem(TOKEN_KEY);
+  }
+
+  
 }

@@ -6,8 +6,12 @@ import { SuccessScreenComponent } from './shared/success-screen/success-screen.c
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'welcome',
     pathMatch: 'full'
+  },
+  {
+    path: 'welcome',
+    loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule)
   },
   {
     path: 'home',
@@ -36,6 +40,10 @@ const routes: Routes = [
   {
     path: 'hidden-login',
     loadChildren: () => import('./hidden-login/hidden-login.module').then( m => m.HiddenLoginPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
 
 ];

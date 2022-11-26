@@ -24,14 +24,15 @@ export class AppComponent{
   deviceId : any = "";
   route = this.location.path();
   isUser = true;
+  user = this.authService.getUser();
+
   ngOnInit() {
     this.checkCurrentUser();
     this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
   }
 
-  async checkCurrentUser(){
-    let user = await this.authService.getUser();
-    if(user != null && !user.roles.includes("ROLE_USER")){
+  checkCurrentUser(){
+    if(this.user != null && !this.user.roles.includes("ROLE_USER")){
       this.isUser = false;
     }
   }

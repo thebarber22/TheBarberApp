@@ -15,4 +15,8 @@ export class LoginService {
   finishRegistration(user:User){
     return this.http.post<any>(this.url + '/api/add', user)
   }
+
+  signUpNewUser(user:User){
+    return this.http.post<any>(this.url + '/api/register/user', user)
+  }
 }

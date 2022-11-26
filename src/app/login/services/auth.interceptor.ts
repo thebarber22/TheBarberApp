@@ -4,23 +4,29 @@ import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
 import {tap} from 'rxjs/operators';
+import { environment } from "src/environments/environment";
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+	companyId = environment.companyId;
+	userId : any = "";
 	constructor(
         private token: AuthService, 
         private router: Router) {
 	}
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+		this.userId = this.token.getUser();
 		let authReq = req;
 		const loginPath = '/login';
 		const token = this.token.getToken();
 		console.log(token)
 		if (token != null) {
-			authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+			authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token).set("companyId", this.companyId).set("userId", this.userId.id)});
+		} else {
+			authReq = req.clone({ headers: req.headers.set("companyId", this.companyId)});
 		}
 		return next.handle(authReq).pipe( tap(() => {},
 		(err: any) => {
@@ -37,7 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
 }
 
 export const authInterceptorProviders = [
-{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+	{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
 ];
 
 

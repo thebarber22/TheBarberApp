@@ -16,7 +16,7 @@ import {ActionPerformed as LocalActionPerformed, LocalNotifications} from '@capa
 })
 export class HomePage {
   companyId = environment.companyId;
-  employees:Employee[];
+  employees: any = [];
   company : any;
   allowPush = true;
   private readonly TOPIC_NAME = 'chuck';
@@ -80,7 +80,12 @@ export class HomePage {
   getEmpByCompanyId(){
     this.loading=true;
     this.empserservice.getEmployeesByCompanyId(this.companyId).subscribe(res => {
-      this.employees=res;
+      console.log(res)
+      for(let i = 0; i < res.length; i++){
+        if(res[i].showForReservation == 1){
+          this.employees.push(res[i]);
+        }
+      }
     },()=>{this.loading=false}, ()=> {this.loading=false})
   }
 

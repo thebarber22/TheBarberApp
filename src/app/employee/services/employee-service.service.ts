@@ -22,7 +22,7 @@ export class EmployeeServiceService {
       return response;
     }))
   }
- 
+
   getServicesByEmployee(id) {
     return this.http.get<Service[]>(this.url + "/employee-services/" + id).pipe(map(response => {
       return response;
