@@ -64,7 +64,7 @@ export class HomePage {
     console.log(token)
     console.log(user)
     if(!token || !JSON.parse(user!)){
-      this.router.navigate(['login'])
+      this.router.navigate(['welcome'])
     }
   }
 
