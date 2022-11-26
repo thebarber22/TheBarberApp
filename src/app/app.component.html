@@ -13,7 +13,7 @@
         <ion-icon name="location-outline"></ion-icon>
       </ion-tab-button>
   
-      <ion-tab-button tab="scheduler" *ngIf="isUser">
+      <ion-tab-button tab="settings">
         <ion-icon name="settings-outline"></ion-icon>
       </ion-tab-button>
   
@@ -21,9 +21,9 @@
         <ion-icon name="calendar-outline"></ion-icon>
       </ion-tab-button>
 
-      <!-- <ion-tab-button tab="scheduler" *ngIf="isUser">
+      <ion-tab-button tab="scheduler" *ngIf="!isUser">
         <ion-icon name="calendar-outline"></ion-icon>
-      </ion-tab-button> -->
+      </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>
 </ion-app>

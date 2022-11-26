@@ -6,4 +6,7 @@ export class User{
     surname:string;
     email:string;
     mobile:string;
+    password:string;
+    workingHours: Object;
+    showForReservation:boolean;
 }

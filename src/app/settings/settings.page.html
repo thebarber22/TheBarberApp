@@ -1,0 +1,610 @@
+<ion-content id="container">
+  <div class="header">
+    <span>
+      Подесување
+    </span>
+  </div>
+  <div class="main">
+    <div class="section-barbers">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="col-card">
+            <ion-card mode="ios">
+              <ion-item lines="none" detail='true' (click)="setModalValue('myProfileModal',true)">
+                <ion-icon name="person-outline" slot='start'></ion-icon>
+                <ion-label>
+                  <h4>Мој Профил</h4>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-col>
+          <ion-col class="col-card">
+            <ion-card mode="ios">
+              <ion-item lines="none" detail='true' (click)="setModalValue('settingsModal', true)">
+                <ion-icon name="settings-outline" slot='start'></ion-icon>
+                <ion-label class="ion-text-wrap">
+                  <h4>Подесување</h4>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-col>
+          <ion-col class="col-card">
+            <ion-card mode="ios">
+              <ion-item lines="none" detail='true' (click)="setModalValue('passwordModal', true)">
+                <ion-icon name="refresh-circle-outline" slot='start'></ion-icon>
+                <ion-label class="ion-text-wrap">
+                  <h4>Промени Лозинка</h4>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-col>
+          <ion-col class="col-card">
+            <ion-card mode="ios">
+              <ion-item lines="none" detail='true' (click)="setModalValue('removeProfileModal', true)">
+                <ion-icon name="person-remove-outline" slot='start'></ion-icon>
+                <ion-label class="ion-text-wrap">
+                  <h4>Избриши го мојот профил</h4>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-col>
+          <ion-col class="col-card">
+            <ion-card mode="ios">
+              <ion-item lines="none" detail='true' (click)="setModalValue('documentsModal', true)">
+                <ion-icon name="document-text-outline" slot='start'></ion-icon>
+                <ion-label class="ion-text-wrap">
+                  <h4>Правни документи</h4>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-col>
+          <ion-col class="col-card">
+            <ion-card mode="ios">
+              <ion-item lines="none" detail='true' (click)="setModalValue('contactModal', true)">
+                <ion-icon name="mail-outline" slot='start'></ion-icon>
+                <ion-label class="ion-text-wrap">
+                  <h4>Контакт</h4>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-col>
+          <ion-col class="col-card" (click)="logout()">
+            <ion-card mode="ios">
+              <ion-item lines="none" detail='true'>
+                <ion-icon name="log-out-outline" slot='start'></ion-icon>
+                <ion-label class="ion-text-wrap">
+                  <h4>Одјави се</h4>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>
+
+<ion-modal [isOpen]="documentsModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Правни документи</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalValue('documentsModal', false)">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
+        reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui. Eaque,
+        dicta.
+      </p>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="settingsModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Подесување</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalValue('settingsModal', false)">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-list>
+            <ion-item>
+              <ion-select value="mkd" placeholder="Изберете јазик">
+                <ion-select-option value="mkd" [selected]="true">Македонски Јазик</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-item>
+            <ion-checkbox slot="start" [indeterminate]="true"></ion-checkbox>
+            <ion-label>Црна тема</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-item>
+            <ion-checkbox slot="start" [indeterminate]="true"></ion-checkbox>
+            <ion-label>Дозволи нотификации</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="userProfileModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Мој Профил</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalValue('myProfileModal', false)">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Име</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+              [formControl]="userForm.controls['name']"
+              type="text"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Име е задолжително</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Презиме</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+              [formControl]="userForm.controls['surname']"
+              type="text"
+              autocomplete="off" 
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.surname.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
+            <div *ngIf="f.surname.errors.required">Презиме е задолжително</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Е-маил</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+              [formControl]="userForm.controls['email']"
+              type="email"
+              inputmode="email"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Е-маил полето е задолжителен</div>
+            <div *ngIf="f.email.errors.email">Внесениот е-маил не е валиден</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Телефонски број</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+              [formControl]="userForm.controls['phone']"
+              type="tel"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              placeholder="77 123 456"
+              [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+            <div *ngIf="f.phone.errors.required">Телефонскиот број е задолжителен</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button size="large" (click)="updateUser()">
+            <span>Зачувај</span>    
+          </ion-button>
+        </ion-col>
+      </ion-row> 
+    </ion-content>
+    <ion-content  id="loading" *ngIf="loading">
+      <div>
+        <ion-spinner name="dots" color="secondary"></ion-spinner>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="employeeProfileModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Мој Профил</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalValue('myProfileModal', false)">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom" *ngIf="isManager">
+          <ion-list>
+            <div class="ion-text-center">Вработен</div>
+            <ion-item fill="outline" class="mt-5">
+              <ion-select (ionChange)="onChangeEmp()"  [formControl]="empForm.controls['userId']">
+                <ion-select-option *ngFor="let emp of employees" value={{emp.userId}}>{{emp.displayName}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Име</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+              [formControl]="userForm.controls['name']"
+              type="text"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Име е задолжително</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Презиме</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+              [formControl]="userForm.controls['surname']"
+              type="text"
+              autocomplete="off" 
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.surname.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
+            <div *ngIf="f.surname.errors.required">Презиме е задолжително</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Е-маил</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+              [formControl]="userForm.controls['email']"
+              type="email"
+              inputmode="email"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Е-маил полето е задолжителен</div>
+            <div *ngIf="f.email.errors.email">Внесениот е-маил не е валиден</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Телефонски број</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+              [formControl]="userForm.controls['phone']"
+              type="tel"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              placeholder="77 123 456"
+              [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+            <div *ngIf="f.phone.errors.required">Телефонскиот број е задолжителен</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" style="margin-top: 5% !important;">
+          <div class="ion-text-center">Работно време</div>
+        </ion-col>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-item fill="outline" mode="md">
+            <ion-label position="fixed">ПОН</ion-label>
+            <ion-input [formControl]="workingHours.controls['mon']"></ion-input>
+          </ion-item>
+          <div *ngIf="monError" class="invalid-feedback">
+            <div *ngIf="monError">Невалиден формат на работно време</div>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-item fill="outline" mode="md">
+            <ion-label position="fixed">ВТО</ion-label>
+            <ion-input [formControl]="workingHours.controls['tue']"></ion-input>
+          </ion-item>
+          <div *ngIf="tueError" class="invalid-feedback">
+            <div *ngIf="tueError">Невалиден формат на работно време</div>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-item fill="outline" mode="md">
+            <ion-label position="fixed">СРЕ</ion-label>
+            <ion-input [formControl]="workingHours.controls['wed']"></ion-input>
+          </ion-item>
+          <div *ngIf="wedError" class="invalid-feedback">
+            <div *ngIf="wedError">Невалиден формат на работно време</div>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-item fill="outline" mode="md">
+            <ion-label position="fixed">ЧЕТ</ion-label>
+            <ion-input [formControl]="workingHours.controls['thu']"></ion-input>
+          </ion-item>
+          <div *ngIf="thuError" class="invalid-feedback">
+            <div *ngIf="thuError">Невалиден формат на работно време</div>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-item fill="outline" mode="md">
+            <ion-label position="fixed">ПЕТ</ion-label>
+            <ion-input [formControl]="workingHours.controls['fri']"></ion-input>
+          </ion-item>
+          <div *ngIf="friError" class="invalid-feedback">
+            <div *ngIf="friError">Невалиден формат на работно време</div>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-item fill="outline" mode="md">
+            <ion-label position="fixed">САБ</ion-label>
+            <ion-input [formControl]="workingHours.controls['sat']"></ion-input>
+          </ion-item>
+          <div *ngIf="satError" class="invalid-feedback">
+            <div *ngIf="satError">Невалиден формат на работно време</div>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-item fill="outline" mode="md">
+            <ion-label position="fixed">НЕД</ion-label>
+            <ion-input [formControl]="workingHours.controls['sun']"></ion-input>
+          </ion-item>
+          <div *ngIf="sunError" class="invalid-feedback">
+            <div *ngIf="sunError">Невалиден формат на работно време</div>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-margin-bottom">
+          <ion-item>
+            <ion-checkbox checked="showForReservation" (ionChange)="checkboxClick($event)" slot="start"></ion-checkbox>
+            <ion-label>Прикажи за резервирање</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button size="large" (click)="updateEmployee()">
+            <span>Зачувај</span>    
+          </ion-button>
+        </ion-col>
+      </ion-row> 
+    </ion-content>
+    <ion-content id="loading" *ngIf="loading">
+      <div>
+        <ion-spinner name="dots" color="secondary"></ion-spinner>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="passwordModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Промена на лозинка</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalValue('passwordModal', false)">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Стара лозинка</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+             [formControl]="passForm.controls['oldPassword']"
+              type="password"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && p.oldPass.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && f.oldPass.errors" class="invalid-feedback">
+            <div *ngIf="p.oldPass.errors.required">Лозинката е задолжителна</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Нова лозинка</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+              [formControl]="passForm.controls['newPassword']"
+              type="password"
+              autocomplete="off" 
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.newPassword.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && p.newPassword.errors" class="invalid-feedback">
+            <div *ngIf="p.newPassword.errors.required">Лозинката е задолжителна</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Повтори ја лозинката</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+              [formControl]="passForm.controls['newPasswordRepeat']"
+              type="password"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.newPasswordRepeat.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && p.email.errors" class="invalid-feedback">
+            <div *ngIf="p.newPasswordRepeat.errors.required">Лозинката е задолжителна</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button size="large" (click)="changePass()">
+            <span>Зачувај</span>    
+          </ion-button>
+        </ion-col>
+      </ion-row> 
+    </ion-content>
+    <ion-content  id="loading" *ngIf="loading">
+      <div>
+        <ion-spinner name="dots" color="secondary"></ion-spinner>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="removeProfileModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Избриши го мојот профил</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalValue('removeProfileModal', false)">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <p>
+        Внимание, доколку го избришете вашиот профил, ќе ви се забрани пристап до апликацијата и трајно ќе ви се избришат сите ваши податоци и резервации од нашата база. 
+      </p>
+      <h3 style="text-align: center; margin-top: 15%;">Дали сте сигурни?</h3>
+      <ion-row>
+        <ion-col class="ion-text-center mt-5">
+          <ion-button size="large" (click)="removeMyProfile()">
+            <span>Избриши</span>    
+          </ion-button>
+        </ion-col>
+      </ion-row> 
+    </ion-content>
+    <ion-content  id="loading" *ngIf="loading">
+      <div>
+        <ion-spinner name="dots" color="secondary"></ion-spinner>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="contactModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Контакт</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalValue('contactModal', false)">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Наслов</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+             [formControl]="contactForm.controls['title']"
+              type="text"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && m.title.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && m.title.errors" class="invalid-feedback">
+            <div *ngIf="m.title.errors.required">Наслов на пораката е задолжителен</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Порака</div>
+          <ion-item fill="outline" mode="md">
+            <ion-textarea 
+            [formControl]="contactForm.controls['message']" 
+            placeholder="Оставете порака тука" 
+            [autoGrow]="true"
+            [ngClass]="{ 'is-invalid': submitted && m.message.errors }">
+            </ion-textarea>
+          </ion-item>
+          <div *ngIf="submitted && m.message.errors" class="invalid-feedback">
+            <div *ngIf="m.message.errors.required">Содржината на пораката е задолжителна</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button size="large" (click)="sendMessage()">
+            <span>Испрати порака</span>    
+          </ion-button>
+        </ion-col>
+      </ion-row> 
+    </ion-content>
+    <ion-content  id="loading" *ngIf="loading">
+      <div>
+        <ion-spinner name="dots" color="secondary"></ion-spinner>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

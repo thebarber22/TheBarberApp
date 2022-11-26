@@ -7,4 +7,5 @@ export class Employee{
     typeId:string;
     mobile:string;
     companyId:number;
+    showForReservation: number;
 }

@@ -1,6 +1,6 @@
 <ion-content id="container" *ngIf="!loading">
   <div class="header">
-    <span (click)="countClicks()">
+    <span>
       Регистрирај се
     </span>
   </div>
@@ -82,11 +82,59 @@
             </div>
           </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="showFields">
+          <ion-col size="12" class="ion-margin-bottom">
+            <div class="ion-text-center">Лозинка</div>
+            <ion-item fill="outline" mode="md">
+              <ion-input
+                [formControl]="signUpForm.controls['password']"
+                type="password"
+                autocomplete="off"
+                autocorrect="off"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+              ></ion-input>
+            </ion-item>
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Полето за лозинка е задолжително</div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="showFields">
+          <ion-col size="12" class="ion-margin-bottom">
+            <div class="ion-text-center">Потврди Лозинка</div>
+            <ion-item fill="outline" mode="md">
+              <ion-input
+                [formControl]="signUpForm.controls['repeatPassword']"
+                type="password"
+                autocomplete="off"
+                autocorrect="off"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }"
+              ></ion-input>
+            </ion-item>
+            <div *ngIf="submitted && f.repeatPassword.errors" class="invalid-feedback">
+              <div *ngIf="f.repeatPassword.errors.required">Полето за лозинка е задолжително</div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="showFields">
           <ion-col class="ion-text-center">
-            <ion-button size="large" (click)="signUp()">
+            <ion-button size="large" (click)="signUpNewUser()">
               <span>Регистрирај се</span>    
             </ion-button>
+          </ion-col>
+        </ion-row> 
+        <ion-row *ngIf="!showFields">
+          <ion-col class="ion-text-center">
+            <ion-button size="large" (click)="finishSocialMediaRegistration()">
+              <span>Регистрирај се</span>    
+            </ion-button>
+          </ion-col>
+        </ion-row> 
+        <ion-row>
+          <ion-col class="ion-text-center text-small" *ngIf="showFields">
+              <span>Имаш корисничка сметка? <a (click)="goToLogin()">Најави се</a></span>    
           </ion-col>
         </ion-row> 
         <ion-row>

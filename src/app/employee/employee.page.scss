@@ -46,14 +46,14 @@
                 flex-direction: column;
                 :first-child{
                     font-weight: 600;
-                    font-size: 32px;
+                    font-size: 19px;
                     line-height: 39px;
                     text-align: center;
                     color: #2B2C34;
                 }
                 :nth-child(2){
                     font-weight: 500;
-                    font-size: 16px;
+                    font-size: 15px;
                     line-height: 20px;
                     text-align: center;
                     color: #2B2C34;
@@ -127,7 +127,7 @@
     }
 
     .button-section{
-        height: 140px;
+        height: 110px;
         width: 100%;
         position: absolute;
         bottom: 0;
