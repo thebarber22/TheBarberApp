@@ -36,19 +36,17 @@ export class HomePage {
     window.sessionStorage.removeItem("employee");
     this.checkIfUserExist();
     this.checkIfCompanyExist();
-    this.getEmpByCompanyId();
     // this.initFCM().then(() => {
     //   this.onChange();
     // });
   }
 
 
-  getCompanyInfo(){
+  async getCompanyInfo(){
     this.loading=true;
     this.homeService.getCompanyById().subscribe(res => {
-      console.log(res)
       this.company=res;
-    },()=>{this.loading=false}, ()=> {this.loading=false})
+    },()=>{this.loading=false}, ()=> {this.getEmpByCompanyId();this.loading=false; })
   }
 
   async checkIfUserExist() {
@@ -61,8 +59,6 @@ export class HomePage {
       console.log(JSON.parse(res))
       user = res;
     })
-    console.log(token)
-    console.log(user)
     if(!token || !JSON.parse(user!)){
       this.router.navigate(['welcome'])
     }
@@ -77,7 +73,7 @@ export class HomePage {
         },()=>{this.loading=false}, ()=> {this.loading=false})
   }
 
-  getEmpByCompanyId(){
+  async getEmpByCompanyId(){
     this.loading=true;
     this.empserservice.getEmployeesByCompanyId(this.companyId).subscribe(res => {
       console.log(res)
