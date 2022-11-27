@@ -26,7 +26,7 @@ export class AppComponent{
   isUser = true;
 
   ngOnInit() {
-    this.checkCurrentUser();
+    //this.checkCurrentUser();
     this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
   }
 

@@ -17,13 +17,11 @@ const httpOptions = {
 })
 export class AuthService {
   obj : any;
-  _storage
+  _storage;
   constructor(private http: HttpClient, private storage: Storage) { this.init(); }
  
   async init() {
-    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
-    const storage = await this.storage.create();
-    this._storage = storage;
+    this._storage = this.storage;
   }
 
   signOut(): void {
@@ -35,7 +33,7 @@ export class AuthService {
     this._storage.set(TOKEN_KEY, token);
   }
 
-  async getToken() {
+  getToken() {
     return this._storage.get(TOKEN_KEY)
   }
 

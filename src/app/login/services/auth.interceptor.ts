@@ -1,12 +1,15 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { from, Observable } from "rxjs";
 import { AuthService } from "./auth.service";
-import {tap} from 'rxjs/operators';
+import {switchMap, tap} from 'rxjs/operators';
 import { environment } from "src/environments/environment";
+import { Storage } from "@ionic/storage";
 
 const TOKEN_HEADER_KEY = 'Authorization';
+const TOKEN_KEY = 'auth-token';
+const USER_KEY = 'auth-user';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -14,31 +17,34 @@ export class AuthInterceptor implements HttpInterceptor {
 	userId : any = "";
 	constructor(
         private token: AuthService, 
-        private router: Router) {
+        private router: Router,
+		private storage:Storage) {
+			this.storage.create().then()
 	}
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		this.userId = this.token.getUser();
 		let authReq = req;
 		const loginPath = '/login';
-		const token = this.token.getToken();
-		console.log(token)
-		if (token != null) {
-			authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token).set("companyId", this.companyId).set("userId", this.userId.id)});
-		} else {
-			authReq = req.clone({ headers: req.headers.set("companyId", this.companyId)});
-		}
-		return next.handle(authReq).pipe( tap(() => {},
-		(err: any) => {
-			if (err instanceof HttpErrorResponse) {
-				if (err.status !== 401 || window.location.pathname === loginPath) {
-					return;
-				}
-				this.token.signOut();
-				window.location.href = loginPath;
+		return from(this.storage.get(TOKEN_KEY))
+        .pipe(switchMap(token => {
+			console.log(token)
+			if (token != null) {
+				authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token).set("companyId", this.companyId)});
+			} else {
+				authReq = req.clone({ headers: req.headers.set("companyId", this.companyId)});
 			}
-		}
-		));
+			return next.handle(authReq).pipe( tap(() => {},
+			(err: any) => {
+				if (err instanceof HttpErrorResponse) {
+					if (err.status !== 401 || window.location.pathname === loginPath) {
+						return;
+					}
+					this.token.signOut();
+					window.location.href = loginPath;
+				}
+			}
+			));
+		}))
 	}
 }
 

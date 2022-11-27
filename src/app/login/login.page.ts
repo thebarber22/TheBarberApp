@@ -88,8 +88,8 @@ export class LoginPage {
       this.user.deviceId = info2.uuid;
       this.user.companyId = this.companyId;
       this.user.password = this.signUpForm.controls["password"].value;
-
       this.loginService.signUpNewUser(this.user).subscribe(response => {
+        console.log(response)
         if(response != null && response != "" && response != undefined) {
             this.authService.saveAuthResponse(response);
             this.router.navigate(['/home']);
