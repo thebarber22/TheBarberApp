@@ -20,17 +20,21 @@ export class LocationPage {
   companyName : any;
   companyPhone : any;
   constructor(private homeService: HomeService,
-              private sanitizer: DomSanitizer) {} 
+              private sanitizer: DomSanitizer,
+              private authService: AuthService) {} 
 
   async ngOnInit() { 
     this.getCompanyData();
   }
 
-  getCompanyData(){
-    this.company = this.homeService.getCompany();
-    this.companyName = this.company.name;
-    this.companyPhone = this.company.mobilePhone
-    this.locationSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.company.iframeMapUrl);
+ async getCompanyData(){
+    await this.authService.getCompany().then(res => {
+      this.company = JSON.parse(res)
+      console.log(this.company)
+      this.companyName = this.company.name;
+      this.companyPhone = this.company.mobilePhone
+      this.locationSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.company.iframeMapUrl);
+    })    
   }
 
 }

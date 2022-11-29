@@ -66,11 +66,11 @@ export class HomePage {
 
   checkIfCompanyExist() {
     this.loading=true;
-        this.homeService.getCompanyById().subscribe(res => {
-          if(res != null && res != undefined && res != ""){
-            this.homeService.saveCompany(res);
-          }
-        },()=>{this.loading=false}, ()=> {this.loading=false})
+      this.homeService.getCompanyById().subscribe(res => {
+        if(res != null && res != undefined && res != ""){
+          this.auth.saveCompany(res);
+        }
+      },()=>{this.loading=false}, ()=> {this.loading=false})
   }
 
   async getEmpByCompanyId(){

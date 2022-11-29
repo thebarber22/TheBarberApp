@@ -120,7 +120,7 @@
           <ion-list>
             <ion-item>
               <ion-select value="mkd" placeholder="Изберете јазик">
-                <ion-select-option value="mkd" [selected]="true">Македонски Јазик</ion-select-option>
+                <ion-select-option value="mkd">Македонски Јазик</ion-select-option>
               </ion-select>
             </ion-item>
           </ion-list>
@@ -415,7 +415,7 @@
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
           <ion-item>
-            <ion-checkbox checked="showForReservation" (ionChange)="checkboxClick($event)" slot="start"></ion-checkbox>
+            <ion-checkbox [checked]="showForReservation" (ionChange)="checkboxClick($event)" slot="start"></ion-checkbox>
             <ion-label>Прикажи за резервирање</ion-label>
           </ion-item>
         </ion-col>

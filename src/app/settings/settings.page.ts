@@ -85,8 +85,15 @@ export class SettingsPage implements OnInit {
               }
 
   ngOnInit() {
-    this.user = this.authService.getUser();
-    this.getUserById(this.user.id)
+    this.getUserFromStorage();
+  }
+
+  async getUserFromStorage(){
+    await this.authService.getUser().then(res => {
+      this.user = JSON.parse(res)
+      console.log(this.user)
+      this.getUserById(this.user.id)
+    })
   }
 
   onChangeEmp(){
@@ -210,13 +217,13 @@ export class SettingsPage implements OnInit {
   getUserById(userId){
     this.loading = true;
     this.authService.getUserById(userId).subscribe(data => { 
-      console.log(data);
       if(data != null){
        this.fillUserForm(data)
        this.employeeId = data.userId;
        this.empForm.controls["userId"].setValue(data.userId.toString())
+       console.log(data);
        for(let i = 0; i < data.roles.length; i++){
-        if(data.roles[i].name.includes("ROLE_EMPLOYEE")){
+        if(!data.roles[i].name.includes("ROLE_USER")){
           this.fillWorkingHoursTable(data.workingHours);
           this.loading = false;
           return;

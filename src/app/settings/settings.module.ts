@@ -8,11 +8,13 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
-    IonicModule,
+    IonicModule.forRoot({
+      mode: 'ios'
+    }),
     SettingsPageRoutingModule,
     LongPressModule,
-    ReactiveFormsModule,
   ],
   declarations: [SettingsPage]
 })

@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage-angular';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
-
+const COMPANY_KEY = 'auth-company';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -21,6 +21,7 @@ export class AuthService {
   constructor(private http: HttpClient, private storage: Storage) { this.init(); }
  
   async init() {
+    await this.storage.create();
     this._storage = this.storage;
   }
 
@@ -64,13 +65,24 @@ export class AuthService {
   }
 
   getUserById(userId): Observable<any> {
-    return this.http.get(AppConstants.API_URL + 'user/' + userId, httpOptions);
+    if(userId != null && userId != ""){
+      return this.http.get(AppConstants.API_URL + 'user/' + userId, httpOptions);
+    }
   }
 
   public removeUserFromStorage(){
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.removeItem(TOKEN_KEY);
+    this._storage.remove(USER_KEY)
+    this._storage.remove(TOKEN_KEY)
   }
 
+
+  public saveCompany(company): void {
+    this._storage.remove(COMPANY_KEY);
+    this._storage.set(COMPANY_KEY, JSON.stringify(company));
+  }
+
+  public getCompany(): any {
+    return this._storage.get(COMPANY_KEY);
+  }
   
 }

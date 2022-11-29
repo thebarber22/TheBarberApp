@@ -26,14 +26,21 @@ export class AppComponent{
   isUser = true;
 
   ngOnInit() {
-    //this.checkCurrentUser();
     this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
+    this.checkCurrentUser();
   }
 
   async checkCurrentUser(){
-    let user = await this.authService.getUser();
-    if(user != null && !user.roles.includes("ROLE_USER")){
-      this.isUser = false;
-    }
+    setTimeout(async () => {  
+      await this.authService.getUser().then(res => {
+        let user = JSON.parse(res)
+        console.log(user);
+        if(user != null && !user.roles.includes("ROLE_USER")){
+          this.isUser = false;
+        } else {
+          this.isUser = true;
+        }
+      })
+    }, 100);
   }
 }
