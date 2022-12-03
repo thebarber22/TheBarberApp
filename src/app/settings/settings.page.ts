@@ -84,16 +84,9 @@ export class SettingsPage implements OnInit {
                 })
               }
 
-  ngOnInit() {
-    this.getUserFromStorage();
-  }
-
-  async getUserFromStorage(){
-    await this.authService.getUser().then(res => {
-      this.user = JSON.parse(res)
-      console.log(this.user)
-      this.getUserById(this.user.id)
-    })
+  async ngOnInit() {
+    await this.authService.getUser().then(item => this.user = item).complete(item => this.getUserById(this.user.id));
+    console.log(this.user)
   }
 
   onChangeEmp(){
@@ -167,6 +160,7 @@ export class SettingsPage implements OnInit {
   }
 
   changePass(){
+    console.log("here i am")
     this.loading = true;
     if(this.checkRequiredPassword()){
       this.passwordDTO = new PasswordDTO;

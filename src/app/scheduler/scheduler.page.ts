@@ -12,6 +12,15 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./scheduler.page.scss'],
 })
 export class SchedulerPage implements OnInit {
+  days={
+    "1" : "monday",
+    "2" : "tuesday",
+    "3" : "wednesday",
+    "4" : "thursday",
+    "5" : "friday",
+    "6" : "saturday",
+    "7" : "sunday",
+  }
   companyId = environment.companyId;
   appointmentsList = [];
   selectedDate:string=new Date(Date.now()).toISOString();
@@ -135,11 +144,12 @@ export class SchedulerPage implements OnInit {
 
   selectEmployee(emp){
     let today = new Date(Date.now()).getDay()
-    console.log(today)
-    var startH:any = this.startHour;
-    var startM:any = this.startMinute;
-    var endH:any = this.endHour;
-    var endM:any = this.endMinute;
+    let todayString = this.days[today.toString()]
+    let workingHoursToday = emp.workingHours[todayString]
+    var startH:any = parseInt(workingHoursToday.split("-")[0].split(":")[0]);
+    var startM:any = parseInt(workingHoursToday.split("-")[0].split(":")[1]);
+    var endH:any = parseInt(workingHoursToday.split("-")[1].split(":")[0]);
+    var endM:any = parseInt(workingHoursToday.split("-")[1].split(":")[1]);
     var i=0;
     do{
       let obj = {

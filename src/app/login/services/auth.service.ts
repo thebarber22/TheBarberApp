@@ -21,7 +21,7 @@ export class AuthService {
   constructor(private http: HttpClient, private storage: Storage) { this.init(); }
  
   async init() {
-    await this.storage.create();
+		await this.storage.create().then()
     this._storage = this.storage;
   }
 
