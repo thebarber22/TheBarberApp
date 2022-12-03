@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { LongPressModule } from 'ionic-long-press';
 import { WelcomePageRoutingModule } from './welcome-routing.module';
 import { WelcomePage } from './welcome.page';
+import { Storage } from '@ionic/storage';
 @NgModule({
   imports: [
     CommonModule,

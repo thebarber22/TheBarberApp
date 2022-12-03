@@ -1,5 +1,5 @@
 export class AppConstants {
-    private static API_BASE_URL = "http://localhost:8080/";
+    private static API_BASE_URL = "http://194.163.167.102/TheBarberBackEnd/";
     private static OAUTH2_URL = AppConstants.API_BASE_URL + "oauth2/authorization/";
     private static REDIRECT_URL = "?redirect_uri=http://localhost:8081/login";
     public static API_URL = AppConstants.API_BASE_URL + "api/";
