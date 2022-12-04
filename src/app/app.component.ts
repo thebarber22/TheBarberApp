@@ -18,7 +18,9 @@ export class AppComponent{
               private loginService: LoginService,
               private router: Router,
               private location: Location,
-              private empService: EmployeeServiceService) {}
+              private empService: EmployeeServiceService) {
+                this.checkCurrentUser();
+              }
   showMenu:boolean=true;
   token : any = "";
   deviceId : any = "";
@@ -27,15 +29,13 @@ export class AppComponent{
 
   ngOnInit() {
     this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
-    this.checkCurrentUser();
   }
 
   async checkCurrentUser(){
     setTimeout(async () => {  
       await this.authService.getUser().then(res => {
         let user = JSON.parse(res)
-        console.log(user);
-        if(user != null && !user.roles.includes("ROLE_USER")){
+        if(!user.roles.includes("ROLE_USER")){
           this.isUser = false;
         } else {
           this.isUser = true;
