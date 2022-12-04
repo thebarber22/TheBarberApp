@@ -8,12 +8,32 @@
     <div class="section-barbers">
       <ion-grid>
         <ion-row>
+          <ion-col class="col-card" *ngIf="isManager == true">
+            <ion-card mode="ios">
+              <ion-item lines="none" detail='true' (click)="setModalValue('companyModal',true)">
+                <ion-icon name="business-outline" slot='start'></ion-icon>
+                <ion-label>
+                  <h4>Компанија</h4>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-col>
           <ion-col class="col-card">
             <ion-card mode="ios">
               <ion-item lines="none" detail='true' (click)="setModalValue('myProfileModal',true)">
                 <ion-icon name="person-outline" slot='start'></ion-icon>
                 <ion-label>
                   <h4>Мој Профил</h4>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-col>
+          <ion-col class="col-card" *ngIf="isManager == true">
+            <ion-card mode="ios">
+              <ion-item lines="none" detail='true' (click)="setModalValue('serviceModal', true)">
+                <ion-icon name="pricetags-outline" slot='start'></ion-icon>
+                <ion-label>
+                  <h4>Услуги</h4>
                 </ion-label>
               </ion-item>
             </ion-card>
@@ -427,6 +447,33 @@
           </ion-button>
         </ion-col>
       </ion-row> 
+      <ion-row style="margin-top: 10px;">
+        <ion-col size="12" style="margin-top: 5% !important;">
+          <div class="ion-text-center">Услуги</div>
+        </ion-col>
+        <ion-card class="serviceCard" *ngFor="let services of servicesList">
+          <ion-card-header>
+            <ion-row>
+              <ion-col class="trash" size="12">
+                <ion-icon name="trash-outline" (click)="removeServiceAlert(services.serviceId)"></ion-icon>
+              </ion-col>
+              <ion-col size="3" class="card-col">
+                <img src="../../assets/imgs/testhaircut.png" width="50" height="50">
+              </ion-col>
+              <ion-col size="9" class="card-col">
+                <ion-row>
+                    <ion-col size="6">Услуга</ion-col>
+                    <ion-col size="3">Време</ion-col>
+                    <ion-col size="3">Цена</ion-col>
+                    <ion-col size="6"><b>{{services.name}}</b></ion-col>
+                    <ion-col size="3"><b>{{services.duration}}</b></ion-col>
+                    <ion-col size="3"><b>{{services.price}}</b></ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+        </ion-card>
+      </ion-row>
     </ion-content>
     <ion-content id="loading" *ngIf="loading">
       <div>
@@ -597,6 +644,351 @@
         <ion-col class="ion-text-center">
           <ion-button size="large" (click)="sendMessage()">
             <span>Испрати порака</span>    
+          </ion-button>
+        </ion-col>
+      </ion-row> 
+    </ion-content>
+    <ion-content  id="loading" *ngIf="loading">
+      <div>
+        <ion-spinner name="dots" color="secondary"></ion-spinner>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="serviceModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Услуги</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalValue('serviceModal', false)">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-segment [(ngModel)]="segment">
+        <ion-segment-button value="all">
+          <ion-label>Сите услуги</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="new">
+          <ion-label>Нова услуга</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <div [ngSwitch]="segment">
+        <ion-row *ngSwitchCase="'all'">
+          <ion-card class="serviceCard" *ngFor="let services of servicesList">
+            <ion-card-header>
+              <ion-row>
+                <ion-col class="trash" size="12">
+                  <ion-icon name="trash-outline" (click)="removeServiceDetailAlert(services.serviceId)"></ion-icon>
+                </ion-col>
+                <ion-col size="3" class="card-col" (click)="openService(services, true)">
+                  <img src="../../assets/imgs/testhaircut.png" width="50" height="50">
+                </ion-col>
+                <ion-col size="9" class="card-col" (click)="openService(services, true)">
+                  <ion-row>
+                      <ion-col size="6">Услуга</ion-col>
+                      <ion-col size="3">Време</ion-col>
+                      <ion-col size="3">Цена</ion-col>
+                      <ion-col size="6"><b>{{services.name}}</b></ion-col>
+                      <ion-col size="3"><b>{{services.duration}}</b></ion-col>
+                      <ion-col size="3"><b>{{services.price}}</b></ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-card-header>
+          </ion-card>
+        </ion-row>
+        <ion-row *ngSwitchCase="'new'">
+            <ion-col size="12" class="ion-margin-bottom">
+                <h4 style="text-align-last: center;">Креирај нова услуга</h4>
+            </ion-col>
+            <ion-col size="12">
+              <div class="ion-text-center">Избери слика</div>
+              <ion-slides pager style="margin-top: 10px; margin-bottom: 10px;">
+                <ion-slide *ngFor="let image of images">
+                  <ion-row class="card-row">
+                    <ion-col class="card-wrapper">       
+                      <div class="card">
+                        <img class="card-img" src={{image}} alt="">
+                      </div>
+                    </ion-col>  
+                  </ion-row>
+                </ion-slide>
+              </ion-slides>
+            </ion-col>
+            <ion-col size="12" class="ion-margin-bottom">
+              <div class="ion-text-center">Име</div>
+              <ion-item fill="outline" mode="md">
+                <ion-input
+                 [formControl]="serviceForm.controls['name']"
+                  type="text"
+                  autocomplete="off"
+                  autocorrect="off"
+                  autofocus
+                  [ngClass]="{ 'is-invalid': submitted && s.name.errors }"
+                ></ion-input>
+              </ion-item>
+              <div *ngIf="submitted && s.name.errors" class="invalid-feedback">
+                <div *ngIf="s.name.errors.required">Име на услугата е задолжително</div>
+              </div> 
+            </ion-col>
+            <ion-col size="12" class="ion-margin-bottom">
+              <div class="ion-text-center">Опис</div>
+              <ion-item fill="outline" mode="md">
+                <ion-input
+                [formControl]="serviceForm.controls['description']" 
+                autocomplete="off"
+                autocorrect="off"
+                [ngClass]="{ 'is-invalid': submitted && s.description.errors }">
+                </ion-input>
+              </ion-item>
+              <div *ngIf="submitted && s.description.errors" class="invalid-feedback">
+                <div *ngIf="s.description.errors.required">Опис на услугата е задолжителен</div>
+              </div>
+            </ion-col>
+            <ion-col size="12" class="ion-margin-bottom">
+              <div class="ion-text-center">Цена</div>
+              <ion-item fill="outline" mode="md">
+                <ion-input 
+                [formControl]="serviceForm.controls['price']" 
+                autocomplete="off"
+                autocorrect="off"
+                [ngClass]="{ 'is-invalid': submitted && s.price.errors}">
+                </ion-input>
+              </ion-item>
+              <div *ngIf="submitted && s.price.errors" class="invalid-feedback">
+                <div *ngIf="s.price.errors.required">Полето за цена на услугата е задолжително</div>
+              </div>
+            </ion-col>
+            <ion-col size="12" class="ion-margin-bottom">
+              <div class="ion-text-center">Времетраење на услугата</div>
+              <ion-item class="mt-5">
+                <ion-select [formControl]="serviceForm.controls['duration']">
+                  <ion-select-option value="10">10 минути</ion-select-option>
+                  <ion-select-option value="20">20 минути</ion-select-option>
+                  <ion-select-option value="30">30 минути</ion-select-option>
+                  <ion-select-option value="40">40 минути</ion-select-option>
+                  <ion-select-option value="50">50 минути</ion-select-option>
+                  <ion-select-option value="60">60 минути</ion-select-option>
+                  <ion-select-option value="70">70 минути</ion-select-option>
+                  <ion-select-option value="80">80 минути</ion-select-option>
+                  <ion-select-option value="90">90 минути</ion-select-option>
+                  <ion-select-option value="100">100 минути</ion-select-option>
+                  <ion-select-option value="110">110 минути</ion-select-option>
+                  <ion-select-option value="120">120 минути</ion-select-option>
+                  <ion-select-option value="130">130 минути</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col class="ion-text-center">
+              <ion-button size="large" (click)="createNewService()">
+                <span>Зачувај</span>    
+              </ion-button>
+            </ion-col>
+        </ion-row>
+      </div>
+    </ion-content>
+    <ion-content  id="loading" *ngIf="loading">
+      <div>
+        <ion-spinner name="dots" color="secondary"></ion-spinner>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="serviceDetail">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{serviceName}}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="openService('', false)">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+    <ion-row>
+      <ion-col size="12">
+        <div class="ion-text-center">Избери слика</div>
+        <ion-slides pager style="margin-top: 10px; margin-bottom: 10px;">
+          <ion-slide *ngFor="let image of images">
+            <ion-row class="card-row">
+              <ion-col class="card-wrapper">       
+                <div class="card">
+                  <img class="card-img" src={{image}} alt="">
+                </div>
+              </ion-col>  
+            </ion-row>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col size="12" class="ion-margin-bottom">
+        <div class="ion-text-center">Име</div>
+        <ion-item fill="outline" mode="md">
+          <ion-input
+           [formControl]="serviceForm.controls['name']"
+            type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autofocus
+            [ngClass]="{ 'is-invalid': submitted && s.name.errors }"
+          ></ion-input>
+        </ion-item>
+        <div *ngIf="submitted && s.name.errors" class="invalid-feedback">
+          <div *ngIf="s.name.errors.required">Име на услугата е задолжително</div>
+        </div> 
+      </ion-col>
+      <ion-col size="12" class="ion-margin-bottom">
+        <div class="ion-text-center">Опис</div>
+        <ion-item fill="outline" mode="md">
+          <ion-input
+          [formControl]="serviceForm.controls['description']" 
+          autocomplete="off"
+          autocorrect="off"
+          [ngClass]="{ 'is-invalid': submitted && s.description.errors }">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="submitted && s.description.errors" class="invalid-feedback">
+          <div *ngIf="s.description.errors.required">Опис на услугата е задолжителен</div>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="ion-margin-bottom">
+        <div class="ion-text-center">Цена</div>
+        <ion-item fill="outline" mode="md">
+          <ion-input 
+          [formControl]="serviceForm.controls['price']" 
+          autocomplete="off"
+          autocorrect="off"
+          [ngClass]="{ 'is-invalid': submitted && s.price.errors}">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="submitted && s.price.errors" class="invalid-feedback">
+          <div *ngIf="s.price.errors.required">Полето за цена на услугата е задолжително</div>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="ion-margin-bottom">
+        <div class="ion-text-center">Времетраење на услугата</div>
+        <ion-item class="mt-5">
+          <ion-select [formControl]="serviceForm.controls['duration']">
+            <ion-select-option value="10">10 минути</ion-select-option>
+            <ion-select-option value="20">20 минути</ion-select-option>
+            <ion-select-option value="30">30 минути</ion-select-option>
+            <ion-select-option value="40">40 минути</ion-select-option>
+            <ion-select-option value="50">50 минути</ion-select-option>
+            <ion-select-option value="60">60 минути</ion-select-option>
+            <ion-select-option value="70">70 минути</ion-select-option>
+            <ion-select-option value="80">80 минути</ion-select-option>
+            <ion-select-option value="90">90 минути</ion-select-option>
+            <ion-select-option value="100">100 минути</ion-select-option>
+            <ion-select-option value="110">110 минути</ion-select-option>
+            <ion-select-option value="120">120 минути</ion-select-option>
+            <ion-select-option value="130">130 минути</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col  size="12" class="ion-text-center">
+        <ion-button size="large" (click)="updateService()">
+          <span>Измени</span>    
+        </ion-button>
+      </ion-col>
+    </ion-row>
+      <ion-col size="12">
+        <h4 style="text-align: -webkit-center;">Вработени означени со зелена/црвена боја ja имаат/немаат оваа услуга</h4>
+        <br/>
+        <h6 style="text-align-last: center; font-size: 13px;">Повлечете во лево за да извршите акција кон одреден вработен</h6>
+      </ion-col>
+      <ion-list *ngFor="let service of serviceDetailsUsers">
+        <ion-item-sliding>
+          <ion-item class="exist" *ngIf="service.hasService == '1'">
+            <ion-label>{{service.displayName}}</ion-label>
+          </ion-item>
+          <ion-item class="notExist" *ngIf="service.hasService == '0'">
+            <ion-label>{{service.displayName}}</ion-label>
+          </ion-item>
+          <ion-item-options *ngIf="service.hasService == '1'">
+            <ion-item-option color="danger" (click)="removeSelectedServiceFromEmp(service.serviceId, service.userId)">Избриши услуга</ion-item-option>
+          </ion-item-options>
+          <ion-item-options *ngIf="service.hasService == '0'">
+            <ion-item-option color="success" (click)="addServiceToEmployee(service.serviceId, service.userId)">Додади услуга</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>      
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="companyModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Компанија</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalValue('companyModal', false)">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Име</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+             [formControl]="companyForm.controls['name']"
+              type="text"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && c.name.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && c.name.errors" class="invalid-feedback">
+            <div *ngIf="c.name.errors.required">Име на компанијата е задолжително</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Адреса</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+             [formControl]="companyForm.controls['address']"
+              type="text"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && c.address.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && c.address.errors" class="invalid-feedback">
+            <div *ngIf="c.address.errors.required">Адреса на компанијата е задолжително</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-margin-bottom">
+          <div class="ion-text-center">Телефон</div>
+          <ion-item fill="outline" mode="md">
+            <ion-input
+             [formControl]="companyForm.controls['mobilePhone']"
+              type="text"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && c.mobilePhone.errors }"
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="submitted && c.mobilePhone.errors" class="invalid-feedback">
+            <div *ngIf="c.mobilePhone.errors.required">Телефонски број на компанијата е задолжителен</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button size="large" (click)="updateCompany()">
+            <span>Зачувај</span>    
           </ion-button>
         </ion-col>
       </ion-row> 

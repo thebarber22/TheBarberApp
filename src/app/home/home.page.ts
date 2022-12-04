@@ -35,10 +35,7 @@ export class HomePage {
     window.sessionStorage.removeItem("succ-reservs");
     window.sessionStorage.removeItem("employee");
     this.checkIfUserExist();
-    this.checkIfCompanyExist();
-    // this.initFCM().then(() => {
-    //   this.onChange();
-    // });
+    // this.checkIfCompanyExist();
   }
 
 
@@ -46,6 +43,7 @@ export class HomePage {
     this.loading=true;
     this.homeService.getCompanyById().subscribe(res => {
       this.company=res;
+      this.auth.saveCompany(res);
     },()=>{this.loading=false}, ()=> {this.getEmpByCompanyId();this.loading=false; })
   }
 
@@ -64,14 +62,14 @@ export class HomePage {
     }
   }
 
-  checkIfCompanyExist() {
-    this.loading=true;
-      this.homeService.getCompanyById().subscribe(res => {
-        if(res != null && res != undefined && res != ""){
-          this.auth.saveCompany(res);
-        }
-      },()=>{this.loading=false}, ()=> {this.loading=false})
-  }
+  // checkIfCompanyExist() {
+  //   this.loading=true;
+  //     this.homeService.getCompanyById().subscribe(res => {
+  //       if(res != null && res != undefined && res != ""){
+  //         this.auth.saveCompany(res);
+  //       }
+  //     },()=>{this.loading=false}, ()=> {this.loading=false})
+  // }
 
   async getEmpByCompanyId(){
     this.loading=true;

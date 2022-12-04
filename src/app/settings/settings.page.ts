@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { AlertController, IonSlides, ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { Service } from '../employee/model/Service';
 import { EmployeeServiceService } from '../employee/services/employee-service.service';
 import { User } from '../login/models/User';
 import { AuthService } from '../login/services/auth.service';
+import { CompanyDTO } from '../shared/models/CompanyDTO';
 import { MailDTO } from '../shared/models/MailDTO';
 import { PasswordDTO } from '../shared/models/passwordDTO';
 import { SettingsService } from './services/settings.service';
@@ -25,6 +27,7 @@ export class SettingsPage implements OnInit {
   friError = false;
   satError = false;
   sunError = false;
+  serviceDetail = false;
   settingsModal = false;
   documentsModal = false;
   myProfileModal = false;
@@ -33,27 +36,43 @@ export class SettingsPage implements OnInit {
   passwordModal = false;
   removeProfileModal = false;
   contactModal = false;
+  serviceModal = false;
+  companyModal = false;
   userForm: FormGroup;
   passForm: FormGroup;
   workingHours: FormGroup;
   empForm: FormGroup;
   contactForm: FormGroup;
+  serviceForm : FormGroup;
+  companyForm : FormGroup;
   submitted = false;
   user;
   companyId = environment.companyId;
   userDTO : User;
   passwordDTO : PasswordDTO;
+  companyDTO : CompanyDTO;
   mailDTO : MailDTO;
   employees = [];
   isManager = false;
   employeeId = "";
   showForReservation = false;
+  servicesList = [];
+  isUser = false;
+  segment: string = "all";
+  selectedServiceId;
+  serviceDTO: Service;
+  serviceDetailsUsers = [];
+  @ViewChild(IonSlides, { static: false }) slides: IonSlides;
+
+  serviceName : any = "";
+  images: any = [];
   constructor(private authService : AuthService,
               private router: Router,
               private fb: FormBuilder,
               private settingsService : SettingsService,
               private toastController : ToastController,
-              private employeeService : EmployeeServiceService
+              private employeeService : EmployeeServiceService,
+              private alertController: AlertController
               ) {
                 this.userForm = this.fb.group({
                   name : ['', Validators.required],
@@ -82,6 +101,17 @@ export class SettingsPage implements OnInit {
                   title : ['', Validators.required],
                   message : ['', Validators.required],
                 })
+                this.serviceForm = this.fb.group({
+                  name : ['', Validators.required],
+                  description : [''],
+                  price : ['', Validators.required],
+                  duration : ['', Validators.required]
+                })
+                this.companyForm = this.fb.group({
+                  name : ['', Validators.required],
+                  address : ['', Validators.required],
+                  mobilePhone : ['', Validators.required],
+                })
               }
 
   ngOnInit() {
@@ -91,7 +121,6 @@ export class SettingsPage implements OnInit {
   async getUserFromStorage(){
     await this.authService.getUser().then(res => {
       this.user = JSON.parse(res)
-      console.log(this.user)
       this.getUserById(this.user.id)
     })
   }
@@ -221,19 +250,89 @@ export class SettingsPage implements OnInit {
        this.fillUserForm(data)
        this.employeeId = data.userId;
        this.empForm.controls["userId"].setValue(data.userId.toString())
-       console.log(data);
        for(let i = 0; i < data.roles.length; i++){
-        if(!data.roles[i].name.includes("ROLE_USER")){
+        if(data.roles[i].name.includes("ROLE_USER") || data.roles[i].name.includes("ROLE_MODERATOR")){
           this.fillWorkingHoursTable(data.workingHours);
           this.loading = false;
+          if(data.roles[i].name.includes("ROLE_MODERATOR")){
+            this.isManager = true;
+          }
           return;
-        }
+        } 
+      
        }
        this.loading = false;
       } else {
         this.loading = false;
       }
     })
+  }
+
+
+  createNewService(){
+    this.loading = true;
+    this.serviceDTO = new Service();
+    this.serviceDTO.companyId = this.companyId;
+    this.serviceDTO.description = this.serviceForm.controls["description"].value;;
+    this.serviceDTO.name = this.serviceForm.controls["name"].value;
+    this.serviceDTO.price = this.serviceForm.controls["price"].value;;
+    this.serviceDTO.duration = this.serviceForm.controls["duration"].value;;
+    this.slides.getActiveIndex().then((index) => {
+      this.serviceDTO.image = this.images[index];
+    }) 
+
+    if(this.checkRequiredService()){
+      this.settingsService.createNewService(this.serviceDTO).subscribe(data => { 
+        if(data){
+          this.loading = false;
+          this.presentToast('top', "Сервисот е успешно креиран");
+          this.getServiceByCompany(this.companyId);
+          this.serviceForm.reset();
+          setTimeout(() => {  
+              this.segment = "all";
+          }, 1000);
+        } else { 
+          this.presentToast('top', "Настана грешка, обидете се повторно");
+          this.loading = false;
+        }
+      })
+    } else {
+      this.presentToast("top", "Невалиден внес на податоци")
+      this.loading = false;
+    }    
+  }
+
+  updateService(){
+    this.loading = true;
+    this.serviceDTO = new Service();
+    this.serviceDTO.companyId = this.companyId;
+    this.serviceDTO.description = this.serviceForm.controls["description"].value;;
+    this.serviceDTO.name = this.serviceForm.controls["name"].value;
+    this.serviceDTO.price = this.serviceForm.controls["price"].value;;
+    this.serviceDTO.duration = this.serviceForm.controls["duration"].value;
+    this.serviceDTO.serviceId = this.selectedServiceId;
+    this.slides.getActiveIndex().then((index) => {
+      this.serviceDTO.image = this.images[index];
+    }) 
+
+    if(this.checkRequiredService()){
+      this.settingsService.updateService(this.serviceDTO).subscribe(data => { 
+        if(data){
+          this.loading = false;
+          this.presentToast('top', "Промените се успешно зачувани");
+          this.getServiceByCompany(this.companyId);
+          setTimeout(() => {  
+              this.segment = "all";
+          }, 1000);
+        } else { 
+          this.presentToast('top', "Настана грешка, обидете се повторно");
+          this.loading = false;
+        }
+      })
+    } else {
+      this.presentToast("top", "Невалиден внес на податоци")
+      this.loading = false;
+    }    
   }
 
   
@@ -252,6 +351,148 @@ export class SettingsPage implements OnInit {
     })
   }
 
+
+  async removeServiceAlert(id) {
+    const alert = await this.alertController.create({
+      header: 'Внимание',
+      message: 'Доколку го избришете сервисот, истиот ќе биде тргнат од овој вработен. Дали сте сигурни?',
+      buttons: [{
+          text: 'Да',
+          role: 'confirm',
+          handler: () => {
+             this.removeServiceFromEmployee(id, this.employeeId)
+          },
+        },
+    ],
+    });
+
+    await alert.present();
+  }
+
+
+  async removeServiceDetailAlert(id){
+    const alert = await this.alertController.create({
+      header: 'Внимание',
+      message: 'Доколку го избришете сервисот, истиот ќе биде тргнат од сите вработени и вашите клиенти нема да може да го резервираат. Дали сте сигурни?',
+      buttons: [{
+          text: 'Да',
+          role: 'confirm',
+          handler: () => {
+             this.removeServiceFromCompany(id)
+          },
+        },
+    ],
+    });
+
+    await alert.present();
+  }
+
+  removeServiceFromCompany(serviceId){
+    this.loading = true;
+    this.settingsService.removeServiceFromCompany(serviceId).subscribe(data => { 
+      if(data){
+        this.loading = false;
+        this.presentToast("top", "Сервисот е успешно избришан")
+        this.getServiceByCompany(this.companyId);
+      } else {
+        this.loading = false;
+        this.presentToast("top", "Настана грешка, обидете се повторно")
+      }
+    })
+  }
+
+  removeServiceFromEmployee(serviceId, employeeId){
+    this.loading = true;
+    this.settingsService.removeServiceFromEmp(serviceId, employeeId).subscribe(data => { 
+      if(data){
+        this.loading = false;
+        this.presentToast("top", "Сервисот е успешно избришан")
+        this.getUserById(employeeId);
+      } else {
+        this.loading = false;
+        this.presentToast("top", "Настана грешка, обидете се повторно")
+      }
+    })
+  }
+
+  openService(service, value){
+    this.loading = true;
+    this.serviceDetail = value;
+    if(service != ""){
+      this.serviceName = service.name;
+      this.getServiceDetails(service.serviceId);
+      this.fillServiceForm(service)
+    } else {
+      this.loading = false;
+    }
+  }
+
+  fillServiceForm(service){
+    this.loading = true;
+    if(service != null){
+      [service.image].concat(this.images);
+      this.serviceForm.controls["name"].setValue(service.name);
+      this.serviceForm.controls["description"].setValue(service.description);
+      this.serviceForm.controls["price"].setValue(service.price);
+      this.serviceForm.controls["duration"].setValue(service.duration);
+      this.loading = false;
+    } else {
+      this.loading = false;
+    }
+  }
+
+  getServiceDetails(serviceId){
+    this.selectedServiceId = serviceId;
+    this.serviceDetailsUsers = [];
+    this.settingsService.getServiceDetails(serviceId).subscribe(data => { 
+      if(data != null){
+        this.serviceDetailsUsers = data;
+      } else {
+        this.loading = false;
+      }
+    })
+  }
+
+  removeSelectedServiceFromEmp(serviceId, empId){
+    this.removeServiceFromEmployee(serviceId, empId);
+    this.getServiceDetails(this.selectedServiceId);
+  }
+
+  addServiceToEmployee(serviceId, empId){
+    this.loading = true;
+    this.settingsService.addServiceToEmp(serviceId, empId).subscribe(data => { 
+      if(data){
+        this.loading = false;
+        this.presentToast("top", "Сервисот е успешно додаден")
+        this.getServiceDetails(serviceId)
+      } else {
+        this.loading = false;
+        this.presentToast("top", "Настана грешка, обидете се повторно")
+      }
+    })
+  }
+
+  
+  updateCompany(){
+    this.loading = true;
+    if(this.checkCompanyRequired()){
+      this.companyDTO = new CompanyDTO;
+      this.companyDTO.companyId = this.companyId;
+      this.companyDTO.name = this.companyForm.controls["name"].value;
+      this.companyDTO.address = this.companyForm.controls["address"].value;
+      this.companyDTO.mobilePhone = this.companyForm.controls["mobilePhone"].value;
+      this.settingsService.updateCompany(this.companyDTO).subscribe(data => { 
+        if(data){
+          this.loading = false;
+          this.presentToast("top", "Податоците се успешно променети")
+          this.authService.saveCompany(data);
+        } else {
+          this.loading = false;
+          this.presentToast("top", "Настана грешка, обидете се повторно")
+        }
+      })
+    }
+  }
 
   checkRequiredEmployee(){
     if(!this.checkWorkingDateFormat(this.workingHours.controls["mon"].value)){
@@ -347,6 +588,24 @@ export class SettingsPage implements OnInit {
     return true;
   }
 
+  checkRequiredService(){    
+    this.submitted = true;
+    if (this.serviceForm.invalid) {
+      return false;
+    } 
+
+    return true;
+  }
+
+  checkCompanyRequired(){
+    this.submitted = true;
+    if (this.companyForm.invalid) {
+      return false;
+    } 
+
+    return true;
+  }
+
   checkRequiredPassword(){    
     this.submitted = true;
     if (this.passForm.invalid) {
@@ -387,13 +646,16 @@ export class SettingsPage implements OnInit {
     if(modal == "myProfileModal"){
       this.getUserById(this.user.id);
       if(this.user.roles.includes("ROLE_USER")){
+        this.isUser = true;
         this.userProfileModal = value;
       } else if(this.user.roles.includes("ROLE_MODERATOR")) {
         this.isManager = true;
         this.getEmployesByCompany();
         this.employeeProfileModal = value;
+        this.isUser = false;
       } else {
         this.employeeProfileModal = value;
+        this.isUser = false;
       }
     }
 
@@ -408,9 +670,51 @@ export class SettingsPage implements OnInit {
     if(modal == "contactModal"){
       this.contactModal = value;
     }
+
+    if(modal == "serviceModal"){
+      this.getServiceByCompany(this.companyId);
+      this.serviceModal = value;
+      this.getAllServiceImages();
+    }
+
+    if(modal == "companyModal"){
+      this.fillCompanyForm();
+      this.companyModal = value;
+    }
+  }
+
+  async fillCompanyForm(){
+    await this.authService.getCompany().then(res => {
+      let company = JSON.parse(res)
+      this.companyForm.controls["name"].setValue(company.name);
+      this.companyForm.controls["address"].setValue(company.address);
+      this.companyForm.controls["mobilePhone"].setValue(company.mobilePhone);
+    })
+  }
+
+  getServiceByCompany(companyId) {
+    this.servicesList = [];
+    this.loading = true;
+    this.settingsService.getServicesByCompany(companyId).subscribe(data => { 
+      if(data){
+        this.servicesList = data;
+        this.loading = false;
+      } else {
+        this.loading = false;
+      }
+    })
+  }
+
+  getAllServiceImages(){
+    this.settingsService.getServiceImages("BARBER").subscribe(data => { 
+      if(data){
+        this.images = data;
+      }
+    })
   }
 
   fillUserForm(data){
+    this.servicesList = [];
     if(data != null){
       let fullName = data.displayName;
       let split = fullName.split(' ');
@@ -418,6 +722,11 @@ export class SettingsPage implements OnInit {
       this.userForm.controls["surname"].setValue(split[1]);
       this.userForm.controls["email"].setValue(data.email);
       this.userForm.controls["phone"].setValue(data.mobile);
+
+
+      if(data.employeeServices != null){
+        this.servicesList = data.employeeServices
+      }
 
       if(data.showForReservation != null && data.showForReservation == 1){
         this.showForReservation = true;
@@ -458,6 +767,14 @@ export class SettingsPage implements OnInit {
 
   get m(): { [key: string]: AbstractControl } {
     return this.contactForm.controls;
+  }
+
+  get s(): { [key: string]: AbstractControl } {
+    return this.serviceForm.controls;
+  }
+
+  get c(): { [key: string]: AbstractControl } {
+    return this.companyForm.controls;
   }
 
   async presentToast(position: 'top' | 'middle' | 'bottom', message) {

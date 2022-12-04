@@ -1,10 +1,10 @@
 export class Service{
-    serviceId:number;
-    name:string;
-    description:string;
-    duration:string;
-    price:number;
-    image:string;
-    companyId:string;
+    serviceId:any;
+    name:any;
+    description:any;
+    duration:any;
+    price:any;
+    image:any;
+    companyId:any;
     selected:Boolean=false;
 }
