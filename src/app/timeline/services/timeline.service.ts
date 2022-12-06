@@ -14,20 +14,20 @@ export class TimelineService {
   constructor(private http: HttpClient) { }
 
   getTimeline(userId, type){
-    return this.http.get<any>(this.url + '/reservation/get-timeline/'+userId+"/"+type).pipe(map(response => {
+    return this.http.get<any>(this.url + 'user/get-timeline/'+userId+"/"+type).pipe(map(response => {
         return response;
     }))
   }
 
   getTimelineEmployee(userId, dateSelected){
     console.log(dateSelected)
-    return this.http.get<any>(this.url + '/reservation/get-timeline-emp/'+userId+"/"+dateSelected).pipe(map(response => {
+    return this.http.get<any>(this.url + 'user/get-timeline-emp/'+userId+"/"+dateSelected).pipe(map(response => {
         return response;
     }))
   }
 
   removeAppointments(appointmentId){
-    return this.http.delete<any>(this.url + '/reservation/delete/'+appointmentId).pipe(map(response => {
+    return this.http.delete<any>(this.url + 'user/delete/'+appointmentId).pipe(map(response => {
         return response;
     }))
   }

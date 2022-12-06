@@ -504,11 +504,11 @@
               autocomplete="off"
               autocorrect="off"
               autofocus
-              [ngClass]="{ 'is-invalid': submitted && p.oldPass.errors }"
+              [ngClass]="{ 'is-invalid': submitted && p.oldPassword.errors }"
             ></ion-input>
           </ion-item>
-          <div *ngIf="submitted && f.oldPass.errors" class="invalid-feedback">
-            <div *ngIf="p.oldPass.errors.required">Лозинката е задолжителна</div>
+          <div *ngIf="submitted && p.oldPassword.errors" class="invalid-feedback">
+            <div *ngIf="p.oldPassword.errors.required">Лозинката е задолжителна</div>
           </div>
         </ion-col>
       </ion-row>
@@ -522,7 +522,7 @@
               autocomplete="off" 
               autocorrect="off"
               autofocus
-              [ngClass]="{ 'is-invalid': submitted && f.newPassword.errors }"
+              [ngClass]="{ 'is-invalid': submitted && p.newPassword.errors }"
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && p.newPassword.errors" class="invalid-feedback">
@@ -540,10 +540,10 @@
               autocomplete="off"
               autocorrect="off"
               autofocus
-              [ngClass]="{ 'is-invalid': submitted && f.newPasswordRepeat.errors }"
+              [ngClass]="{ 'is-invalid': submitted && p.newPasswordRepeat.errors }"
             ></ion-input>
           </ion-item>
-          <div *ngIf="submitted && p.email.errors" class="invalid-feedback">
+          <div *ngIf="submitted && p.newPasswordRepeat.errors" class="invalid-feedback">
             <div *ngIf="p.newPasswordRepeat.errors.required">Лозинката е задолжителна</div>
           </div>
         </ion-col>
@@ -667,7 +667,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-      <ion-segment [(ngModel)]="segment">
+      <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)">
         <ion-segment-button value="all">
           <ion-label>Сите услуги</ion-label>
         </ion-segment-button>

@@ -13,13 +13,13 @@ import { environment } from "src/environments/environment";
     constructor(private http: HttpClient) { }
   
     hiddenLogin(userDTO:User){
-      return this.http.post<any>(this.url + '/api/auth/signin', userDTO).pipe(map(response => {
+      return this.http.post<any>(this.url + 'api/auth/signin', userDTO).pipe(map(response => {
           return response;
       }))
     }
 
     resetPass(email){
-      return this.http.get<any>(this.url + '/api/reset-password/' + email).pipe(map(response => {
+      return this.http.get<any>(this.url + 'public/reset-password/' + email).pipe(map(response => {
           return response;
       }))
     }

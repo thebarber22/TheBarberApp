@@ -15,7 +15,7 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   public getCompanyById(): any {
-    return this.http.get<any>(this.url + "/company/" + environment.companyId).pipe(map(response => {
+    return this.http.get<any>(this.url + "public/company/" + environment.companyId).pipe(map(response => {
       return response;
     }))
   }

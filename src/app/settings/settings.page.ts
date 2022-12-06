@@ -196,7 +196,6 @@ export class SettingsPage implements OnInit {
   }
 
   changePass(){
-    console.log("here i am")
     this.loading = true;
     if(this.checkRequiredPassword()){
       this.passwordDTO = new PasswordDTO;
@@ -208,7 +207,11 @@ export class SettingsPage implements OnInit {
         this.passForm.reset();
         if(data){
           this.loading = false;
+          this.submitted = false;
           this.presentToast("top", "Лозинката е успешно променета")
+          setTimeout(() => {  
+            this.passwordModal = false;
+          }, 2000);
         } else {
           this.loading = false;
           this.presentToast("top", "Настана проблем, обидете се повторно")
@@ -225,6 +228,7 @@ export class SettingsPage implements OnInit {
         this.mailDTO = new MailDTO;
         this.mailDTO.title = this.contactForm.controls["title"].value;
         this.mailDTO.message = this.contactForm.controls["message"].value;
+        this.mailDTO.userId = this.user.id;
         this.settingsService.sendMessage(this.mailDTO).subscribe(data => { 
           if(data == true){
             this.loading = false;
@@ -252,7 +256,7 @@ export class SettingsPage implements OnInit {
        this.employeeId = data.userId;
        this.empForm.controls["userId"].setValue(data.userId.toString())
        for(let i = 0; i < data.roles.length; i++){
-        if(data.roles[i].name.includes("ROLE_USER") || data.roles[i].name.includes("ROLE_MODERATOR")){
+        if(data.roles[i].name.includes("ROLE_EMPLOYEE") || data.roles[i].name.includes("ROLE_MODERATOR")){
           this.fillWorkingHoursTable(data.workingHours);
           this.loading = false;
           if(data.roles[i].name.includes("ROLE_MODERATOR")){
@@ -287,6 +291,7 @@ export class SettingsPage implements OnInit {
         if(data){
           this.loading = false;
           this.presentToast('top', "Сервисот е успешно креиран");
+          this.submitted = false;
           this.getServiceByCompany(this.companyId);
           this.serviceForm.reset();
           setTimeout(() => {  
@@ -448,15 +453,18 @@ export class SettingsPage implements OnInit {
     this.settingsService.getServiceDetails(serviceId).subscribe(data => { 
       if(data != null){
         this.serviceDetailsUsers = data;
+        console.log(this.serviceDetailsUsers);
       } else {
         this.loading = false;
       }
     })
   }
 
-  removeSelectedServiceFromEmp(serviceId, empId){
+  removeSelectedServiceFromEmp(serviceId, empId){   
     this.removeServiceFromEmployee(serviceId, empId);
-    this.getServiceDetails(this.selectedServiceId);
+    setTimeout(() => {  
+      this.getServiceDetails(this.selectedServiceId);
+    }, 200);
   }
 
   addServiceToEmployee(serviceId, empId){
@@ -531,6 +539,9 @@ export class SettingsPage implements OnInit {
       return;
     }
     return true;
+  }
+  segmentChanged(ev: any) {
+    this.serviceForm.reset();
   }
 
   checkWorkingDateFormat(value){
@@ -636,6 +647,7 @@ export class SettingsPage implements OnInit {
   }
 
   setModalValue(modal, value) {
+    this.loading = false;
     if(modal == "settingsModal"){
       this.settingsModal = value;
     }
@@ -773,7 +785,6 @@ export class SettingsPage implements OnInit {
   get s(): { [key: string]: AbstractControl } {
     return this.serviceForm.controls;
   }
-
   get c(): { [key: string]: AbstractControl } {
     return this.companyForm.controls;
   }

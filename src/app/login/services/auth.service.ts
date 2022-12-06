@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AppConstants } from '../constants/app.constants';
 import { Device } from '@capacitor/device';
 import { Storage } from '@ionic/storage-angular';
+import { environment } from 'src/environments/environment';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -18,6 +19,7 @@ const httpOptions = {
 export class AuthService {
   obj : any;
   _storage;
+  url  = environment.url;
   constructor(private http: HttpClient, private storage: Storage) { this.init(); }
  
   async init() {
@@ -61,12 +63,12 @@ export class AuthService {
   }
 
   getCurrentUser(userId): Observable<any> {
-     return this.http.get(AppConstants.API_URL + 'user/me/' + userId, httpOptions);
+     return this.http.get(this.url + 'user/me/' + userId, httpOptions);
   }
 
   getUserById(userId): Observable<any> {
     if(userId != null && userId != ""){
-      return this.http.get(AppConstants.API_URL + 'user/' + userId, httpOptions);
+      return this.http.get(this.url + 'user/' + userId, httpOptions);
     }
   }
 

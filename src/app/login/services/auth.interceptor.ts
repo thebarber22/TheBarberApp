@@ -19,11 +19,6 @@ export class AuthInterceptor implements HttpInterceptor {
         private token: AuthService, 
         private router: Router,
 		private storage:Storage) {
-			this.init()
-	}
-
-	async init(){
-		//await this.storage.create().then()
 	}
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

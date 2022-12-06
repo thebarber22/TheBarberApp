@@ -13,10 +13,10 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   finishRegistration(user:User){
-    return this.http.post<any>(this.url + '/api/add', user)
+    return this.http.post<any>(this.url + 'public/finish-registration', user)
   }
 
   signUpNewUser(user:User){
-    return this.http.post<any>(this.url + '/api/register/user', user)
+    return this.http.post<any>(this.url + 'public/new-user', user)
   }
 }
