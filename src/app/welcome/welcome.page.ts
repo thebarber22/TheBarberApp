@@ -20,16 +20,15 @@ export class WelcomePage implements OnInit {
               private authService: AuthService) { }
 
   async ngOnInit() {
-    console.log("heree")
+    this.empserservice.sendMenuNotActive(false)
     await this.authService.getToken()
       .then(res => {
         console.log(res)
         this.token = res;
       })
     if (this.token) {
-      this.router.navigateByUrl('home');
+      this.router.navigate(['/home']);
     }
-    this.empserservice.sendMenuNotActive(false)
     
   }
 

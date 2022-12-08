@@ -53,8 +53,6 @@ export class SchedulerPage implements OnInit {
       this.employees=res;
     },()=>{this.loading=false}, ()=> {
       this.selectEmployee(this.employees[0])
-      this.getTimeline(this.employees[0].userId);
-      this.selectedEmployee=this.employees[0];
       this.loading=false;
     })
   }
@@ -63,7 +61,7 @@ export class SchedulerPage implements OnInit {
     const date = event.split("T")[0]
     this.selectedDateFormatted = date;
     this.selectedDate=event;
-    this.getTimeline(this.employees[0].userId)
+    this.getTimeline(this.selectedEmployee.userId)
     modalController.dismiss()
   }
 
@@ -103,10 +101,10 @@ export class SchedulerPage implements OnInit {
         ) 
 
         let startH = parseInt(startDate.toTimeString().split(":")[0])
-        let startM = parseInt(startDate.toTimeString().split(":")[1])-1
+        let startM = parseInt(startDate.toTimeString().split(":")[1])
 
         let endH = parseInt(endDate.toTimeString().split(":")[0])
-        let endM = parseInt(endDate.toTimeString().split(":")[1])-1
+        let endM = parseInt(endDate.toTimeString().split(":")[1])
 
         let stampsFromReservation=[]
         var color = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
@@ -143,6 +141,7 @@ export class SchedulerPage implements OnInit {
   }
 
   selectEmployee(emp){
+    this.selectedEmployee = emp;
     let today = new Date(Date.now()).getDay()
     let todayString = this.days[today.toString()]
     let workingHoursToday = emp.workingHours[todayString]
@@ -167,6 +166,7 @@ export class SchedulerPage implements OnInit {
       }
       i++
     }while((startH+startM) !== (endH+endM))
+    this.getTimeline(this.selectedEmployee.userId)
   }
 
 

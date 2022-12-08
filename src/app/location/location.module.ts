@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { LocationPageRoutingModule } from './location-routing.module';
 import { LocationPage } from './location.page';
+import { SafePipe } from './safe.pipe';
 
 
 @NgModule({
@@ -12,8 +13,8 @@ import { LocationPage } from './location.page';
     IonicModule, 
     ReactiveFormsModule,
     FormsModule,
-    LocationPageRoutingModule
+    LocationPageRoutingModule,
   ],
-  declarations: [LocationPage],
+  declarations: [LocationPage, SafePipe],
 })
 export class LocationModule { }

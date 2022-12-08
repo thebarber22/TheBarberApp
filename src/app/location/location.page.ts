@@ -24,16 +24,16 @@ export class LocationPage {
               private authService: AuthService) {} 
 
   async ngOnInit() { 
+    console.log("hereee")
     this.getCompanyData();
   }
 
  async getCompanyData(){
     await this.authService.getCompany().then(res => {
       this.company = JSON.parse(res)
-      console.log(this.company)
       this.companyName = this.company.name;
       this.companyPhone = this.company.mobilePhone
-      this.locationSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.company.iframeMapUrl);
+      this.locationSrc = this.company.iframeMapUrl;
     })    
   }
 

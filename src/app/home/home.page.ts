@@ -30,16 +30,18 @@ export class HomePage {
               private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit() {
+    console.log("HEREEEE")
     this.empserservice.sendMenuNotActive(true)
-    this.getCompanyInfo();
+    await this.getCompanyInfo();
     window.sessionStorage.removeItem("succ-reservs");
     window.sessionStorage.removeItem("employee");
-    this.checkIfUserExist();
+    await this.checkIfUserExist();
     // this.checkIfCompanyExist();
   }
 
 
   async getCompanyInfo(){
+    console.log("HEREEE")
     this.loading=true;
     this.homeService.getCompanyById().subscribe(res => {
       this.company=res;
