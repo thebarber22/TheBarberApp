@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from 'src/app/login/models/User';
 import { environment } from 'src/environments/environment';
+import { MediaLoginDTO } from '../models/MediaLoginDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -19,4 +20,9 @@ export class LoginService {
   signUpNewUser(user:User){
     return this.http.post<any>(this.url + 'public/new-user', user)
   }
+
+  createSocialMediaLogin(loginDTO:MediaLoginDTO) {
+    return this.http.post<any>(this.url + 'public/create-social-login', loginDTO)
+  }
+
 }

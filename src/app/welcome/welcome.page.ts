@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmployeeServiceService } from '../employee/services/employee-service.service';
-import { Storage } from '@ionic/storage';
-import { LoginService } from '../login/services/login.service';
 import { AuthService } from '../login/services/auth.service';
-
 
 @Component({
   selector: 'app-welcome',
@@ -16,23 +13,14 @@ export class WelcomePage implements OnInit {
   token;
   constructor(private empserservice: EmployeeServiceService,
               private router: Router,
-              private storage: Storage,
-              private authService: AuthService) { }
+              private authService: AuthService) {}
 
   async ngOnInit() {
     this.empserservice.sendMenuNotActive(false)
-    await this.authService.getToken()
-      .then(res => {
-        console.log(res)
-        this.token = res;
-      })
-    if (this.token) {
-      this.router.navigate(['/home']);
-    }
-    
   }
 
-  goToLogin(){
-    this.router.navigate(['/login']);
+  async goToLogin(){
+    this.router.navigate(["/login"]);
   }
+ 
 }
