@@ -12,6 +12,10 @@ import { LoginService } from './services/login.service';
 import { EmployeeServiceService } from '../employee/services/employee-service.service';
 import jwt_decode from "jwt-decode";
 import { ToastController } from '@ionic/angular';
+import { isPlatform } from '@ionic/angular';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { MediaLoginDTO } from './models/MediaLoginDTO';
+import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +38,8 @@ export class LoginPage {
   prefix: any = "+389";
   counter = 0;
   passwordNoMatching = true;
+  loginDTO : MediaLoginDTO;
+  userId : any;
   constructor(
              private route: ActivatedRoute,
               private authService: AuthService,
@@ -50,31 +56,16 @@ export class LoginPage {
                   password: ['', Validators.required],
                   repeatPassword: ['', Validators.required]
                 });
+                
+                if(!isPlatform('capacitor')){
+                  GoogleAuth.initialize();
+                }
               }
 
-   ngOnInit() { 
+   async ngOnInit() { 
+     await FacebookLogin.initialize({ appId: '1096409884371369' });
      this.empserservice.sendMenuNotActive(false)
-     if(this.route.snapshot.queryParamMap.get('token')){
-      this.showFields = false;
-      const token = this.route.snapshot.queryParamMap.get('token');
-      const decoded = jwt_decode(token);
-      this.authService.saveToken(token);
-        this.authService.getCurrentUser(decoded['sub']).subscribe(data => { 
-          this.authService.saveUser(data);
-          setTimeout(() => {  
-            if(data.mobile != null){
-              this.router.navigate(['/home']);
-            } 
-          }, 100);
-        },
-        err => {
-          this.errorMessage = err.error.message;
-          this.isLoginFailed = true;
-        }
-      )} else {
-        this.showFields = true;
-      }
-    } 
+   } 
     
   async signUpNewUser(){
     if(this.checkRequired()){
@@ -110,9 +101,8 @@ export class LoginPage {
       this.user.mobile = this.prefix + "" +this.signUpForm.controls["phone"].value;
       this.user.deviceId = info2.uuid;
       this.user.companyId = this.companyId;
-      let sessionUserId = this.authService.getUser();
-      if(sessionUserId != null && sessionUserId != undefined){
-        this.user.userId = sessionUserId.userId;
+      if(this.userId != null && this.userId != ""){
+        this.user.userId = this.userId
       }
 
       this.loginService.finishRegistration(this.user).subscribe(response => {
@@ -153,12 +143,48 @@ export class LoginPage {
     return true;
   }
 
-  googleSignUp(){
-    window.location.href = this.googleURL;
+  async googleSignUp(){
+    this.loginDTO = new MediaLoginDTO();
+    const googleUser = await GoogleAuth.signIn();
+    this.loginDTO.email = googleUser.email;
+    this.loginDTO.image = googleUser.imageUrl;
+    this.loginDTO.name = googleUser.name;
+    this.loginDTO.provider = "Google"
+    this.loginDTO.socialMediaId  = googleUser.id;
+
+    this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(response => {
+      if(response != null) {
+        this.userId = response.userId;
+        this.showFields = false;
+      } else {
+        this.loading = false;
+        this.presentToast('top', "Настана проблем, обидете се повторно");
+      }
+    });
+
   }
 
-  facebookSignUp(){
-    window.location.href = this.facebookURL;
+  async facebookSignUp(){
+    const FACEBOOK_PERMISSIONS = [ 'email', 'user_birthday', 'user_photos','user_gender', ];
+    const result = await (<FacebookLoginResponse><unknown>(FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS })));
+    const result2 = await FacebookLogin.getProfile<{email: string; id: any; first_name: any; last_name: any; picture: any;}>({ fields: ['email', 'id', 'first_name', 'last_name', 'picture'] });
+
+    this.loginDTO = new MediaLoginDTO();
+    this.loginDTO.email = result2.email;
+    this.loginDTO.image = result2.picture.data.url;
+    this.loginDTO.name = result2.first_name + " " + result2.last_name;
+    this.loginDTO.provider = "Facebook"
+    this.loginDTO.socialMediaId  = result2.id;
+
+    this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(response => {
+      if(response != null) {
+        this.userId = response.userId;
+        this.showFields = false;
+      } else {
+        this.loading = false;
+        this.presentToast('top', "Настана проблем, обидете се повторно");
+      }
+    });
   }
   
   async presentToast(position: 'top' | 'middle' | 'bottom', message) {
