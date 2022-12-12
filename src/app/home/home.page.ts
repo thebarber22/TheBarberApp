@@ -35,8 +35,6 @@ export class HomePage {
     await this.getCompanyInfo();
     window.sessionStorage.removeItem("succ-reservs");
     window.sessionStorage.removeItem("employee");
-   // await this.checkIfUserExist();
-    // this.checkIfCompanyExist();
   }
 
   ngAfterViewInit(){
@@ -77,7 +75,7 @@ export class HomePage {
     },()=>{this.loading=false}, ()=> {this.loading=false})
   }
 
-
+  
   // onChange(): void {
   //   localStorage.setItem('allowPush', JSON.stringify(this.allowPush));
 

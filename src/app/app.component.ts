@@ -17,12 +17,12 @@ export class AppComponent{
               private empService: EmployeeServiceService) {
                 this.checkCurrentUser();
               }
-  showMenu:boolean=true;
+  showMenu:any=true;
   token : any = "";
   isUser = true;
 
   ngOnInit() {
-    this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
+   this.showMenu = this.empService.getMenuNotActive().subscribe(val => this.showMenu=val)
   }
 
   async checkCurrentUser(){

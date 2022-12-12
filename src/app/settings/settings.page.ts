@@ -366,7 +366,7 @@ export class SettingsPage implements OnInit {
           text: 'Да',
           role: 'confirm',
           handler: () => {
-             this.removeServiceFromEmployee(id, this.employeeId)
+             this.removeServiceFromEmployee(id, this.employeeId, true)
           },
         },
     ],
@@ -407,13 +407,16 @@ export class SettingsPage implements OnInit {
     })
   }
 
-  removeServiceFromEmployee(serviceId, employeeId){
+  removeServiceFromEmployee(serviceId, employeeId, getUser){
     this.loading = true;
     this.settingsService.removeServiceFromEmp(serviceId, employeeId).subscribe(data => { 
       if(data){
-        this.loading = false;
         this.presentToast("top", "Сервисот е успешно избришан")
-        this.getUserById(employeeId);
+        if(getUser==true){
+          this.getUserById(employeeId);
+        } else {
+          this.getServiceDetails(this.selectedServiceId);
+        }
       } else {
         this.loading = false;
         this.presentToast("top", "Настана грешка, обидете се повторно")
@@ -453,7 +456,7 @@ export class SettingsPage implements OnInit {
     this.settingsService.getServiceDetails(serviceId).subscribe(data => { 
       if(data != null){
         this.serviceDetailsUsers = data;
-        console.log(this.serviceDetailsUsers);
+        this.loading = false;
       } else {
         this.loading = false;
       }
@@ -461,10 +464,8 @@ export class SettingsPage implements OnInit {
   }
 
   removeSelectedServiceFromEmp(serviceId, empId){   
-    this.removeServiceFromEmployee(serviceId, empId);
-    setTimeout(() => {  
-      this.getServiceDetails(this.selectedServiceId);
-    }, 200);
+    this.loading = true;
+    this.removeServiceFromEmployee(serviceId, empId, false);
   }
 
   addServiceToEmployee(serviceId, empId){

@@ -917,6 +917,11 @@
         </ion-item-sliding>
       </ion-list>      
     </ion-content>
+    <ion-content  id="loading" *ngIf="loading">
+      <div>
+        <ion-spinner name="dots" color="secondary"></ion-spinner>
+      </div>
+    </ion-content>
   </ng-template>
 </ion-modal>
 
