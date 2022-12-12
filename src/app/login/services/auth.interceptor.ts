@@ -26,7 +26,6 @@ export class AuthInterceptor implements HttpInterceptor {
 		const loginPath = '/login';
 		return from(this.storage.get(TOKEN_KEY))
         .pipe(switchMap(token => {
-			console.log(token)
 			if (token != null) {
 				authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token).set("companyId", this.companyId)});
 			} else {

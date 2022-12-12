@@ -22,7 +22,8 @@ export class HomePage {
   private readonly TOPIC_NAME = 'chuck';
   items: { id: number, text: string }[] = [];
   loading:Boolean=false;
-
+  user : any;
+  token : any;
   constructor(private empserservice: EmployeeServiceService,
               private homeService: HomeService, 
               private router: Router,
@@ -30,18 +31,20 @@ export class HomePage {
               private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit() {
-    console.log("HEREEEE")
     this.empserservice.sendMenuNotActive(true)
     await this.getCompanyInfo();
     window.sessionStorage.removeItem("succ-reservs");
     window.sessionStorage.removeItem("employee");
-    await this.checkIfUserExist();
+   // await this.checkIfUserExist();
     // this.checkIfCompanyExist();
+  }
+
+  ngAfterViewInit(){
+    this.checkIfUserExist();
   }
 
 
   async getCompanyInfo(){
-    console.log("HEREEE")
     this.loading=true;
     this.homeService.getCompanyById().subscribe(res => {
       this.company=res;
@@ -50,35 +53,24 @@ export class HomePage {
   }
 
   async checkIfUserExist() {
-    let token;
-    let user;
     await this.auth.getToken().then(res => {
-      token = res;
+      this.token = res;
     })
     await this.auth.getUser().then(res => {
-      console.log(JSON.parse(res))
-      user = res;
+      this.user = res;
     })
-    if(!token || !JSON.parse(user!)){
+
+    if(this.token == null || this.user == null){
       this.router.navigate(['welcome'])
     }
   }
-
-  // checkIfCompanyExist() {
-  //   this.loading=true;
-  //     this.homeService.getCompanyById().subscribe(res => {
-  //       if(res != null && res != undefined && res != ""){
-  //         this.auth.saveCompany(res);
-  //       }
-  //     },()=>{this.loading=false}, ()=> {this.loading=false})
-  // }
 
   async getEmpByCompanyId(){
     this.loading=true;
     this.empserservice.getEmployeesByCompanyId(this.companyId).subscribe(res => {
       console.log(res)
       for(let i = 0; i < res.length; i++){
-        if(res[i].showForReservation == 1){
+        if(res[i]?.showForReservation == 1){
           this.employees.push(res[i]);
         }
       }

@@ -2,12 +2,16 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Device } from '@capacitor/device';
-import { ToastController } from '@ionic/angular';
+import { isPlatform, ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { EmployeeServiceService } from '../employee/services/employee-service.service';
 import { User } from '../login/models/User';
 import { AuthService } from '../login/services/auth.service';
 import { HiddenLoginService } from './services/hidden-login.service';
+import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { MediaLoginDTO } from '../login/models/MediaLoginDTO';
+
 @Component({
   selector: 'app-hidden-login',
   templateUrl: 'hidden-login.page.html',
@@ -20,6 +24,7 @@ export class HiddenLoginPage {
   user: User;
   login = true;
   private companyId = environment.companyId;
+  loginDTO : MediaLoginDTO;
 
   constructor(private fb: FormBuilder,
               private empserservice: EmployeeServiceService,
@@ -31,9 +36,14 @@ export class HiddenLoginPage {
          email: ['', [Validators.required, Validators.email]],
          password: ['', Validators.required],
        });
+       
+       if(!isPlatform('capacitor')){
+        GoogleAuth.initialize();
+      }
       }
 
-   ngOnInit() { 
+   async ngOnInit() { 
+    await FacebookLogin.initialize({ appId: '1096409884371369' });
     this.empserservice.sendMenuNotActive(false)
    }
 
@@ -60,13 +70,51 @@ export class HiddenLoginPage {
   }
 }
 
+  async facebookLogin(){
+    const FACEBOOK_PERMISSIONS = [ 'email', 'user_birthday', 'user_photos','user_gender', ];
+    const result = await (<FacebookLoginResponse><unknown>(FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS })));
+    const result2 = await FacebookLogin.getProfile<{email: string; id: any; first_name: any; last_name: any; picture: any;}>({ fields: ['email', 'id', 'first_name', 'last_name', 'picture'] });
+
+    this.loginDTO = new MediaLoginDTO();
+    this.loginDTO.email = result2.email;
+    this.loginDTO.socialMediaId  = result2.id;
+
+    this.loginFromSocialMedia(this.loginDTO)
+
+  }
+
+  async googleLogin(){
+    this.loginDTO = new MediaLoginDTO();
+    const googleUser = await GoogleAuth.signIn();
+    this.loginDTO.email = googleUser.email;
+    this.loginDTO.provider = "Google"
+    this.loginDTO.socialMediaId  = googleUser.id;
+    this.loginFromSocialMedia(this.loginDTO);
+  }
+
+  loginFromSocialMedia(loginDTO){
+    this.hiddenLoginService.socialMediaLogin(loginDTO).subscribe(async response => {
+      if(response != null) {
+        if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
+          await this.authService.saveAuthResponse(response);
+          this.router.navigate(['/home']);
+        } else {
+          this.loading = false;
+          this.presentToast('top', "Настана грешка, обидете се повторно");
+        }
+      } else {
+        this.loading = false;
+        this.presentToast('top', "Вашиот корисник не е пронајден, регистрирајте се");
+        this.router.navigate(['/login']);
+      }
+    }); 
+  }
 
   resetPass(){
     this.loading = true;
     let email = this.signUpForm.controls["email"].value;
     if(email != null && email != ""){
       this.hiddenLoginService.resetPass(email).subscribe(response => {
-        console.log(response)
         if(response != null && response == true){
           this.login = true;
           this.presentToast('top', "Новата лозинка е испратена на вашиот емаил");

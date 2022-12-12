@@ -146,16 +146,21 @@ export class LoginPage {
   async googleSignUp(){
     this.loginDTO = new MediaLoginDTO();
     const googleUser = await GoogleAuth.signIn();
+    this.loginDTO.name = googleUser.givenName + " " + googleUser.familyName;
     this.loginDTO.email = googleUser.email;
     this.loginDTO.image = googleUser.imageUrl;
-    this.loginDTO.name = googleUser.name;
     this.loginDTO.provider = "Google"
     this.loginDTO.socialMediaId  = googleUser.id;
 
-    this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(response => {
+    this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(async response => {
       if(response != null) {
-        this.userId = response.userId;
-        this.showFields = false;
+        if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
+          await this.authService.saveAuthResponse(response);
+          this.router.navigate(['/home']);
+        } else {
+          this.userId = response.userId;
+          this.showFields = false;
+        }
       } else {
         this.loading = false;
         this.presentToast('top', "Настана проблем, обидете се повторно");
@@ -176,10 +181,16 @@ export class LoginPage {
     this.loginDTO.provider = "Facebook"
     this.loginDTO.socialMediaId  = result2.id;
 
-    this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(response => {
+    this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(async response => {
+      console.log(response)
       if(response != null) {
-        this.userId = response.userId;
-        this.showFields = false;
+        if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
+          await this.authService.saveAuthResponse(response);
+          this.router.navigate(['/home']);
+        } else {
+          this.userId = response.userId;
+          this.showFields = false;
+        }
       } else {
         this.loading = false;
         this.presentToast('top', "Настана проблем, обидете се повторно");

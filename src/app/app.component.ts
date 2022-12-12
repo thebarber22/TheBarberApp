@@ -13,18 +13,12 @@ import { LoginService } from './login/services/login.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent{
-  constructor(private homeService: HomeService,
-              private authService: AuthService,
-              private loginService: LoginService,
-              private router: Router,
-              private location: Location,
+  constructor(private authService: AuthService,
               private empService: EmployeeServiceService) {
                 this.checkCurrentUser();
               }
   showMenu:boolean=true;
   token : any = "";
-  deviceId : any = "";
-  route = this.location.path();
   isUser = true;
 
   ngOnInit() {
@@ -35,10 +29,12 @@ export class AppComponent{
     setTimeout(async () => {  
       await this.authService.getUser().then(res => {
         let user = JSON.parse(res)
-        if(!user.roles.includes("ROLE_USER")){
-          this.isUser = false;
-        } else {
-          this.isUser = true;
+        if(user != null && user.roles != null) {
+          if(!user.roles.includes("ROLE_USER")){
+            this.isUser = false;
+          } else {
+            this.isUser = true;
+          }
         }
       })
     }, 100);
