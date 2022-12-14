@@ -49,14 +49,5 @@ export class EmployeeServiceService {
       return response;
     }))
   }
-
-   //Close menu when route is on employee page
-   sendMenuNotActive(value:boolean){
-    this.menuNotActive.next(value)
-  }
-
-  getMenuNotActive():Observable<boolean>{
-    return this.menuNotActive.asObservable();
-  }
 }
  

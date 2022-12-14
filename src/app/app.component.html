@@ -1,10 +1,8 @@
-<ion-app *ngIf="!showMenu">
-  <ion-nav></ion-nav>
-</ion-app>
-<ion-app *ngIf="showMenu">
-  <ion-nav></ion-nav>
-  <ion-tabs *ngIf="showMenu">
-    <ion-tab-bar slot="bottom">
+
+<ion-app>
+  <ion-router-outlet></ion-router-outlet>
+  <ion-tabs>
+    <ion-tab-bar *ngIf="showMenu" slot="bottom">
       <ion-tab-button tab="home">
         <ion-icon name="apps-outline"></ion-icon>
       </ion-tab-button>

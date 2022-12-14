@@ -31,7 +31,6 @@ export class HomePage {
               private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit() {
-    this.empserservice.sendMenuNotActive(true)
     await this.getCompanyInfo();
     window.sessionStorage.removeItem("succ-reservs");
     window.sessionStorage.removeItem("employee");

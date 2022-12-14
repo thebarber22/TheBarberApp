@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Device } from '@capacitor/device';
 import { isPlatform, ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
-import { EmployeeServiceService } from '../employee/services/employee-service.service';
 import { User } from '../login/models/User';
 import { AuthService } from '../login/services/auth.service';
 import { HiddenLoginService } from './services/hidden-login.service';
@@ -27,7 +26,6 @@ export class HiddenLoginPage {
   loginDTO : MediaLoginDTO;
 
   constructor(private fb: FormBuilder,
-              private empserservice: EmployeeServiceService,
               private hiddenLoginService: HiddenLoginService,
               private authService : AuthService,
               private router: Router,
@@ -44,7 +42,6 @@ export class HiddenLoginPage {
 
    async ngOnInit() { 
     await FacebookLogin.initialize({ appId: '1096409884371369' });
-    this.empserservice.sendMenuNotActive(false)
    }
 
    async hiddenLogin(){

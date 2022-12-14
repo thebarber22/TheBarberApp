@@ -42,7 +42,6 @@ export class EmployeePage implements OnInit {
   disabled = true;
   async ngOnInit() {
     this.selectedDate = this.today;
-    this.empserservice.sendMenuNotActive(false)
     this.userId=this.route.snapshot.paramMap.get('userId')
     this.loading=true;
     console.log(this.selectedDate)

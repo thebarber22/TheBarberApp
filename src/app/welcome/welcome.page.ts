@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EmployeeServiceService } from '../employee/services/employee-service.service';
 import { AuthService } from '../login/services/auth.service';
 
 @Component({
@@ -12,13 +11,10 @@ export class WelcomePage implements OnInit {
   isModalOpen = false;
   token:any;
   user:any;
-  constructor(private empserservice: EmployeeServiceService,
-              private router: Router,
+  constructor(private router: Router,
               private authService: AuthService) {}
 
   async ngOnInit() {
-    this.empserservice.sendMenuNotActive(false)
-
     this.checkUser();
   }
 

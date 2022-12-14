@@ -9,7 +9,6 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from './services/login.service';
-import { EmployeeServiceService } from '../employee/services/employee-service.service';
 import jwt_decode from "jwt-decode";
 import { ToastController } from '@ionic/angular';
 import { isPlatform } from '@ionic/angular';
@@ -46,7 +45,6 @@ export class LoginPage {
               private loginService: LoginService,
               private router: Router,
               private fb: FormBuilder,
-              private empserservice: EmployeeServiceService,
               private toastController: ToastController) {
                 this.signUpForm = this.fb.group({
                   name : ['', Validators.required],
@@ -64,7 +62,6 @@ export class LoginPage {
 
    async ngOnInit() { 
      await FacebookLogin.initialize({ appId: '1096409884371369' });
-     this.empserservice.sendMenuNotActive(false)
    } 
     
   async signUpNewUser(){

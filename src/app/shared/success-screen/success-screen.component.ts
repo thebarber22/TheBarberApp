@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EmployeeServiceService } from 'src/app/employee/services/employee-service.service';
 import { ReserveButtonComponent } from '../../shared/reserve-button/reserve-button.component'
 
 @Component({
@@ -14,10 +13,9 @@ export class SuccessScreenComponent implements OnInit {
   @Input() services;
   @Input() start;
   
-  constructor(private empserservice: EmployeeServiceService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.empserservice.sendMenuNotActive(false);
   }
 
 }
