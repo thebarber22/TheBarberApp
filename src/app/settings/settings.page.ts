@@ -418,7 +418,6 @@ export class SettingsPage implements OnInit {
           this.getServiceDetails(this.selectedServiceId);
         }
       } else {
-        console.log("else " + data)
         this.loading = false;
         this.presentToast("top", "Настана грешка, обидете се повторно")
       }

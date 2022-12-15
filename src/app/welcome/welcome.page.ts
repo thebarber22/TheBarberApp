@@ -33,6 +33,6 @@ export class WelcomePage implements OnInit {
       if(this.token != null && this.user != null){
         this.router.navigate(['home'])
      }
-    }, 800);
+    }, 300);
   }
 }

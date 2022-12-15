@@ -28,7 +28,7 @@ export class AppComponent{
       filter(e => e instanceof NavigationEnd),
       takeUntil(this.closed$)
     ).subscribe(event => {
-      if (event['url'].includes("employee") || event['url'].includes("hidden-login") || event['url'].includes("login") || event['url'].includes("welcome") ) {
+      if (event["url"] == "/" || event['url'].includes("employee") || event['url'].includes("hidden-login") || event['url'].includes("login") || event['url'].includes("welcome") ) {
         this.showMenu = false; // <-- hide tabs on specific pages
       }else{
         this.showMenu = true;
