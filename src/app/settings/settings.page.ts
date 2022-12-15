@@ -407,9 +407,9 @@ export class SettingsPage implements OnInit {
     })
   }
 
-  removeServiceFromEmployee(serviceId, employeeId, getUser){
+  async removeServiceFromEmployee(serviceId, employeeId, getUser){
     this.loading = true;
-    this.settingsService.removeServiceFromEmp(serviceId, employeeId).subscribe(data => { 
+    await this.settingsService.removeServiceFromEmp(serviceId, employeeId).subscribe(data => { 
       if(data){
         this.presentToast("top", "Сервисот е успешно избришан")
         if(getUser==true){
@@ -418,6 +418,7 @@ export class SettingsPage implements OnInit {
           this.getServiceDetails(this.selectedServiceId);
         }
       } else {
+        console.log("else " + data)
         this.loading = false;
         this.presentToast("top", "Настана грешка, обидете се повторно")
       }

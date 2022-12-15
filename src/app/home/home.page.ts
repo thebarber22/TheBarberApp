@@ -65,7 +65,6 @@ export class HomePage {
   async getEmpByCompanyId(){
     this.loading=true;
     this.empserservice.getEmployeesByCompanyId(this.companyId).subscribe(res => {
-      console.log(res)
       for(let i = 0; i < res.length; i++){
         if(res[i]?.showForReservation == 1){
           this.employees.push(res[i]);
