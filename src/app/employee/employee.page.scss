@@ -149,13 +149,13 @@
     background-image: url('../../assets/imgs/Rectangle\ 37.png');
     .content2{
         @extend .content;
-
+        padding-bottom: 30px;
         .card-wrapper2{
             @extend .card-wrapper;
             height: 300px;
             justify-content: flex-start!important;
             align-items: baseline!important;
-
+            gap:10px!important;
             ion-datetime{
                 --background:white;
             }
@@ -176,6 +176,7 @@
                 margin-left: 5%;
                 white-space:nowrap;
                 width: 95%;
+                height: 50px;
                 .scroll-wrap{
                     width: 5000px;
                     display: flex;

@@ -36,7 +36,7 @@
 
 
   <div class="main2" *ngIf="selectedPage==1">
-    <div class="content2">
+    <div class="content2" id="content2">
       <ion-row class="header-row">
         <ion-col class="back-button" (click)="back()">
           <ion-icon name="chevron-back-outline" ></ion-icon>
@@ -109,8 +109,8 @@
           <ion-datetime presentation="date" mode="ios" size="cover" [(ngModel)]="selectedDate" (ngModelChange)="selectDate($event)"></ion-datetime>
         </ion-col>  
       </ion-row>
-      <ion-row class="card-row" style="margin-top: 30px;">
-        <ion-col class="card-wrapper2" style="height: 90px;">  
+      <ion-row class="card-row" style="margin-top: 30px; height: 100px;">
+        <ion-col class="card-wrapper2" style="height: 100%;">  
           <span>Време</span>
           <div class="time-select">
             <div class="scroll-wrap" *ngIf="freeSlots!=[]">

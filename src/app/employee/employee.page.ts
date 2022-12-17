@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isTabSwitch } from '@ionic/angular/directives/navigation/stack-utils';
 import * as moment from 'moment';
@@ -22,7 +22,7 @@ export class EmployeePage implements OnInit {
             private cdRef: ChangeDetectorRef,
             private router: Router,
             private auth: AuthService) { }
-
+  @ViewChild('content2') private content2: any;
   services:Service[];
   userId:string;
   selectedServices:Service[]=[];
@@ -81,6 +81,7 @@ export class EmployeePage implements OnInit {
   }
 
   selectDate(event){
+    this.freeSlots=[]
     this.disableButton(true)
     this.loadingTimes=true;
     const date = event.split("T")[0]
@@ -88,20 +89,30 @@ export class EmployeePage implements OnInit {
     let pipe = new DatePipe('en-US');
     let weekDay = pipe.transform(date, 'EEEE');
     this.empserservice.getFreeSlotsByEmployee(this.userId, date, this.selectedServices, weekDay).subscribe(res => {
+      const dateNow = new Date()
       if(res != null && res != undefined){
-        res.forEach(element => {
+        for(let element of res) {
+          if(date === dateNow.toISOString().split("T")[0]){
+            if(element.startHours < dateNow.getHours()){
+              continue;
+            }
+            if(element.startHours === dateNow.getHours() && element.startMinutes <= dateNow.getMinutes()){
+              continue;
+            }
+          }
           if(element.startMinutes == 0){
             element.startMinutes="00"
           }
-        });
-        this.freeSlots=res
+          this.freeSlots.push(element)
+        }
       }
     },()=>{this.loadingTimes=false}, ()=> {this.loadingTimes=false})
   }
 
   selectionTime(time){
+    const content2 = document.getElementById("content2")
+    content2.scroll({ top: content2.scrollHeight, behavior: 'smooth' });
     this.selectedSlot=time;
-    console.log(this.selectedSlot)
     this.freeSlots.forEach(i => {
       document.getElementById(i.id).style.backgroundColor='white'
       document.getElementById(i.id).style.color='black'
@@ -160,3 +171,4 @@ export class EmployeePage implements OnInit {
     this.router.navigate(["/home"]);
   }
 }
+
