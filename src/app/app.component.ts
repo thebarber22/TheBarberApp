@@ -16,10 +16,8 @@ import { takeUntil, filter } from 'rxjs/operators';
 export class AppComponent{
   constructor(private authService: AuthService,
               private empService: EmployeeServiceService,
-              private _router:Router) {
-                this.checkCurrentUser();
-              }
-  showMenu:any=true;
+              private _router:Router) {}
+  showMenu:any=false;
   token : any = "";
   isUser = true;
   closed$ = new Subject<any>();
@@ -28,10 +26,14 @@ export class AppComponent{
       filter(e => e instanceof NavigationEnd),
       takeUntil(this.closed$)
     ).subscribe(event => {
-      if (event["url"] == "/" || event['url'].includes("employee") || event['url'].includes("hidden-login") || event['url'].includes("login") || event['url'].includes("welcome") ) {
-        this.showMenu = false; // <-- hide tabs on specific pages
-      }else{
+      if(event["url"].includes("home") || event["url"].includes("settings") || event["url"].includes("location") || event["url"].includes("timeline") || event["url"].includes("scheduler")) {
         this.showMenu = true;
+      } else {
+        this.showMenu = false;
+      }
+
+      if(event["url"].includes("home")){
+        this.checkCurrentUser();
       }
     });
   }
@@ -52,4 +54,6 @@ export class AppComponent{
       })
     }, 100);
   }
+
+  
 }
