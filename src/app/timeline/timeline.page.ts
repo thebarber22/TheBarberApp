@@ -18,6 +18,7 @@ export class TimelinePage implements OnInit {
   employeeList = [];
   showAdminPanel = false;
   selectForm: FormGroup;
+  firstInitialize: Boolean = false;
 
   constructor(private authService: AuthService,
               private timelineService : TimelineService,
@@ -29,8 +30,8 @@ export class TimelinePage implements OnInit {
                 });
               }
 
-
   async ngOnInit() {
+    console.log("hereee")
     let user;
     await this.authService.getUser().then((res)=>{
       user = JSON.parse(res)
@@ -45,6 +46,13 @@ export class TimelinePage implements OnInit {
     }
   }
 
+  async ionViewDidEnter(){
+    if(this.firstInitialize)
+      await this.ngOnInit()
+    else 
+      this.firstInitialize=true;  
+  }
+  
   async removeAppointmentAlert(id) {
     const alert = await this.alertController.create({
       header: 'Внимание',

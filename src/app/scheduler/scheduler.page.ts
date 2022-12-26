@@ -36,15 +36,23 @@ export class SchedulerPage implements OnInit {
   matrix: any;
   isOpen = false;
   id;
+  firstInitialize: Boolean = false;
   constructor(private animationCtrl: AnimationController,
     private timelineService : TimelineService,
     private authService: AuthService,
     private empService: EmployeeServiceService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     const date = this.selectedDate.split("T")[0]
     this.selectedDateFormatted = date;
     this.getEmployees()
+  }
+
+  async ionViewDidEnter(){
+    if(this.firstInitialize)
+      await this.ngOnInit()
+    else 
+      this.firstInitialize=true;  
   }
 
   getEmployees(){

@@ -9,6 +9,8 @@ import { AuthService } from '../login/services/auth.service';
 import { AppointmentsService } from './model/AppointmentsService';
 import { Service } from './model/Service';
 import { EmployeeServiceService } from './services/employee-service.service';
+import { isPlatform, ToastController } from '@ionic/angular';
+
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.page.html',
@@ -21,7 +23,8 @@ export class EmployeePage implements OnInit {
             private homeService:HomeService,
             private cdRef: ChangeDetectorRef,
             private router: Router,
-            private auth: AuthService) { }
+            private auth: AuthService,
+            private toastController: ToastController) { }
   @ViewChild('content2') private content2: any;
   services:Service[];
   userId:string;
@@ -40,18 +43,26 @@ export class EmployeePage implements OnInit {
   loadingTimes:Boolean=false;
   today = moment().format();
   disabled = true;
+  firstInitialize:Boolean = false;
   async ngOnInit() {
+    this.selectedServices=[]
+    this.selectedPage=0
     this.selectedDate = this.today;
     this.userId=this.route.snapshot.paramMap.get('userId')
     this.loading=true;
-    console.log(this.selectedDate)
     this.empserservice.getServicesByEmployee(this.userId).subscribe(res => {
       this.services=res;
     },()=>{this.loading=false}, ()=> {this.loading=false})
   }
 
+  async ionViewDidEnter(){
+    if(this.firstInitialize)
+      await this.ngOnInit()
+    else 
+      this.firstInitialize=true;  
+  }
+
   selection(serviceId){
-    console.log(serviceId)
     let selected = this.services.find(el=>el.serviceId == serviceId)
     let index = this.selectedServices.indexOf(selected)
     if (index > -1) { 
@@ -68,7 +79,6 @@ export class EmployeePage implements OnInit {
     } else {
       this.disableButton(true);
     }
-    console.log(this.selectedServices)
   }
 
   nextStep(event){
@@ -105,8 +115,9 @@ export class EmployeePage implements OnInit {
           }
           this.freeSlots.push(element)
         }
+        this.cdRef.detectChanges();
       }
-    },()=>{this.loadingTimes=false}, ()=> {this.loadingTimes=false})
+    },()=>{this.loadingTimes=false}, ()=> {this.loadingTimes=false; this.cdRef.detectChanges();})
   }
 
   selectionTime(time){
@@ -155,7 +166,10 @@ export class EmployeePage implements OnInit {
       this.servicesNameReserve = res.serviceList[0].name;
       this.employeeNameReserve = this.empName
       this.selectedPage=2;
-    },()=>{this.loading=false}, ()=> {this.loading=false})
+    },()=>{
+      this.loading=false
+      this.presentToast('top', "Настана грешка, обидете се повторно за неколку минути!");
+    }, ()=> {this.loading=false})
   }
 
   disableButton(value){
@@ -169,6 +183,17 @@ export class EmployeePage implements OnInit {
 
   backToHome(){
     this.router.navigate(["/home"]);
+  }
+
+
+  async presentToast(position: 'top' | 'middle' | 'bottom', message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1500,
+      position: position
+    });
+
+    await toast.present();
   }
 }
 
