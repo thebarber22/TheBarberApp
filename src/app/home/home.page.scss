@@ -69,6 +69,8 @@ ion-grid{
       justify-content: center;
       margin-bottom: 30px;
       padding: 0;
+      max-height: 100%;
+      height: 100% !important;
       ion-card{
         .img{
           min-width: 170px;

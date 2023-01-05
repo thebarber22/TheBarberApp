@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { TimelinePageRoutingModule } from './timeline-routing.module';
 import { ReserveButtonComponent } from '../shared/reserve-button/reserve-button.component';
 import { TimelinePage } from './timeline.page';
+import { DatePipe } from './services/date.pipe';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { TimelinePage } from './timeline.page';
     TimelinePageRoutingModule
   ],
   
-  declarations: [TimelinePage]
+  declarations: [TimelinePage, DatePipe]
 })
 export class TimelinePageModule {}

@@ -19,7 +19,7 @@ export class TimelinePage implements OnInit {
   showAdminPanel = false;
   selectForm: FormGroup;
   firstInitialize: Boolean = false;
-
+  user : any;
   constructor(private authService: AuthService,
               private timelineService : TimelineService,
               private employeeService : EmployeeServiceService,
@@ -32,17 +32,15 @@ export class TimelinePage implements OnInit {
 
   async ngOnInit() {
     console.log("hereee")
-    let user;
     await this.authService.getUser().then((res)=>{
-      user = JSON.parse(res)
+      this.user = JSON.parse(res)
     });
-    console.log(user)
-    if(user.roles == "ROLE_MODERATOR"){
+    if(this.user.roles == "ROLE_MODERATOR"){
       this.getEmployeeByCompanyId();
       this.showAdminPanel = true;
     } else {
       this.showAdminPanel = false;
-      this.getTimeline(user.id);
+      this.getTimeline(this.user.id);
     }
   }
 
@@ -82,8 +80,7 @@ export class TimelinePage implements OnInit {
     this.timelineService.removeAppointments(id).subscribe(async res => {
       if(res != null && res != undefined){
         this.showAdminPanel = false;
-        let user = await this.authService.getUser()
-        this.getTimeline(user.id);
+        this.getTimeline(this.user.id);
       }
     },err => console.log(err))
   }
@@ -115,5 +112,9 @@ export class TimelinePage implements OnInit {
     } else {
       return false;
     }
+  }
+
+  startDate(value){
+    alert(value);
   }
 }

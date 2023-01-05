@@ -84,8 +84,8 @@ ion-card-header, ion-card-content{
 
 .card-img{
   border-radius: 20px;
-  height: 120px;
-  width: 120px;
+  height: 140px;
+  width: 190px;
 }
 
 ion-segment {
@@ -139,4 +139,10 @@ ion-segment-button.ios::part(indicator-background) {
 
 .exist { 
   --background: #2dd36f !important;
+}
+
+
+.img-cov { 
+  object-fit: cover;
+  image-rendering: pixelated;
 }
