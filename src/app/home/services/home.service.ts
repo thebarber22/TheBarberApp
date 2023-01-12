@@ -19,4 +19,10 @@ export class HomeService {
       return response;
     }))
   }
+
+  public getCompanyDetails(): any {
+    return this.http.get<any>(this.url + "public/company-details").pipe(map(response => {
+      return response;
+    }))
+  }
 }

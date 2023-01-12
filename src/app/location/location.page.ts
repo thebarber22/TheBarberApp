@@ -19,6 +19,8 @@ export class LocationPage {
   locationSrc : any;
   companyName : any;
   companyPhone : any;
+  totalEmployees = 0;
+  totalServices = 0;
   constructor(private homeService: HomeService,
               private sanitizer: DomSanitizer,
               private authService: AuthService) {} 
@@ -26,6 +28,7 @@ export class LocationPage {
   async ngOnInit() { 
     console.log("hereee")
     this.getCompanyData();
+    this.getEmployesData();
   }
 
  async getCompanyData(){
@@ -35,6 +38,18 @@ export class LocationPage {
       this.companyPhone = this.company.mobilePhone
       this.locationSrc = this.company.iframeMapUrl;
     })    
+  }
+
+  getEmployesData(){
+    this.homeService.getCompanyDetails().subscribe(items => {
+      if(items.services != null) {
+        this.totalServices = items.services;
+      }
+
+      if(items.employes != null) {
+        this.totalEmployees = items.employes;
+      }
+    })
   }
 
 }
