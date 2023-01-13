@@ -20,6 +20,8 @@
             gap: 3%;
 
             ion-avatar{
+                width: 70px;
+                max-width: 70px !important;
                 img{
                     max-width: 100%;
                     max-height: 100%;
@@ -92,3 +94,75 @@ ion-modal#example-modal {
   ion-modal#example-modal .wrapper {
     margin-bottom: 10px;
   }
+
+
+  .main{
+    ion-row {
+      justify-content: center;
+    }
+  }
+
+
+  .section-card { 
+    padding-left: 6%;
+    padding-right: 6%;
+    ion-button {
+        margin-top: 5px;
+        --background: #2B2C34;
+        color:#ffffff;
+        --border-radius: 30px !important;
+        height: 46px;
+        span {
+          font-size: 13px;
+          padding: 45px;
+          height: 45px;
+          display: inline-table;
+        }
+      }
+    
+    .card-info {
+        background-color: #F2F2F2;
+        border-radius: 10px;
+        padding:25px;
+    }
+
+    .svg-stick {
+        :first-child{
+           margin-top: -30px;
+        }
+        :nth-child(2){
+            margin-top: -37px;
+            margin-left: 10px;
+            display: block;
+        }
+    }
+
+    img{
+      max-width: 100px;
+      max-height: 100px;
+    }
+   }
+
+   ion-col span {
+    font-size: 12px;
+    float:left;
+   }
+
+  .value {
+    font-size: 12px;
+    font-weight: 600;
+   }
+
+   .value span {
+    float: right;
+   }
+
+   .succ-app{
+    font-size: 12px;
+    font-weight: 650;
+    display: inline-grid;
+   }
+
+   hr {
+    background: black;
+   }

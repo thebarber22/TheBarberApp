@@ -26,6 +26,7 @@ export class SchedulerPage implements OnInit {
   selectedDate:string=new Date(Date.now()).toISOString();
   selectedDateFormatted:string;
   selectedEmployee:any;
+  selectedServices:any;
   employees:any=[];
   loading:Boolean=false;
   startHour:Number=9;
@@ -34,6 +35,8 @@ export class SchedulerPage implements OnInit {
   endMinute:Number=0;
   timeStamps:any=[];
   matrix: any;
+  selectedAppointment: any;
+  endDateTime:any;
   isOpen = false;
   id;
   firstInitialize: Boolean = false;
@@ -178,9 +181,13 @@ export class SchedulerPage implements OnInit {
   }
 
 
-  onHold(id){
+  onHold(id, services){
+    this.selectedServices = services;
     this.id = id;
-    this.isOpen=true;
+    this.timelineService.getAppointmentById(id.toString()).subscribe(item => {
+      this.selectedAppointment = item;
+      this.isOpen=true;
+    })
   }
 
   deleteReservation(){

@@ -32,5 +32,9 @@ export class TimelineService {
     }))
   }
 
-
+  getAppointmentById(appointmentId){
+    return this.http.get<any>(this.url + 'user/appointments/'+appointmentId).pipe(map(response => {
+        return response;
+    }))
+  }
 }

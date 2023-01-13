@@ -3,7 +3,7 @@
     <div class="header">
       <div class="left" id="open-modal2" expand="block">
         <ion-avatar slot="start">
-          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          <img alt="Silhouette of a person's head" src={{this.selectedEmployee.img}} />
         </ion-avatar>
         <span>{{this.selectedEmployee.displayName}}</span>
       </div>
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="main">
-      <div ion-long-press [interval]="1000" *ngFor="let i of matrix" (longPressed)="onHold(i[1].id)" class="list-item" [ngStyle]="{         
+      <div ion-long-press [interval]="1000" *ngFor="let i of matrix" (longPressed)="onHold(i[1].id, i[1].services)" class="list-item" [ngStyle]="{         
         'background-color': i[1].color
       }">
         <span>{{i[0].startH}}:</span>
@@ -21,16 +21,77 @@
         <span *ngIf="i[0].startM==0">00</span>
         <p>{{i[1].services}}</p>
       </div>
-      <ion-popover id="popover" #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
+      <!-- <ion-popover id="popover" #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
         <ng-template>
           <ion-content (click)="deleteReservation()" class="ion-padding cancelPopover">Откажи термин <ion-icon name="trash-outline"></ion-icon></ion-content>
         </ng-template>
-      </ion-popover>
+      </ion-popover> -->
     </div>
   </div>
 </ion-content>
 
-
+<ion-modal [isOpen]="isOpen" (didDismiss)="isOpen = false" [initialBreakpoint]="0.55" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="isOpen = false">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>      
+    <ion-content [fullscreen]="true" id="container">
+      <div class="main">
+        <div class="section-card">
+            <ion-row class="card-info">
+              <ion-col size="12" class="ion-margin-bottom ion-text-center succ-app">
+                  <span>Детали за резервација</span>
+              </ion-col>
+              <ion-col size="6" class="ion-margin-bottom ion-text-center">
+                  <span>Бербер</span>
+              </ion-col>
+              <ion-col size="6" class="ion-margin-bottom ion-text-center value" style="text-align: end !important;">
+                  <span>{{this.selectedAppointment.employee.displayName}}</span>
+              </ion-col>
+              <ion-col size="6" class="ion-margin-bottom ion-text-center">
+                <span>Клиент</span>
+              </ion-col>
+              <ion-col size="6" class="ion-margin-bottom ion-text-center value" style="text-align: end !important;">
+                  <span>{{this.selectedAppointment.client.displayName}}</span>
+              </ion-col>
+              <ion-col size="6" class="ion-margin-bottom ion-text-center">
+                  <span>Услуга</span>
+              </ion-col>
+              <ion-col size="6" class="ion-margin-bottom ion-text-center value">
+                  <span>{{this.selectedServices}}</span>
+              </ion-col>
+              <ion-col size="6" class="ion-margin-bottom ion-text-center">
+                  <span>Време</span>
+              </ion-col>
+              <ion-col size="6" class="ion-margin-bottom ion-text-center value" style="text-align: end !important;">
+                  <span>{{this.selectedAppointment.startDateTime | date: "dd-MM-YYYY hh:mm:ss" }}</span>
+              </ion-col>
+            
+              <ion-col size="12" class="ion-margin-bottom ion-text-center">
+                <ion-button size="small" (click)="deleteReservation()">
+                  <span>Откажи термин</span>    
+                </ion-button>
+              </ion-col>
+              <ion-col class="ion-margin-bottom ion-text-center">
+                  <hr /> 
+                  <svg width="115" height="115" viewBox="0 0 135 135" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:-18px">
+                      <path d="M106.875 22.5H28.125C25.0184 22.5 22.5 25.0184 22.5 28.125V106.875C22.5 109.982 25.0184 112.5 28.125 112.5H106.875C109.982 112.5 112.5 109.982 112.5 106.875V28.125C112.5 25.0184 109.982 22.5 106.875 22.5Z" stroke="#2B2C34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M39.375 22.5V11.25M95.625 22.5V11.25" stroke="#2B2C34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M39.375 61.875H95.625" stroke="#2B2C34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M39.375 84.375H78.75" stroke="#2B2C34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M106.875 28.125H28.125V45H106.875V28.125Z" fill="#2B2C34"/>
+                  </svg>   
+              </ion-col>
+          </ion-row> 
+        </div>
+      </div> 
+    </ion-content>
+  </ng-template>
+</ion-modal>
 
 <!-- modal -->
 <ion-modal #modal id="example-modal" trigger="open-custom-dialog"  *ngIf="!loading">
@@ -60,7 +121,7 @@
         <ion-list>
           <ion-item *ngFor="let emp of employees" (click)="selectEmployee(emp); modal2.dismiss()">
             <ion-avatar slot="start">
-              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+              <img alt="Silhouette of a person's head" src={{emp.img}} />
             </ion-avatar>
             <ion-label>
               {{emp.displayName}}
