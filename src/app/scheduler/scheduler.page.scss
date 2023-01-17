@@ -47,6 +47,8 @@
     }
     
     .main{
+      overflow-y: scroll !important;
+      height: 85%;
         .list-item{
             height: 60px;
             border-top: 1px solid rgb(182, 182, 182);
@@ -55,7 +57,16 @@
             span{
                 color: black;
             }
-            
+         .services-button{
+          height: 50%;
+          display: flex;
+          justify-content: space-between;
+          ion-icon{
+            width: 25px;
+            height: 25px;
+            padding-right: 5px;
+          }
+         }   
         }
         
     }
@@ -166,3 +177,17 @@ ion-modal#example-modal {
    hr {
     background: black;
    }
+
+   #loading{
+    div{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      ion-spinner {
+        transform: scale(3);
+      }
+    }
+    
+  }

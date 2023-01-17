@@ -52,7 +52,7 @@ export class EmployeePage implements OnInit {
     this.loading=true;
     this.empserservice.getServicesByEmployee(this.userId).subscribe(res => {
       this.services=res;
-    },()=>{this.loading=false}, ()=> {this.loading=false})
+    },()=>{this.loading=false; this.router.navigate(['error'])}, ()=> {this.loading=false})
   }
 
   async ionViewDidEnter(){
@@ -150,7 +150,6 @@ export class EmployeePage implements OnInit {
       let client = JSON.parse(res)
       clientId = client.id
     }).finally(()=>{
-      console.log(clientId)
       reservation = {
         startDateTime:startDateTimeAppointment,
         endDateTime:endDateTimeAppointment,
@@ -168,7 +167,7 @@ export class EmployeePage implements OnInit {
       this.selectedPage=2;
     },()=>{
       this.loading=false
-      this.presentToast('top', "Настана грешка, обидете се повторно за неколку минути!");
+      this.router.navigate(['error'])
     }, ()=> {this.loading=false})
   }
 

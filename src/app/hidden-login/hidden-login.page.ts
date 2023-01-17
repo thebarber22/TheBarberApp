@@ -55,7 +55,6 @@ export class HiddenLoginPage {
       this.user.companyId = this.companyId;
 
       this.hiddenLoginService.hiddenLogin(this.user).subscribe(response => {
-        console.log(response)
         if(response != null){
           this.authService.saveAuthResponse(response);
           this.router.navigate(['/home']);
@@ -63,7 +62,7 @@ export class HiddenLoginPage {
           this.loading = false;
           this.presentToast('top', "Погрешна лозинка или емаил адреса");
         }
-    });
+    }, () => this.router.navigate(['error']));
   }
 }
 
@@ -97,7 +96,7 @@ export class HiddenLoginPage {
           this.router.navigate(['/home']);
         } else {
           this.loading = false;
-          this.presentToast('top', "Настана грешка, обидете се повторно");
+          this.router.navigate(['error'])
         }
       } else {
         this.loading = false;
@@ -119,7 +118,7 @@ export class HiddenLoginPage {
           this.loading = false;
         } else {
           this.loading = false;
-          this.presentToast('top', "Настана грешка, обидете се повторно");
+          this.router.navigate(['error'])
         }
     });
     } else {

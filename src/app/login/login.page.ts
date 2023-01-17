@@ -83,7 +83,7 @@ export class LoginPage {
             this.router.navigate(['/home']);
           } else {
             this.loading = false;
-            this.presentToast('top', "Настана проблем, обидете се повторно");
+            this.router.navigate(['error']);
           }
       })
     }
@@ -108,7 +108,7 @@ export class LoginPage {
           this.router.navigate(['/home']);
         } else {
           this.loading = false;
-          this.presentToast('top', "Настана проблем, обидете се повторно");
+          this.router.navigate(['error'])
         }
       });
     }
@@ -160,7 +160,7 @@ export class LoginPage {
         }
       } else {
         this.loading = false;
-        this.presentToast('top', "Настана проблем, обидете се повторно");
+        this.router.navigate(['error'])
       }
     });
 
@@ -190,7 +190,7 @@ export class LoginPage {
         }
       } else {
         this.loading = false;
-        this.presentToast('top', "Настана проблем, обидете се повторно");
+        this.router.navigate(['error'])
       }
     });
   }

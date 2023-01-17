@@ -5,6 +5,7 @@ import { EmployeeServiceService } from '../employee/services/employee-service.se
 import { AuthService } from '../login/services/auth.service';
 import { TimelineService } from './services/timeline.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-timeline',
@@ -24,14 +25,14 @@ export class TimelinePage implements OnInit {
               private timelineService : TimelineService,
               private employeeService : EmployeeServiceService,
               private fb: FormBuilder,
-              private alertController: AlertController) { 
+              private alertController: AlertController,
+              private router: Router) { 
                 this.selectForm = fb.group({
                   'empId' : ['', Validators.required],
                 });
               }
 
   async ngOnInit() {
-    console.log("hereee")
     await this.authService.getUser().then((res)=>{
       this.user = JSON.parse(res)
     });
@@ -82,7 +83,7 @@ export class TimelinePage implements OnInit {
         this.showAdminPanel = false;
         this.getTimeline(this.user.id);
       }
-    },err => console.log(err))
+    },err => this.router.navigate(['error']))
   }
 
   changeEmpInSelect(){
@@ -97,13 +98,13 @@ export class TimelinePage implements OnInit {
         if(res != null && res != undefined){
           this.futureAppointmentsList = res;
         }
-      },err => console.log(err))
+      },err => this.router.navigate(['error']))
     
       this.timelineService.getTimeline(userId, "past").subscribe(res => {
         if(res != null && res != undefined){
           this.pastAppointmentsList = res;
         }
-      },err => console.log(err))
+      },err => this.router.navigate(['error']))
   }
 
   checkIfExist(value){

@@ -1,4 +1,4 @@
-<ion-content *ngIf="!loading" style="overflow-y: scroll;">
+<ion-content *ngIf="!loading" [fullscreen]="true" [scrollEvents]="true">
   <div class="wrapper">
     <div class="header">
       <div class="left" id="open-modal2" expand="block">
@@ -13,14 +13,17 @@
       </div>
     </div>
     <div class="main">
-      <div ion-long-press [interval]="1000" *ngFor="let i of matrix" (longPressed)="onHold(i[1].id, i[1].services)" class="list-item" [ngStyle]="{         
+      <div *ngFor="let i of matrix" class="list-item" [ngStyle]="{         
         'background-color': i[1].color
       }">
         <span>{{i[0].startH}}:</span>
         <span *ngIf="i[0].startM!=0">{{i[0].startM}}</span>
         <span *ngIf="i[0].startM==0">00</span>
-        <p>{{i[1].services}}</p>
-      </div>
+        <div class="services-button">
+          <p>{{i[1].services}}</p>
+          <ion-icon (click)="onHold(i[1].id, i[1].services)" name="ellipsis-vertical-outline"></ion-icon>
+        </div>
+        </div>
       <!-- <ion-popover id="popover" #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
         <ng-template>
           <ion-content (click)="deleteReservation()" class="ion-padding cancelPopover">Откажи термин <ion-icon name="trash-outline"></ion-icon></ion-content>

@@ -5,6 +5,7 @@ import { TimelineService } from '../timeline/services/timeline.service';
 import { AuthService } from '../login/services/auth.service';
 import { EmployeeServiceService } from "../employee/services/employee-service.service";
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scheduler',
@@ -19,7 +20,7 @@ export class SchedulerPage implements OnInit {
     "4" : "thursday",
     "5" : "friday",
     "6" : "saturday",
-    "7" : "sunday",
+    "0" : "sunday",
   }
   companyId = environment.companyId;
   appointmentsList = [];
@@ -43,7 +44,8 @@ export class SchedulerPage implements OnInit {
   constructor(private animationCtrl: AnimationController,
     private timelineService : TimelineService,
     private authService: AuthService,
-    private empService: EmployeeServiceService) { }
+    private empService: EmployeeServiceService,
+    private router: Router) { }
 
   async ngOnInit() {
     const date = this.selectedDate.split("T")[0]
@@ -62,7 +64,7 @@ export class SchedulerPage implements OnInit {
     this.loading=true;
     this.empService.getEmployeesByCompanyId(this.companyId).subscribe(res => {
       this.employees=res;
-    },()=>{this.loading=false}, ()=> {
+    },()=>{this.loading=false; this.router.navigate(['error'])}, ()=> {
       this.selectEmployee(this.employees[0])
       this.loading=false;
     })
@@ -84,7 +86,7 @@ export class SchedulerPage implements OnInit {
       if(res != null && res != undefined){
         this.appointmentsList = res;
       }
-    },err => console.log(err),()=>{
+    },err => this.router.navigate(['error']),()=>{
       let id = 0;
       this.matrix=[]
       for(let i of this.timeStamps){
@@ -146,7 +148,6 @@ export class SchedulerPage implements OnInit {
           });
         }
       }
-      console.log(this.matrix)
     })
 
   }
