@@ -74,7 +74,7 @@ export class SchedulerPage implements OnInit {
     const date = event.split("T")[0]
     this.selectedDateFormatted = date;
     this.selectedDate=event;
-    this.getTimeline(this.selectedEmployee.userId)
+    this.selectEmployee(this.selectedEmployee)
     modalController.dismiss()
   }
 
@@ -92,11 +92,9 @@ export class SchedulerPage implements OnInit {
       for(let i of this.timeStamps){
         this.matrix.push([i, {'filled': false}])
       }
-
       for(let item of this.appointmentsList){
         let splitedDate = item.startDate.split("-")
         let splitedTime = item.startTime.split(":")
-        console.log(item)
         let startDate:Date = new Date(
           parseInt(splitedDate[0]),
           parseInt(splitedDate[1]),
@@ -138,8 +136,6 @@ export class SchedulerPage implements OnInit {
             startM=startM+10;
           }
         }while((startH + startM) !== (endH + endM))
-
-        console.log(stampsFromReservation)
         for(let j of stampsFromReservation){
           this.matrix.forEach(element => {
             if(element[0].startH === j.startH && element[0].startM === j.startM){
@@ -153,9 +149,13 @@ export class SchedulerPage implements OnInit {
   }
 
   selectEmployee(emp){
+    console.log(emp)
+    console.log(this.selectedDate)
+    this.timeStamps=[]
     this.selectedEmployee = emp;
-    let today = new Date(Date.now()).getDay()
+    let today = new Date(this.selectedDate).getDay()
     let todayString = this.days[today.toString()]
+    console.log(todayString)
     let workingHoursToday = emp.workingHours[todayString]
     var startH:any = parseInt(workingHoursToday.split("-")[0].split(":")[0]);
     var startM:any = parseInt(workingHoursToday.split("-")[0].split(":")[1]);
@@ -178,6 +178,7 @@ export class SchedulerPage implements OnInit {
       }
       i++
     }while((startH+startM) !== (endH+endM))
+    console.log(this.timeStamps)
     this.getTimeline(this.selectedEmployee.userId)
   }
 
