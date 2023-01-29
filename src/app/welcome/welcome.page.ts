@@ -48,6 +48,8 @@ export class WelcomePage implements OnInit {
     PushNotifications.requestPermissions().then((response) =>
       PushNotifications.register().then(() => console.log(`registered for push`))
     );
+
+    this.getToken();
   }
 
 
@@ -72,19 +74,19 @@ export class WelcomePage implements OnInit {
 //     }
 //   }
 
-//   getToken() {
-//     FCM.getToken()
-//       .then((result) => {
-//         this.remoteToken = result.token;
-//       })
-//       .catch((err) => console.log(err));
-//   }
+  getToken() {
+    FCM.getToken()
+      .then((result) => {
+        this.remoteToken = result.token;
+      })
+      .catch((err) => console.log(err));
+  }
     
 
 // }
 
   async goToLogin(){
-    this.authService.saveFirebaseToken("test");
+    this.authService.saveFirebaseToken(this.remoteToken);
     this.router.navigate(["/login"]);
   }
 

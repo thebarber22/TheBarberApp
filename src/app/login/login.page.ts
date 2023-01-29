@@ -12,7 +12,7 @@ import { LoginService } from './services/login.service';
 import jwt_decode from "jwt-decode";
 import { ToastController } from '@ionic/angular';
 import { isPlatform } from '@ionic/angular';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+//import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { MediaLoginDTO } from './models/MediaLoginDTO';
 import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
 
@@ -56,7 +56,7 @@ export class LoginPage {
                 });
                 
                 if(!isPlatform('capacitor')){
-                  GoogleAuth.initialize();
+               //   GoogleAuth.initialize();
                 }
               }
 
@@ -145,8 +145,8 @@ export class LoginPage {
 
    async googleSignUp(){
     // this.loginDTO = new MediaLoginDTO();
-     const googleUser = await GoogleAuth.signIn();
-     console.log(googleUser)
+    // const googleUser = await GoogleAuth.signIn();
+    // console.log(googleUser)
     // this.loginDTO.name = googleUser.givenName + " " + googleUser.familyName;
     // this.loginDTO.email = googleUser.email;
     // this.loginDTO.image = googleUser.imageUrl;
