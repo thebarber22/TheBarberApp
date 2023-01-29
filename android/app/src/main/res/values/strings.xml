@@ -4,7 +4,7 @@
     <string name="title_activity_main">TheBarberApp</string>
     <string name="package_name">com.easyreserve.test</string>
     <string name="custom_url_scheme">com.easyreserve.test</string>
-    <string name="server_client_id">16956376570-36krp8g9389r04dhjt604mi26ci8jmh4.apps.googleusercontent.com</string>
+    <!-- <string name="server_client_id">16956376570-36krp8g9389r04dhjt604mi26ci8jmh4.apps.googleusercontent.com</string> -->
     <string name="facebook_app_id">1096409884371369</string>
     <string name="facebook_client_token">1096409884371369</string>
 </resources>

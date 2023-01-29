@@ -62,8 +62,8 @@ export class LoginPage {
 
    async ngOnInit() { 
      await FacebookLogin.initialize({ appId: '1096409884371369' });
-   } 
-    
+  } 
+
   async signUpNewUser(){
     if(this.checkRequired()){
       this.loading = true;
@@ -76,6 +76,8 @@ export class LoginPage {
       this.user.deviceId = info2.uuid;
       this.user.companyId = this.companyId;
       this.user.password = this.signUpForm.controls["password"].value;
+      this.authService.getFirebaseToken().then(res => this.user.firebaseToken = res);
+
       this.loginService.signUpNewUser(this.user).subscribe(response => {
         console.log(response)
         if(response != null && response != "" && response != undefined) {
@@ -90,7 +92,7 @@ export class LoginPage {
   }
   
 
-  async finishSocialMediaRegistration(){
+   async finishSocialMediaRegistration(){
     if(this.signUpForm.controls["phone"].value != "") {
       this.loading = true;
       const info2 = await Device.getId();
@@ -98,6 +100,7 @@ export class LoginPage {
       this.user.mobile = this.prefix + "" +this.signUpForm.controls["phone"].value;
       this.user.deviceId = info2.uuid;
       this.user.companyId = this.companyId;
+      this.authService.getFirebaseToken().then(res => this.user.firebaseToken = res);
       if(this.userId != null && this.userId != ""){
         this.user.userId = this.userId
       }
@@ -112,7 +115,7 @@ export class LoginPage {
         }
       });
     }
-  }
+   }
  
   goToLogin(){
     this.router.navigate(["/hidden-login"]);
@@ -138,35 +141,36 @@ export class LoginPage {
     }
 
     return true;
-  }
+  } 
 
-  async googleSignUp(){
-    this.loginDTO = new MediaLoginDTO();
-    const googleUser = await GoogleAuth.signIn();
-    this.loginDTO.name = googleUser.givenName + " " + googleUser.familyName;
-    this.loginDTO.email = googleUser.email;
-    this.loginDTO.image = googleUser.imageUrl;
-    this.loginDTO.provider = "Google"
-    this.loginDTO.socialMediaId  = googleUser.id;
+   async googleSignUp(){
+    // this.loginDTO = new MediaLoginDTO();
+     const googleUser = await GoogleAuth.signIn();
+     console.log(googleUser)
+    // this.loginDTO.name = googleUser.givenName + " " + googleUser.familyName;
+    // this.loginDTO.email = googleUser.email;
+    // this.loginDTO.image = googleUser.imageUrl;
+    // this.loginDTO.provider = "Google"
+    // this.loginDTO.socialMediaId  = googleUser.id;
 
-    this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(async response => {
-      if(response != null) {
-        if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
-          await this.authService.saveAuthResponse(response);
-          this.router.navigate(['/home']);
-        } else {
-          this.userId = response.userId;
-          this.showFields = false;
-        }
-      } else {
-        this.loading = false;
-        this.presentToast('top', "Настана проблем, обидете се повторно");
-      }
-    });
+    // this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(async response => {
+    //   if(response != null) {
+    //     if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
+    //       await this.authService.saveAuthResponse(response);
+    //       this.router.navigate(['/home']);
+    //     } else {
+    //       this.userId = response.userId;
+    //       this.showFields = false;
+    //     }
+    //   } else {
+    //     this.loading = false;
+    //     this.presentToast('top', "Настана проблем, обидете се повторно");
+    //   }
+    // });
 
-  }
+   }
 
-  async facebookSignUp(){
+   async facebookSignUp(){
     const FACEBOOK_PERMISSIONS = [ 'email', 'user_birthday', 'user_photos','user_gender', ];
     const result = await (<FacebookLoginResponse><unknown>(FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS })));
     const result2 = await FacebookLogin.getProfile<{email: string; id: any; first_name: any; last_name: any; picture: any;}>({ fields: ['email', 'id', 'first_name', 'last_name', 'picture'] });
@@ -193,7 +197,7 @@ export class LoginPage {
         this.presentToast('top', "Настана проблем, обидете се повторно");
       }
     });
-  }
+   }
   
   async presentToast(position: 'top' | 'middle' | 'bottom', message) {
     const toast = await this.toastController.create({
@@ -213,4 +217,4 @@ export class LoginPage {
     return this.signUpForm.controls;
   }
 
-}
+ }

@@ -9,4 +9,5 @@ export class User{
     password:string;
     workingHours: Object;
     showForReservation:boolean;
+    firebaseToken:string;
 }

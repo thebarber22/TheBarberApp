@@ -83,4 +83,12 @@ export class SettingsService {
     }))
   }
 
+  public updateAllowNotification(userId, allow) {
+    const url = this.url + "user/edit-allow-notification";
+    let queryParams = {"userId":userId,"allow":allow};
+    return this.http.get<any>(url,{params:queryParams}).pipe(map(response => {
+      return response;
+    }))
+  }
+
 }

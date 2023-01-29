@@ -8,7 +8,7 @@ import { User } from '../login/models/User';
 import { AuthService } from '../login/services/auth.service';
 import { HiddenLoginService } from './services/hidden-login.service';
 import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+//import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { MediaLoginDTO } from '../login/models/MediaLoginDTO';
 
 @Component({
@@ -36,15 +36,15 @@ export class HiddenLoginPage {
        });
        
        if(!isPlatform('capacitor')){
-        GoogleAuth.initialize();
-      }
-      }
+        //GoogleAuth.initialize();
+       }
+    }
 
    async ngOnInit() { 
     await FacebookLogin.initialize({ appId: '1096409884371369' });
    }
 
-   async hiddenLogin(){
+  async hiddenLogin(){
     if(this.checkRequired()){
       this.loading=true;
       const info2 = await Device.getId();
@@ -63,9 +63,9 @@ export class HiddenLoginPage {
           this.loading = false;
           this.presentToast('top', "Погрешна лозинка или емаил адреса");
         }
-    });
+      });
+    }
   }
-}
 
   async facebookLogin(){
     const FACEBOOK_PERMISSIONS = [ 'email', 'user_birthday', 'user_photos','user_gender', ];
@@ -81,12 +81,12 @@ export class HiddenLoginPage {
   }
 
   async googleLogin(){
-    this.loginDTO = new MediaLoginDTO();
-    const googleUser = await GoogleAuth.signIn();
-    this.loginDTO.email = googleUser.email;
-    this.loginDTO.provider = "Google"
-    this.loginDTO.socialMediaId  = googleUser.id;
-    this.loginFromSocialMedia(this.loginDTO);
+    // this.loginDTO = new MediaLoginDTO();
+    // const googleUser = await GoogleAuth.signIn();
+    // this.loginDTO.email = googleUser.email;
+    // this.loginDTO.provider = "Google"
+    // this.loginDTO.socialMediaId  = googleUser.id;
+    // this.loginFromSocialMedia(this.loginDTO);
   }
 
   loginFromSocialMedia(loginDTO){
@@ -121,14 +121,14 @@ export class HiddenLoginPage {
           this.loading = false;
           this.presentToast('top', "Настана грешка, обидете се повторно");
         }
-    });
+      });
     } else {
       this.loading = false;
       this.submitted = true;
     }
   }
 
-   checkRequired(){    
+  checkRequired(){    
     this.submitted = true;
     if (this.signUpForm.invalid) {
       return false;
@@ -159,4 +159,4 @@ export class HiddenLoginPage {
   goToRegister(){
     this.router.navigate(['/login']);
   }
-}
+ }
