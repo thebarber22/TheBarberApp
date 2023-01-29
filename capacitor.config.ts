@@ -13,10 +13,10 @@ const config: CapacitorConfig = {
           "alert"
         ]
       } ,
-      "GoogleAuth": {
-        "scopes": ["profile", "email"],
-        "serverClientId": "266915288245-ca0r830cdlc2q4b768e67k73bsjnrhl9.apps.googleusercontent.com",
-      }
+      // "GoogleAuth": {
+      //   "scopes": ["profile", "email"],
+      //   "serverClientId": "266915288245-ca0r830cdlc2q4b768e67k73bsjnrhl9.apps.googleusercontent.com",
+      // }
     }
 };
 
