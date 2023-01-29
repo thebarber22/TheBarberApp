@@ -6,12 +6,18 @@ const config: CapacitorConfig = {
   "webDir": 'www',
   "bundledWebRuntime": false,
   "plugins": {
-    "GoogleAuth": {
-      "scopes": ['profile', 'email'],
-      "serverClientId": '16956376570-36krp8g9389r04dhjt604mi26ci8jmh4.apps.googleusercontent.com',
-      "forceCodeForRefreshToken": true,
+      "PushNotifications": {
+        "presentationOptions": [
+          "badge",
+          "sound",
+          "alert"
+        ]
+      } ,
+      "GoogleAuth": {
+        "scopes": ["profile", "email"],
+        "serverClientId": "266915288245-ca0r830cdlc2q4b768e67k73bsjnrhl9.apps.googleusercontent.com",
+      }
     }
-  }
 };
 
 export default config;

@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const COMPANY_KEY = 'auth-company';
+const USER_FIREBASE_TOKEN = 'firebase-token';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -52,6 +53,16 @@ export class AuthService {
       this._storage.set(USER_KEY, JSON.stringify(response.user));
     }
   }
+
+  public saveFirebaseToken(token : any) {
+    if(token != null){
+      this._storage.set(USER_FIREBASE_TOKEN, token);
+    }
+  } 
+
+  public getFirebaseToken() {
+     return this._storage.get(USER_FIREBASE_TOKEN)
+  } 
 
   public saveUser(user): void {
     this._storage.remove(USER_KEY);

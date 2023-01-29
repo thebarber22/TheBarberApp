@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "683792899058",
-    "project_id": "easy-reserve-1b729",
-    "storage_bucket": "easy-reserve-1b729.appspot.com"
+    "project_number": "266915288245",
+    "project_id": "thebarberapp-c3ff0",
+    "storage_bucket": "thebarberapp-c3ff0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:683792899058:android:05f83b87f447b0d69fa96b",
+        "mobilesdk_app_id": "1:266915288245:android:e33a111cb4eef2b7bf9afc",
         "android_client_info": {
           "package_name": "com.easyreserve.test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "683792899058-d1g86na0oqhsiskkclap8re7pq8f9b80.apps.googleusercontent.com",
+          "client_id": "266915288245-ia3dmn5nbpcv7b90bg18ht8o4qp3oc4b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAR027e77XtPUwk0nm4qoCiyMTrNuyfm9o"
+          "current_key": "AIzaSyCApfb8fgXBloB5QXe_GO1ux9KlhDjgGmA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "683792899058-d1g86na0oqhsiskkclap8re7pq8f9b80.apps.googleusercontent.com",
+              "client_id": "266915288245-ca0r830cdlc2q4b768e67k73bsjnrhl9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -60,6 +60,7 @@ export class SettingsPage implements OnInit {
   isUser = false;
   segment: string = "all";
   selectedServiceId;
+  notificationStatus = false;
   serviceDTO: Service;
   serviceDetailsUsers = [];
   @ViewChild(IonSlides, { static: false }) slides: IonSlides;
@@ -264,8 +265,14 @@ export class SettingsPage implements OnInit {
           }
           return;
         } 
-      
        }
+
+       if(data.enabled == 1){
+          this.notificationStatus = true;
+       } else {
+          this.notificationStatus = false;
+       }
+
        this.loading = false;
       } else {
         this.loading = false;
@@ -727,6 +734,26 @@ export class SettingsPage implements OnInit {
     })
   }
 
+
+  
+  allowNotification(e){
+    let value = "";
+    if(e.target.checked){
+        value = "0";
+    } else {
+        value = "1"
+    }
+
+    this.settingsService.updateAllowNotification(this.user.id, value).subscribe(data => { 
+      if(data){
+        this.notificationStatus = !this.notificationStatus;
+        this.presentToast('top', "Статусот за дозвола на нотификации е успешно променет!");
+      }
+    })
+  }
+
+  
+
   fillUserForm(data){
     this.servicesList = [];
     if(data != null){
@@ -800,7 +827,6 @@ export class SettingsPage implements OnInit {
     await toast.present();
   }
 
-  
   logout(){
     this.authService.removeUserFromStorage();
     this.router.navigate(['/hidden-login']);
