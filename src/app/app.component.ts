@@ -1,13 +1,10 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { EmployeeServiceService } from './employee/services/employee-service.service';
 import { AuthService } from './login/services/auth.service';
-import { ActivatedRoute, Router, NavigationEnd  } from '@angular/router';
+import { Router, NavigationEnd  } from '@angular/router';
 import { HomeService } from './home/services/home.service';
-import { Location } from '@angular/common';    
-import { LoginService } from './login/services/login.service';
 import { Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
-import { isPlatform, Platform } from '@ionic/angular';
+import { isPlatform } from '@ionic/angular';
 import { PushNotifications, PushNotificationSchema } from '@capacitor/push-notifications';
 import { FCM } from '@capacitor-community/fcm';
 
@@ -16,11 +13,11 @@ import { FCM } from '@capacitor-community/fcm';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent{
+export class AppComponent implements OnInit{
   constructor(private authService: AuthService,
               private _router:Router,
-              private platform: Platform,
-             private zone: NgZone) {}
+              private zone: NgZone,
+              private homeService: HomeService) {}
   showMenu:any=false;
   notifications: PushNotificationSchema[] = [];
   token : any = "";
@@ -66,7 +63,6 @@ export class AppComponent{
     }, 100);
   }
 
-
   firebaseConfiguration(){
     PushNotifications.addListener('registration', (data) => {
       console.log(data);
@@ -76,10 +72,12 @@ export class AppComponent{
       (notification: PushNotificationSchema) => {
         console.log('notification ' + JSON.stringify(notification));
         this.zone.run(() => {
+          this.homeService.setData("newNotification");
           this.notifications.push(notification);
         });
       }
     );
+    
     PushNotifications.requestPermissions().then((response) =>
       PushNotifications.register().then(() => console.log(`registered for push`))
     );

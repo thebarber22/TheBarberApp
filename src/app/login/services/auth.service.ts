@@ -86,6 +86,7 @@ export class AuthService {
   public removeUserFromStorage(){
     this._storage.remove(USER_KEY)
     this._storage.remove(TOKEN_KEY)
+    return {};
   }
 
 

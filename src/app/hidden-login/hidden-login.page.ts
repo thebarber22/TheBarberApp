@@ -35,13 +35,13 @@ export class HiddenLoginPage {
          password: ['', Validators.required],
        });
        
-       if(!isPlatform('capacitor')){
+    //   if(!isPlatform('capacitor')){
         //GoogleAuth.initialize();
-       }
+    //   }
     }
 
    async ngOnInit() { 
-    await FacebookLogin.initialize({ appId: '1096409884371369' });
+      await FacebookLogin.initialize({ appId: '1096409884371369' });
    }
 
   async hiddenLogin(){
@@ -57,6 +57,7 @@ export class HiddenLoginPage {
       this.hiddenLoginService.hiddenLogin(this.user).subscribe(response => {
         if(response != null){
           this.authService.saveAuthResponse(response);
+          this.loading=false;
           this.router.navigate(['/home']);
         } else {
           this.loading = false;

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, IonSlides, ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { Service } from '../employee/model/Service';
@@ -73,8 +73,8 @@ export class SettingsPage implements OnInit {
               private settingsService : SettingsService,
               private toastController : ToastController,
               private employeeService : EmployeeServiceService,
-              private alertController: AlertController
-              ) {
+              private alertController: AlertController,
+              private r:ActivatedRoute) {
                 this.userForm = this.fb.group({
                   name : ['', Validators.required],
                   surname : ['', Validators.required],
@@ -113,6 +113,10 @@ export class SettingsPage implements OnInit {
                   address : ['', Validators.required],
                   mobilePhone : ['', Validators.required],
                 })
+
+                r.params.subscribe(val => {
+                  this.ngOnInit();
+                });
               }
 
   ngOnInit() {
@@ -829,6 +833,7 @@ export class SettingsPage implements OnInit {
 
   logout(){
     this.authService.removeUserFromStorage();
+    this.loading=false;
     this.router.navigate(['/hidden-login']);
   }
 }

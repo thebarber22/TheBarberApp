@@ -1,6 +1,7 @@
 <ion-content id="container" *ngIf="!loading">
   <div class="notif">
-    <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_North_Macedonia.svg" alt=""> -->
+      <ion-icon *ngIf="!newNotification" name="notifications" style="margin-right: 2%;" (click)="getNotifications()" ></ion-icon>
+      <ion-icon *ngIf="newNotification" name="notifications" id="new-notification" (click)="getNotifications()"></ion-icon>
   </div>
   <div class="header">
     <span>
@@ -30,8 +31,36 @@
     </div>
   </div>
 </ion-content>
-<ion-content  id="loading" *ngIf="loading">
+<ion-content id="loading" *ngIf="loading">
   <div>
     <ion-spinner name="dots" color="secondary"></ion-spinner>
   </div>
 </ion-content>
+
+
+<ion-modal #modal [isOpen]="isOpen" (didDismiss)="isOpen = false" [initialBreakpoint]="0.55" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="isOpen = false">Затвори</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>      
+    <ion-content [fullscreen]="true" id="container">
+      <ion-item-sliding *ngFor="let not of notifications;let i = index" (ionSwipe)="removeNotification(not.id, i)">
+        <ion-item>
+          <ion-label class="ion-label1">
+            <h3>{{not.title}}</h3>
+            <h4>{{not.body}}</h4>
+          </ion-label>
+          <ion-label style="text-align-last: right;">
+            <h6>{{not.date}}</h6>
+            <h6>{{not.time}}</h6>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end"></ion-item-options>
+      </ion-item-sliding>
+    </ion-content>
+  </ng-template>
+</ion-modal>

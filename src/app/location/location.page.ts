@@ -26,7 +26,7 @@ export class LocationPage {
               private authService: AuthService) {} 
 
   async ngOnInit() { 
-    console.log("hereee")
+    console.log("location")
     this.getCompanyData();
     this.getEmployesData();
   }
