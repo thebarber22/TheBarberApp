@@ -8,7 +8,7 @@ import { User } from '../login/models/User';
 import { AuthService } from '../login/services/auth.service';
 import { HiddenLoginService } from './services/hidden-login.service';
 import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
-//import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { MediaLoginDTO } from '../login/models/MediaLoginDTO';
 
 @Component({
@@ -35,9 +35,13 @@ export class HiddenLoginPage {
          password: ['', Validators.required],
        });
        
-    //   if(!isPlatform('capacitor')){
-        //GoogleAuth.initialize();
-    //   }
+      if(!isPlatform('capacitor')){
+        GoogleAuth.initialize({
+          clientId: '266915288245-ca0r830cdlc2q4b768e67k73bsjnrhl9.apps.googleusercontent.com',
+          scopes: ['profile', 'email'],
+          grantOfflineAccess: true,
+        });
+      }
     }
 
    async ngOnInit() { 
@@ -81,12 +85,12 @@ export class HiddenLoginPage {
   }
 
   async googleLogin(){
-    // this.loginDTO = new MediaLoginDTO();
-    // const googleUser = await GoogleAuth.signIn();
-    // this.loginDTO.email = googleUser.email;
-    // this.loginDTO.provider = "Google"
-    // this.loginDTO.socialMediaId  = googleUser.id;
-    // this.loginFromSocialMedia(this.loginDTO);
+    this.loginDTO = new MediaLoginDTO();
+    const googleUser = await GoogleAuth.signIn();
+    this.loginDTO.email = googleUser.email;
+    this.loginDTO.provider = "Google"
+    this.loginDTO.socialMediaId  = googleUser.id;
+    this.loginFromSocialMedia(this.loginDTO);
   }
 
   loginFromSocialMedia(loginDTO){

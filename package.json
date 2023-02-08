@@ -28,6 +28,7 @@
     "@capacitor/ios": "^4.3.0",
     "@capacitor/local-notifications": "^4.1.1",
     "@capacitor/push-notifications": "^4.1.2",
+    "@codetrix-studio/capacitor-google-auth": "^3.2.2",
     "@ionic-native/android-permissions": "^5.36.0",
     "@ionic-native/core": "^5.36.0",
     "@ionic-native/uid": "^5.36.0",

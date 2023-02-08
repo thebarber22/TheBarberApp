@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "266915288245-r2ok3eefl8d37j5972m646379s02tepi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.easyreserve.test",
+            "certificate_hash": "2afc54595a17ec7fcf25fc7e05be72da0cd95d5f"
+          }
+        },
+        {
           "client_id": "266915288245-ia3dmn5nbpcv7b90bg18ht8o4qp3oc4b.apps.googleusercontent.com",
           "client_type": 3
         }

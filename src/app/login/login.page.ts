@@ -15,6 +15,7 @@ import { isPlatform } from '@ionic/angular';
 //import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { MediaLoginDTO } from './models/MediaLoginDTO';
 import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 @Component({
   selector: 'app-login',
@@ -56,7 +57,11 @@ export class LoginPage {
                 });
                 
                 if(!isPlatform('capacitor')){
-               //   GoogleAuth.initialize();
+                  GoogleAuth.initialize({
+                    clientId: '266915288245-ca0r830cdlc2q4b768e67k73bsjnrhl9.apps.googleusercontent.com',
+                    scopes: ['profile', 'email'],
+                    grantOfflineAccess: true,
+                  });
                 }
               }
 
@@ -144,30 +149,29 @@ export class LoginPage {
   } 
 
    async googleSignUp(){
-    // this.loginDTO = new MediaLoginDTO();
-    // const googleUser = await GoogleAuth.signIn();
-    // console.log(googleUser)
-    // this.loginDTO.name = googleUser.givenName + " " + googleUser.familyName;
-    // this.loginDTO.email = googleUser.email;
-    // this.loginDTO.image = googleUser.imageUrl;
-    // this.loginDTO.provider = "Google"
-    // this.loginDTO.socialMediaId  = googleUser.id;
+    this.loginDTO = new MediaLoginDTO();
+    const googleUser = await GoogleAuth.signIn();
+    console.log(googleUser)
+    this.loginDTO.name = googleUser.givenName + " " + googleUser.familyName;
+    this.loginDTO.email = googleUser.email;
+    this.loginDTO.image = googleUser.imageUrl;
+    this.loginDTO.provider = "Google"
+    this.loginDTO.socialMediaId  = googleUser.id;
 
-    // this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(async response => {
-    //   if(response != null) {
-    //     if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
-    //       await this.authService.saveAuthResponse(response);
-    //       this.router.navigate(['/home']);
-    //     } else {
-    //       this.userId = response.userId;
-    //       this.showFields = false;
-    //     }
-    //   } else {
-    //     this.loading = false;
-    //     this.presentToast('top', "Настана проблем, обидете се повторно");
-    //   }
-    // });
-
+    this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(async response => {
+      if(response != null) {
+        if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
+          await this.authService.saveAuthResponse(response);
+          this.router.navigate(['/home']);
+        } else {
+          this.userId = response.userId;
+          this.showFields = false;
+        }
+      } else {
+        this.loading = false;
+        this.presentToast('top', "Настана проблем, обидете се повторно");
+      }
+    });
    }
 
    async facebookSignUp(){

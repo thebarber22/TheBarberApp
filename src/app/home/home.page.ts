@@ -47,12 +47,12 @@ export class HomePage {
 
   async ngOnInit() {
     await this.getCompanyInfo();
+    this.checkIfUserExist();
     window.sessionStorage.removeItem("succ-reservs");
     window.sessionStorage.removeItem("employee");
   }
 
   ngAfterViewInit(){
-    this.checkIfUserExist();
     this.checkNotifications();
   }
 
