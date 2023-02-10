@@ -17,6 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class LocationPage {
   company : any;
   locationSrc : any;
+  companyLogo : any;
   companyName : any;
   companyPhone : any;
   totalEmployees = 0;
@@ -26,7 +27,6 @@ export class LocationPage {
               private authService: AuthService) {} 
 
   async ngOnInit() { 
-    console.log("location")
     this.getCompanyData();
     this.getEmployesData();
   }
@@ -37,6 +37,7 @@ export class LocationPage {
       this.companyName = this.company.name;
       this.companyPhone = this.company.mobilePhone
       this.locationSrc = this.company.iframeMapUrl;
+      this.companyLogo = this.company.companyLogo;
     })    
   }
 
