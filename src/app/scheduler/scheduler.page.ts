@@ -64,8 +64,16 @@ export class SchedulerPage implements OnInit {
     this.loading=true;
     this.empService.getEmployeesByCompanyId(this.companyId).subscribe(res => {
       this.employees=res;
-    },()=>{this.loading=false; this.router.navigate(['error'])}, ()=> {
-      this.selectEmployee(this.employees[0])
+    },()=>{this.loading=false; this.router.navigate(['error'])}, async ()=> {
+      await this.authService.getUser().then(user => {
+        for(let i = 0; i < this.employees.length; i++){
+         if(this.employees[i].userId == JSON.parse(user).id){
+          this.selectEmployee(this.employees[i])
+          this.loading = false;
+          return;
+         }
+        }
+      })
       this.loading=false;
     })
   }
@@ -155,7 +163,6 @@ export class SchedulerPage implements OnInit {
     this.selectedEmployee = emp;
     let today = new Date(this.selectedDate).getDay()
     let todayString = this.days[today.toString()]
-    console.log(todayString)
     let workingHoursToday = emp.workingHours[todayString]
     var startH:any = parseInt(workingHoursToday.split("-")[0].split(":")[0]);
     var startM:any = parseInt(workingHoursToday.split("-")[0].split(":")[1]);
@@ -184,6 +191,7 @@ export class SchedulerPage implements OnInit {
 
 
   onHold(id, services){
+    this.selectedAppointment = "";
     this.selectedServices = services;
     this.id = id;
     this.timelineService.getAppointmentById(id.toString()).subscribe(item => {

@@ -5,9 +5,8 @@
 export const environment = {
   companyId: "1",
   production: false,
-  url: 'http://localhost:8081/'
-  // url: 'http://194.163.167.102//' 
-  //url: "http://www.easyreservers.com:8080/TheBarberBackEnd/"
+  //url: 'http://localhost:8081/'
+  url: "https://www.easyreservers.com/TheBarberBackEnd/"
 };
 
 /*
@@ -18,4 +17,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
- 
+   
