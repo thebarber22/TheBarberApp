@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { LongPressModule } from 'ionic-long-press';
 import { SettingsPage } from './settings.page';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 @NgModule({
@@ -14,7 +13,6 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
       mode: 'ios'
     }),
     SettingsPageRoutingModule,
-    LongPressModule,
   ],
   declarations: [SettingsPage]
 })
