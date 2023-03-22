@@ -20,12 +20,14 @@
             gap: 3%;
 
             ion-avatar{
-                width: 70px;
+                width: 60px;
+                height: 60px;
                 max-width: 70px !important;
                 img{
                     max-width: 100%;
                     max-height: 100%;
                     margin-right: 5px;
+                    border-radius: 50%;
                 }
             }
         }

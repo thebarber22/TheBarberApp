@@ -26,22 +26,26 @@ ion-content {
 }
   
 .header{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 20px;
-    margin-bottom: 20px;
-    span{
-      text-align: center;
-      color: #2B2C34;
-    }
-    :first-child{
-      font-style: normal;
-      font-weight: 600;
-      font-size: 28px;
-      line-height: 44px;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  span{
+    text-align: center;
+    color: #2B2C34;
   }
+  :first-child{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 44px;
+  }
+}
+
+.ios .header{
+  padding-top: 40px !important;
+}
 
 .invalid-feedback{
   margin-top: 10px !important;

@@ -109,15 +109,8 @@
 </ion-modal>
 
 <!-- modal2 -->
-<ion-modal #modal2 trigger="open-modal2" *ngIf="!loading">
+<ion-modal #modal2 id="example-modal" trigger="open-modal2" *ngIf="!loading">
   <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="end">
-          <ion-button (click)="modal2.dismiss()">Затвори</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
     <ion-content>
       <div class="modal-wrapper">
         <h3>Одберете вработен</h3>
