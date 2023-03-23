@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SettingsPage } from './settings.page';
@@ -14,6 +14,8 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
     }),
     SettingsPageRoutingModule,
   ],
-  declarations: [SettingsPage]
+  declarations: [SettingsPage],
+  providers: [DatePipe],
+
 })
 export class SettingsPageModule {}

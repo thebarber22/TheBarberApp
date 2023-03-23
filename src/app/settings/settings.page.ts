@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -74,6 +75,7 @@ export class SettingsPage implements OnInit {
               private toastController : ToastController,
               private employeeService : EmployeeServiceService,
               private alertController: AlertController,
+              public datepipe: DatePipe,
               private r:ActivatedRoute) {
                 this.userForm = this.fb.group({
                   name : ['', Validators.required],
@@ -112,6 +114,8 @@ export class SettingsPage implements OnInit {
                   name : ['', Validators.required],
                   address : ['', Validators.required],
                   mobilePhone : ['', Validators.required],
+                  availableUntill: ['', Validators.required],
+                  packagePlan: ['', Validators.required],
                 })
 
                 r.params.subscribe(val => {
@@ -714,6 +718,12 @@ export class SettingsPage implements OnInit {
       this.companyForm.controls["name"].setValue(company.name);
       this.companyForm.controls["address"].setValue(company.address);
       this.companyForm.controls["mobilePhone"].setValue(company.mobilePhone);
+
+      if(company.packagePlan != null) {
+        this.companyForm.controls["packagePlan"].setValue(company.packagePlan.packagePlanName);
+        let dateTimeEnd = this.datepipe.transform(company.packagePlan.endDateTime, "dd-MM-YYYY hh:mm a")
+        this.companyForm.controls["availableUntill"].setValue(dateTimeEnd);
+      }
     })
   }
 

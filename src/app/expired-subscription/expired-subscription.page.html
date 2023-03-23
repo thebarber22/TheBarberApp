@@ -1,0 +1,29 @@
+<ion-content *ngIf="user">
+  <div class="header">
+    <span>Се случи грешка!</span>
+  </div>
+  <div class="img"></div>
+  <div class="button-wrapper">
+    <span>Ве молиме обидете се повторно за 10 до 15 минути</span>
+    <ion-button (click)="goBack()" color="dark">Назад</ion-button>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="moderator">
+  <div class="header">
+    <span style="color:red">Апликацијата не е во функција поради истечена претплата!</span>
+  </div>
+  <div class="img"></div>
+  <div class="button-wrapper">
+    <span>Почитувани вашата претплата е истечена, за продолжување на претплатата ве молиме контактирајте не на info@easyreserve.mk, на нашиот Инстаграм профил или на мобилен телефон 077777777</span>
+  </div>
+  <ion-row style="text-align-last: center;">
+    <ion-col><h4>Детали за последна уплата</h4></ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col><h5>Уплатено на: {{startDateTime}}</h5></ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col><h5>Активно до: {{endDateTime}}</h5></ion-col>
+  </ion-row>
+</ion-content>

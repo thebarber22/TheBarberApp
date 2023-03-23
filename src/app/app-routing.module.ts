@@ -48,7 +48,11 @@ const routes: Routes = [
   {
     path: 'error',
     loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
-  },
+  }, 
+  {
+    path: 'expired-subscription',
+    loadChildren: () => import('./expired-subscription/expired-subscription.module').then( m => m.ExpiredSubscriptionPageModule)
+  }
 
 
 ];
