@@ -1,14 +1,9 @@
-import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
-import { Employee } from '../employee/model/Employee';
+import { Component, NgZone } from '@angular/core';
 import { EmployeeServiceService } from '../employee/services/employee-service.service';
 import { HomeService } from './services/home.service';
 import { AuthService } from '../login/services/auth.service';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import {ActionPerformed, PushNotifications} from '@capacitor/push-notifications';
-import {FCM} from '@capacitor-community/fcm';
-import {ActionPerformed as LocalActionPerformed, LocalNotifications} from '@capacitor/local-notifications';
-import { ActionSheetController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home', 
@@ -102,7 +97,20 @@ export class HomePage {
     this.homeService.getCompanyById().subscribe(res => {
       this.company=res;
       this.auth.saveCompany(res);
-    },()=>{this.loading=false}, ()=> {this.getEmpByCompanyId();this.loading=false; })
+
+      if(this.company.packagePlan != null){
+        let endDate : Date = new Date(this.company.packagePlan.endDateTime);
+        if(endDate != null) {
+          let today = new Date();
+          if(endDate < today) {
+            this.router.navigate(['expired-subscription'])
+          }
+        }
+      }
+    },()=>{this.loading=false}, ()=> {
+      this.getEmpByCompanyId(); 
+      this.loading=false; 
+    })
   }
 
   async checkIfUserExist() {
