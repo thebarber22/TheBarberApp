@@ -4,6 +4,8 @@ import { HomeService } from './services/home.service';
 import { AuthService } from '../login/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { lang } from 'moment';
 
 @Component({
   selector: 'app-home', 
@@ -21,13 +23,17 @@ export class HomePage {
   newNotification : any = false;
   isOpen : any = false;
   notifications : any = [];
+  selectedLang = ''
 
   constructor(private empserservice: EmployeeServiceService,
               private homeService: HomeService, 
               private router: Router,
               private auth : AuthService,
               private ngZone: NgZone,
-              private r:ActivatedRoute) {
+              private r:ActivatedRoute,
+              private translate: TranslateService) {
+                this.selectedLang = translate.getDefaultLang()
+                console.log(this.selectedLang)
                 r.params.subscribe(val => {
                   this.checkNotifications();
                   this.homeService.sharedData$.subscribe(sharedData => {
@@ -141,5 +147,10 @@ export class HomePage {
     window.sessionStorage.removeItem("employee");
     window.sessionStorage.setItem("employee", JSON.stringify(emp));
     this.router.navigate(['employee', emp.userId])
+  }
+
+  changeLanguage(language: string) {
+    this.selectedLang=language
+    this.translate.use(language);
   }
 }

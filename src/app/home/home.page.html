@@ -1,14 +1,16 @@
 <ion-content id="container" *ngIf="!loading">
   <div class="notif">
-      <ion-icon *ngIf="!newNotification" name="notifications" style="margin-right: 2%;" (click)="getNotifications()" ></ion-icon>
-      <ion-icon *ngIf="newNotification" name="notifications" id="new-notification" (click)="getNotifications()"></ion-icon>
+    <button *ngIf="selectedLang==='mk'" ion-button icon-only (click)="changeLanguage('al')" class="flag-icon flag-icon-al"></button>
+    <button *ngIf="selectedLang==='al'" ion-button icon-only (click)="changeLanguage('mk')" class="flag-icon flag-icon-mk"></button>
+    <ion-icon *ngIf="!newNotification" name="notifications" style="margin-right: 2%;" (click)="getNotifications()" ></ion-icon>
+    <ion-icon *ngIf="newNotification" name="notifications" id="new-notification" (click)="getNotifications()"></ion-icon>
   </div>
   <div class="header">
     <span>
       {{company.name}}
     </span>
     <span>
-      Најди го твојот бербер!
+      {{'tvojotberber' | translate}}
     </span>
   </div>
   <div class="main">

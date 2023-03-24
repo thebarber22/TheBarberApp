@@ -4,20 +4,22 @@ import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { authInterceptorProviders } from './login/services/auth.interceptor';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { IonicGestureConfig } from '../shared/utils/IonicGestureConfig'
+import { IonicGestureConfig } from '../shared/utils/IonicGestureConfig';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { DatePipe } from './timeline/services/date.pipe';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     IonicStorageModule.forRoot(),
     CommonModule,
-    BrowserModule, 
+    BrowserModule,
     IonicModule.forRoot({
       mode: 'ios'
     }),
@@ -26,11 +28,18 @@ import { DatePipe } from './timeline/services/date.pipe';
     FormsModule,
     AppRoutingModule,
     RouterModule.forRoot([]),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, './assets/i18n/', '.json'),
+        deps: [HttpClient]
+      }
+    })
     ],
+  // eslint-disable-next-line max-len
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, authInterceptorProviders, {provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig}, DatePipe],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
 })
 export class AppModule {}
-    

@@ -7,6 +7,7 @@ import { takeUntil, filter } from 'rxjs/operators';
 import { isPlatform } from '@ionic/angular';
 import { PushNotifications, PushNotificationSchema } from '@capacitor/push-notifications';
 import { FCM } from '@capacitor-community/fcm';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,10 @@ export class AppComponent implements OnInit{
   constructor(private authService: AuthService,
               private _router:Router,
               private zone: NgZone,
-              private homeService: HomeService) {}
+              private homeService: HomeService,
+              private translate: TranslateService) {
+                this.translate.setDefaultLang('mk');
+              }
   showMenu:any=false;
   notifications: PushNotificationSchema[] = [];
   token : any = "";
