@@ -27,8 +27,8 @@ export class ExpiredSubscriptionPage implements OnInit {
       this.company = JSON.parse(res)
       this.checkUserRole();
        if(this.company.packagePlan != null) {
-         this.endDateTime = this.datepipe.transform(this.company.packagePlan.endDateTime, "dd-MM-YYYY hh:mm a")
-         this.startDateTime = this.datepipe.transform(this.company.packagePlan.startDateTime, "dd-MM-YYYY hh:mm a")
+         this.endDateTime = this.datepipe.transform(this.company.packagePlan.endDateTime, "dd-MM-YYYY")
+         this.startDateTime = this.datepipe.transform(this.company.packagePlan.startDateTime, "dd-MM-YYYY")
         }
     })
   }

@@ -15,7 +15,11 @@ export class SuccessScreenComponent implements OnInit {
   
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
+  formatString(){
+    if(this.services != null && this.services != ""){
+      return this.services.slice(0, this.services.length-2);
+    }
+  }
 }

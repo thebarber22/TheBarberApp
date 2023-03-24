@@ -37,7 +37,7 @@ export class EmployeePage implements OnInit {
   companyId = environment.companyId;
   empName = JSON.parse(sessionStorage.getItem("employee")).displayName;
   startDateTimeReserve:any;
-  servicesNameReserve:any;
+  servicesNameReserve:any = "";
   employeeNameReserve:any;
   loading:Boolean=false;
   loadingTimes:Boolean=false;
@@ -162,7 +162,9 @@ export class EmployeePage implements OnInit {
 
     this.empserservice.makeReservation(reservation).subscribe(res => {
       this.startDateTimeReserve = reservation.startDateTime.replace('T', ' ');
-      this.servicesNameReserve = res.serviceList[0].name;
+      for(let i = 0; i < res.serviceList.length; i++) {
+        this.servicesNameReserve += res.serviceList[i].name + ", ";
+      }
       this.employeeNameReserve = this.empName
       this.selectedPage=2;
     },()=>{
