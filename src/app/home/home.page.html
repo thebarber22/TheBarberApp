@@ -1,7 +1,7 @@
 <ion-content id="container" *ngIf="!loading">
   <div class="notif">
-    <button *ngIf="selectedLang==='mk'" ion-button icon-only (click)="changeLanguage('al')" class="flag-icon flag-icon-al"></button>
-    <button *ngIf="selectedLang==='al'" ion-button icon-only (click)="changeLanguage('mk')" class="flag-icon flag-icon-mk"></button>
+    <button *ngIf="selectedLang==='mk'" ion-button icon-only (click)="changeLanguage('al')" class="flag-icon flag-icon-mk"></button>
+    <button *ngIf="selectedLang==='al'" ion-button icon-only (click)="changeLanguage('mk')" class="flag-icon flag-icon-al"></button>
     <ion-icon *ngIf="!newNotification" name="notifications" style="margin-right: 2%;" (click)="getNotifications()" ></ion-icon>
     <ion-icon *ngIf="newNotification" name="notifications" id="new-notification" (click)="getNotifications()"></ion-icon>
   </div>
