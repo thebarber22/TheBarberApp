@@ -66,7 +66,7 @@ export class LoginPage {
               }
 
    async ngOnInit() { 
-     await FacebookLogin.initialize({ appId: '1096409884371369' });
+    // await FacebookLogin.initialize({ appId: '1096409884371369' });
   } 
 
   async signUpNewUser(){

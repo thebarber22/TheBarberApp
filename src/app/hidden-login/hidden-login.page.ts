@@ -45,7 +45,7 @@ export class HiddenLoginPage {
     }
 
    async ngOnInit() { 
-      await FacebookLogin.initialize({ appId: '1096409884371369' });
+      //await FacebookLogin.initialize({ appId: '1096409884371369' });
    }
 
   async hiddenLogin(){
