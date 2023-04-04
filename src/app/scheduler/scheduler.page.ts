@@ -6,6 +6,7 @@ import { AuthService } from '../login/services/auth.service';
 import { EmployeeServiceService } from "../employee/services/employee-service.service";
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-scheduler',
@@ -40,17 +41,20 @@ export class SchedulerPage implements OnInit {
   endDateTime:any;
   isOpen = false;
   id;
+  selectedLang: any;
   firstInitialize: Boolean = false;
   constructor(private animationCtrl: AnimationController,
     private timelineService : TimelineService,
     private authService: AuthService,
     private empService: EmployeeServiceService,
-    private router: Router) { }
+    private router: Router,
+    private translate: TranslateService) { }
 
   async ngOnInit() {
     const date = this.selectedDate.split("T")[0]
     this.selectedDateFormatted = date;
     this.getEmployees()
+    this.checkDefaultLanguage();
   }
 
   async ionViewDidEnter(){
@@ -58,6 +62,17 @@ export class SchedulerPage implements OnInit {
       await this.ngOnInit()
     else 
       this.firstInitialize=true;  
+  }
+
+
+  async checkDefaultLanguage(){
+    await this.authService.getLanguage().then(lang => {
+      if(lang != null && lang != undefined && lang != ""){
+        this.selectedLang = lang;
+      } else {
+        this.selectedLang = this.translate.getDefaultLang()
+      }
+    });    
   }
 
   getEmployees(){
@@ -90,7 +105,7 @@ export class SchedulerPage implements OnInit {
   getTimeline(userId){
     this.appointmentsList = [];
   
-    this.timelineService.getTimelineEmployee(userId, this.selectedDateFormatted).subscribe(res => {
+    this.timelineService.getTimelineEmployee(userId, this.selectedDateFormatted, this.selectedLang).subscribe(res => {
       if(res != null && res != undefined){
         this.appointmentsList = res;
       }
@@ -157,8 +172,6 @@ export class SchedulerPage implements OnInit {
   }
 
   selectEmployee(emp){
-    console.log(emp)
-    console.log(this.selectedDate)
     this.timeStamps=[]
     this.selectedEmployee = emp;
     let today = new Date(this.selectedDate).getDay()
@@ -185,7 +198,6 @@ export class SchedulerPage implements OnInit {
       }
       i++
     }while((startH+startM) !== (endH+endM))
-    console.log(this.timeStamps)
     this.getTimeline(this.selectedEmployee.userId)
   }
 

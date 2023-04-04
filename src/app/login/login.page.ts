@@ -84,7 +84,6 @@ export class LoginPage {
       this.authService.getFirebaseToken().then(res => this.user.firebaseToken = res);
 
       this.loginService.signUpNewUser(this.user).subscribe(response => {
-        console.log(response)
         if(response != null && response != "" && response != undefined) {
             this.authService.saveAuthResponse(response);
             this.router.navigate(['/home']);
@@ -151,7 +150,6 @@ export class LoginPage {
    async googleSignUp(){
     this.loginDTO = new MediaLoginDTO();
     const googleUser = await GoogleAuth.signIn();
-    console.log(googleUser)
     this.loginDTO.name = googleUser.givenName + " " + googleUser.familyName;
     this.loginDTO.email = googleUser.email;
     this.loginDTO.image = googleUser.imageUrl;
@@ -187,7 +185,6 @@ export class LoginPage {
     this.loginDTO.socialMediaId  = result2.id;
 
     this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(async response => {
-      console.log(response)
       if(response != null) {
         if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
           await this.authService.saveAuthResponse(response);

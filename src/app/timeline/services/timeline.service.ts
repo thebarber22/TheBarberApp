@@ -13,15 +13,16 @@ export class TimelineService {
 
   constructor(private http: HttpClient) { }
 
-  getTimeline(userId, type){
-    return this.http.get<any>(this.url + 'user/get-timeline/'+userId+"/"+type).pipe(map(response => {
+  getTimeline(userId, type, language){
+    let queryParams = {"lang":language};
+    return this.http.get<any>(this.url + 'user/get-timeline/'+userId+"/"+type, {params:queryParams}).pipe(map(response => {
         return response;
     }))
   }
 
-  getTimelineEmployee(userId, dateSelected){
-    console.log(dateSelected)
-    return this.http.get<any>(this.url + 'user/get-timeline-emp/'+userId+"/"+dateSelected).pipe(map(response => {
+  getTimelineEmployee(userId, dateSelected, language){
+    let queryParams = {"lang":language};
+    return this.http.get<any>(this.url + 'user/get-timeline-emp/'+userId+"/"+dateSelected, {params:queryParams}).pipe(map(response => {
         return response;
     }))
   }

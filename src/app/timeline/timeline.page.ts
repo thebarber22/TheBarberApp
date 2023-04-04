@@ -6,6 +6,7 @@ import { AuthService } from '../login/services/auth.service';
 import { TimelineService } from './services/timeline.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-timeline',
@@ -19,6 +20,7 @@ export class TimelinePage implements OnInit {
   employeeList = [];
   showAdminPanel = false;
   selectForm: FormGroup;
+  selectedLang: any;
   firstInitialize: Boolean = false;
   user : any;
   constructor(private authService: AuthService,
@@ -26,13 +28,15 @@ export class TimelinePage implements OnInit {
               private employeeService : EmployeeServiceService,
               private fb: FormBuilder,
               private alertController: AlertController,
-              private router: Router) { 
+              private router: Router,
+              private translate: TranslateService) { 
                 this.selectForm = fb.group({
                   'empId' : ['', Validators.required],
                 });
               }
 
   async ngOnInit() {
+    this.checkDefaultLanguage();
     await this.authService.getUser().then((res)=>{
       this.user = JSON.parse(res)
     });
@@ -43,6 +47,17 @@ export class TimelinePage implements OnInit {
       this.showAdminPanel = false;
       this.getTimeline(this.user.id);
     }
+  }
+
+
+  checkDefaultLanguage(){
+    this.authService.getLanguage().then(lang => {
+      if(lang != null && lang != undefined && lang != ""){
+        this.selectedLang = lang;
+      } else {
+        this.selectedLang = this.translate.getDefaultLang()
+      }
+    });    
   }
 
   async ionViewDidEnter(){
@@ -94,13 +109,13 @@ export class TimelinePage implements OnInit {
       this.futureAppointmentsList = []
       this.pastAppointmentsList = [];
 
-      this.timelineService.getTimeline(userId, "future").subscribe(res => {
+      this.timelineService.getTimeline(userId, "future", this.selectedLang).subscribe(res => {
         if(res != null && res != undefined){
           this.futureAppointmentsList = res;
         }
       },err => this.router.navigate(['error']))
     
-      this.timelineService.getTimeline(userId, "past").subscribe(res => {
+      this.timelineService.getTimeline(userId, "past", this.selectedLang).subscribe(res => {
         if(res != null && res != undefined){
           this.pastAppointmentsList = res;
         }

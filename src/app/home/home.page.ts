@@ -24,7 +24,7 @@ export class HomePage {
   isOpen : any = false;
   notifications : any = [];
   selectedLang = ''
-
+  availableLanguages = [];
   constructor(private empserservice: EmployeeServiceService,
               private homeService: HomeService, 
               private router: Router,
@@ -32,8 +32,6 @@ export class HomePage {
               private ngZone: NgZone,
               private r:ActivatedRoute,
               private translate: TranslateService) {
-                this.selectedLang = translate.getDefaultLang()
-                console.log(this.selectedLang)
                 r.params.subscribe(val => {
                   this.checkNotifications();
                   this.homeService.sharedData$.subscribe(sharedData => {
@@ -102,8 +100,8 @@ export class HomePage {
     this.loading=true;
     this.homeService.getCompanyById().subscribe(res => {
       this.company=res;
-      this.auth.saveCompany(res);
-
+      this.auth.saveCompany(res); 
+      this.checkCompanyLanguage();
       if(this.company.packagePlan != null){
         let endDate : Date = new Date(this.company.packagePlan.endDateTime);
         if(endDate != null) {
@@ -119,12 +117,30 @@ export class HomePage {
     })
   }
 
+  checkCompanyLanguage(){
+    this.auth.getLanguage().then(lang => {
+      if(lang != null && lang != undefined && lang != ""){
+        this.selectedLang = lang;
+      } else {
+        this.selectedLang = this.translate.getDefaultLang()
+      }
+
+      for(let i = 0; i < this.company.languages.length; i++){
+        if(this.company.languages[i].code === this.selectedLang) {
+          this.availableLanguages = [];
+          this.availableLanguages.push(this.company.languages[i])
+          this.auth.saveLanguage(this.user.id, this.company.languages[i].code);
+        }
+      }
+    });    
+  }
+
   async checkIfUserExist() {
     await this.auth.getToken().then(res => {
       this.token = res;
     })
     await this.auth.getUser().then(res => {
-      this.user = res;
+      this.user = JSON.parse(res);
     })
 
     if(this.token == null || this.user == null){
@@ -150,7 +166,22 @@ export class HomePage {
   }
 
   changeLanguage(language: string) {
-    this.selectedLang=language
-    this.translate.use(language);
+    for(let i = 0; i < this.company.languages.length; i++){
+      if(this.company.languages[i].code === language && this.company.languages.length > 1) {
+        if(this.company.languages[i+1] != null){
+          this.availableLanguages = [];
+          this.availableLanguages.push(this.company.languages[i+1])
+          this.selectedLang=this.company.languages[i+1].code
+          this.translate.use(this.company.languages[i+1].code);
+          this.auth.saveLanguage(this.user.id, this.company.languages[i+1].code);
+        } else {
+          this.availableLanguages = [];
+          this.availableLanguages.push(this.company.languages[0])
+          this.selectedLang=this.company.languages[0].code;
+          this.translate.use(this.company.languages[0].code);
+          this.auth.saveLanguage(this.user.id, this.company.languages[0].code);
+        }
+      }
+    }
   }
 }

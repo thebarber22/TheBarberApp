@@ -5,8 +5,8 @@
 export const environment = {
   companyId: "1",
   production: false,
-  //url: 'http://localhost:8081/'
-  url: "https://www.easyreservers.com/TheBarberBackEnd/"
+  url: 'http://localhost:8081/'
+  //url: "https://www.easyreservers.com/TheBarberBackEnd/"
 }; 
 
 /*

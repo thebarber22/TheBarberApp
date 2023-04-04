@@ -17,9 +17,9 @@
           <div class="card" *ngFor="let service of services" (click)="selection(service.serviceId)" [ngClass]="service.selected ? 'selected-card' : '' ">
             <ion-icon name="checkmark-circle-outline" *ngIf="service.selected"></ion-icon>
             <div class="no-icon" *ngIf="!service.selected"></div>
-            <div class="card-desc">
-              <span>{{service.name}}</span>
-              <span>{{service.price}}ден - {{service.duration}}мин</span>
+            <div class="card-desc" *ngFor="let info of service.serviceInfoList">
+              <span *ngIf="info.language == selectedLang">{{info.name}}</span>
+              <span *ngIf="info.language == selectedLang">{{service.price}}ден - {{service.duration}}мин</span>
             </div>
             <img class="card-img" style="image-rendering: -webkit-optimize-contrast; object-fit: fill;" src={{service.image}} alt="">
           </div>

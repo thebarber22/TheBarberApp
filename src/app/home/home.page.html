@@ -1,7 +1,6 @@
 <ion-content id="container" *ngIf="!loading">
   <div class="notif">
-    <button *ngIf="selectedLang==='mk'" ion-button icon-only (click)="changeLanguage('al')" class="flag-icon flag-icon-mk"></button>
-    <button *ngIf="selectedLang==='al'" ion-button icon-only (click)="changeLanguage('mk')" class="flag-icon flag-icon-al"></button>
+    <button *ngFor="let item of availableLanguages" ion-button class="flag-icon {{item.img}}" (click)="changeLanguage(item.code)"></button>
     <ion-icon *ngIf="!newNotification" name="notifications" style="margin-right: 2%;" (click)="getNotifications()" ></ion-icon>
     <ion-icon *ngIf="newNotification" name="notifications" id="new-notification" (click)="getNotifications()"></ion-icon>
   </div>
@@ -49,7 +48,7 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>      
-    <ion-content [fullscreen]="true" id="container">
+    <ion-content [fullscreen]="true" id="container" *ngIf="notifications.length > 0">
       <ion-item-sliding *ngFor="let not of notifications;let i = index" (ionSwipe)="removeNotification(not.id, i)">
         <ion-item>
           <ion-label class="ion-label1">
@@ -60,6 +59,14 @@
             <h6>{{not.date}}</h6>
             <h6>{{not.time}}</h6>
           </ion-label>
+        </ion-item>
+        <ion-item-options side="end"></ion-item-options>
+      </ion-item-sliding>
+    </ion-content>
+    <ion-content [fullscreen]="true" id="container" *ngIf="notifications.length == 0">
+      <ion-item-sliding>
+        <ion-item>
+          <h6 style="text-align: -webkit-center;">Во моментов немате нотификации</h6>
         </ion-item>
         <ion-item-options side="end"></ion-item-options>
       </ion-item-sliding>

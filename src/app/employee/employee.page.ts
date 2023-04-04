@@ -10,6 +10,7 @@ import { AppointmentsService } from './model/AppointmentsService';
 import { Service } from './model/Service';
 import { EmployeeServiceService } from './services/employee-service.service';
 import { isPlatform, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-employee',
@@ -24,7 +25,8 @@ export class EmployeePage implements OnInit {
             private cdRef: ChangeDetectorRef,
             private router: Router,
             private auth: AuthService,
-            private toastController: ToastController) { }
+            private toastController: ToastController,
+            private translate: TranslateService) { }
   @ViewChild('content2') private content2: any;
   services:Service[];
   userId:string;
@@ -44,15 +46,33 @@ export class EmployeePage implements OnInit {
   today = moment().format();
   disabled = true;
   firstInitialize:Boolean = false;
+  selectedLang: any;
+
   async ngOnInit() {
     this.selectedServices=[]
     this.selectedPage=0
     this.selectedDate = this.today;
     this.userId=this.route.snapshot.paramMap.get('userId')
     this.loading=true;
+    this.checkDefaultLanguage();
+    this.getServicesByUser(this.userId);
+  }
+
+  getServicesByUser(userId) {
     this.empserservice.getServicesByEmployee(this.userId).subscribe(res => {
       this.services=res;
     },()=>{this.loading=false; this.router.navigate(['error'])}, ()=> {this.loading=false})
+  }
+
+
+  async checkDefaultLanguage(){
+    await this.auth.getLanguage().then(lang => {
+      if(lang != null && lang != undefined && lang != ""){
+        this.selectedLang = lang;
+      } else {
+        this.selectedLang = this.translate.getDefaultLang()
+      }
+    });    
   }
 
   async ionViewDidEnter(){
@@ -138,6 +158,7 @@ export class EmployeePage implements OnInit {
   }
 
   async reserve(){
+    this.servicesNameReserve = "";
     this.loading=true;
     if(this.selectedSlot.startMinutes == "00"){
       this.selectedSlot.startMinutes = 0;
@@ -162,8 +183,12 @@ export class EmployeePage implements OnInit {
 
     this.empserservice.makeReservation(reservation).subscribe(res => {
       this.startDateTimeReserve = reservation.startDateTime.replace('T', ' ');
-      for(let i = 0; i < res.serviceList.length; i++) {
-        this.servicesNameReserve += res.serviceList[i].name + ", ";
+      for(let i = 0; i < res.length; i++) {
+        for(let j = 0; j < res[i].serviceInfoList.length; j++) {
+          if(res[i].serviceInfoList[j].language == this.selectedLang) {
+            this.servicesNameReserve += res[i].serviceInfoList[j].name + ", ";
+          }
+        }
       }
       this.employeeNameReserve = this.empName
       this.selectedPage=2;

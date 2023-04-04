@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, IonSlides, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 import { Service } from '../employee/model/Service';
 import { EmployeeServiceService } from '../employee/services/employee-service.service';
@@ -10,8 +11,8 @@ import { User } from '../login/models/User';
 import { AuthService } from '../login/services/auth.service';
 import { CompanyDTO } from '../shared/models/CompanyDTO';
 import { MailDTO } from '../shared/models/MailDTO';
-import { PasswordDTO } from '../shared/models/passwordDTO';
 import { SettingsService } from './services/settings.service';
+import { PasswordDTO } from '../shared/models/passwordDTO';
 
 
 @Component({
@@ -64,10 +65,12 @@ export class SettingsPage implements OnInit {
   notificationStatus = false;
   serviceDTO: Service;
   serviceDetailsUsers = [];
+  availableLanguages = [];
   @ViewChild(IonSlides, { static: false }) slides: IonSlides;
-
+  selectedLang: any;
   serviceName : any = "";
   images: any = [];
+  selectedServiceForOpen : any;
   constructor(private authService : AuthService,
               private router: Router,
               private fb: FormBuilder,
@@ -75,6 +78,7 @@ export class SettingsPage implements OnInit {
               private toastController : ToastController,
               private employeeService : EmployeeServiceService,
               private alertController: AlertController,
+              private translate: TranslateService,
               public datepipe: DatePipe,
               private r:ActivatedRoute) {
                 this.userForm = this.fb.group({
@@ -108,7 +112,8 @@ export class SettingsPage implements OnInit {
                   name : ['', Validators.required],
                   description : [''],
                   price : ['', Validators.required],
-                  duration : ['', Validators.required]
+                  duration : ['', Validators.required],
+                  language: ['', Validators.required]
                 })
                 this.companyForm = this.fb.group({
                   name : ['', Validators.required],
@@ -125,6 +130,19 @@ export class SettingsPage implements OnInit {
 
   ngOnInit() {
     this.getUserFromStorage();
+    this.checkDefaultLanguage();
+    this.getCompanyInfo();
+  }
+
+
+  checkDefaultLanguage(){
+    this.authService.getLanguage().then(lang => {
+      if(lang != null && lang != undefined && lang != ""){
+        this.selectedLang = lang;
+      } else {
+        this.selectedLang = this.translate.getDefaultLang()
+      }
+    });    
   }
 
   async getUserFromStorage(){
@@ -296,7 +314,8 @@ export class SettingsPage implements OnInit {
     this.serviceDTO.description = this.serviceForm.controls["description"].value;;
     this.serviceDTO.name = this.serviceForm.controls["name"].value;
     this.serviceDTO.price = this.serviceForm.controls["price"].value;;
-    this.serviceDTO.duration = this.serviceForm.controls["duration"].value;;
+    this.serviceDTO.duration = this.serviceForm.controls["duration"].value;
+    this.serviceDTO.language = this.serviceForm.controls["language"].value;
     this.slides.getActiveIndex().then((index) => {
       this.serviceDTO.image = this.images[index];
     }) 
@@ -332,6 +351,7 @@ export class SettingsPage implements OnInit {
     this.serviceDTO.price = this.serviceForm.controls["price"].value;;
     this.serviceDTO.duration = this.serviceForm.controls["duration"].value;
     this.serviceDTO.serviceId = this.selectedServiceId;
+    this.serviceDTO.language = this.serviceForm.controls["language"].value;
     this.slides.getActiveIndex().then((index) => {
       this.serviceDTO.image = this.images[index];
     }) 
@@ -354,6 +374,28 @@ export class SettingsPage implements OnInit {
       this.presentToast("top", "Невалиден внес на податоци")
       this.loading = false;
     }    
+  }
+
+  changeUpdateServiceLanguage(){
+    let lang = this.serviceForm.controls["language"].value;
+    let flag = false;
+
+    for(let i = 0; i < this.selectedServiceForOpen.serviceInfoList.length; i++){
+      if(this.selectedServiceForOpen.serviceInfoList[i].language == lang){
+        this.serviceForm.controls["name"].setValue(this.selectedServiceForOpen.serviceInfoList[i].name)
+        this.serviceForm.controls["description"].setValue(this.selectedServiceForOpen.serviceInfoList[i].description)
+        flag = true;
+      }
+    }
+
+
+    if(!flag) {
+      this.presentToast('top', "Ве молиме внесете име и опис за селектираниот јазик");
+      this.serviceForm.controls["name"].setValue("");
+      this.serviceForm.controls["description"].setValue("");
+    }
+
+
   }
 
   
@@ -442,8 +484,13 @@ export class SettingsPage implements OnInit {
   openService(service, value){
     this.loading = true;
     this.serviceDetail = value;
+    this.selectedServiceForOpen = service;
     if(service != ""){
-      this.serviceName = service.name;
+      for(let i = 0; i < service.serviceInfoList.length; i++){
+        if(service.serviceInfoList[i].language == this.selectedLang){
+          this.serviceName = service.serviceInfoList[i].name
+        }
+      }
       this.getServiceDetails(service.serviceId);
       this.fillServiceForm(service)
     } else {
@@ -455,10 +502,20 @@ export class SettingsPage implements OnInit {
     this.loading = true;
     if(service != null){
       [service.image].concat(this.images);
-      this.serviceForm.controls["name"].setValue(service.name);
-      this.serviceForm.controls["description"].setValue(service.description);
       this.serviceForm.controls["price"].setValue(service.price);
       this.serviceForm.controls["duration"].setValue(service.duration);
+
+      for(let i = 0; i < service.serviceInfoList.length; i++){
+        if(service.serviceInfoList[i].language == this.selectedLang) {
+          this.serviceForm.controls["name"].setValue(service.serviceInfoList[i].name);
+          this.serviceForm.controls["description"].setValue(service.serviceInfoList[i].description);
+          this.serviceForm.controls["language"].setValue(service.serviceInfoList[i].language);
+        } else {
+          this.serviceForm.controls["name"].setValue(service.serviceInfoList[0].name);
+          this.serviceForm.controls["description"].setValue(service.serviceInfoList[0].description);
+          this.serviceForm.controls["language"].setValue(service.serviceInfoList[0].language);
+        }
+      }
       this.loading = false;
     } else {
       this.loading = false;
@@ -558,6 +615,7 @@ export class SettingsPage implements OnInit {
   }
   segmentChanged(ev: any) {
     this.serviceForm.reset();
+    this.serviceForm.controls["language"].setValue(this.selectedLang);
   }
 
   checkWorkingDateFormat(value){
@@ -736,6 +794,15 @@ export class SettingsPage implements OnInit {
         this.loading = false;
       } else {
         this.loading = false;
+      }
+    })
+  }
+
+  async getCompanyInfo() {
+    await this.authService.getCompany().then(res => {
+      let company = JSON.parse(res)
+      if(company != null) {
+        this.availableLanguages = company.languages;
       }
     })
   }

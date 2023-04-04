@@ -6,8 +6,6 @@ import { map } from 'rxjs/operators';
 import { DatePipe} from '@angular/common';
 import { Storage } from '@ionic/storage-angular';
 
-const NOTIFICATION_STORAGE = 'notification';
-
 
 @Injectable({
   providedIn: 'root'

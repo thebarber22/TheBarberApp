@@ -10,6 +10,8 @@ const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const COMPANY_KEY = 'auth-company';
 const USER_FIREBASE_TOKEN = 'firebase-token';
+const LANGUAGE = 'language';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -44,7 +46,6 @@ export class AuthService {
 
   public saveAuthResponse(response): void {
     if(response.accessToken != null) {
-      console.log(response)
       this._storage.remove(USER_KEY);
       this._storage.remove(TOKEN_KEY);
       this._storage.set(TOKEN_KEY, response.accessToken);
@@ -69,6 +70,17 @@ export class AuthService {
     this._storage.set(USER_KEY, JSON.stringify(user));
   }
 
+  public saveLanguage(userId: any, lang: any): void {
+    this._storage.remove(lang);
+    this._storage.set(LANGUAGE, lang);
+
+    this.changeUserLanguage(userId, lang).subscribe(data => {})
+  }
+
+  getLanguage() {
+    return this._storage.get(LANGUAGE);
+  }
+
   getUser() {
     return this._storage.get(USER_KEY)
   }
@@ -80,6 +92,13 @@ export class AuthService {
   getUserById(userId): Observable<any> {
     if(userId != null && userId != ""){
       return this.http.get(this.url + 'user/' + userId, httpOptions);
+    }
+  }
+
+  changeUserLanguage(userId, language): Observable<any> {
+    if(userId != null && userId != ""){
+      let queryParams = {"language":language};
+      return this.http.get(this.url + 'user/change-user-language/' + userId, {params:queryParams});
     }
   }
 

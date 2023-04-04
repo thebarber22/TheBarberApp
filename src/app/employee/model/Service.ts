@@ -7,4 +7,5 @@ export class Service{
     image:any;
     companyId:any;
     selected:Boolean=false;
+    language:any;
 }

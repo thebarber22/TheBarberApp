@@ -684,18 +684,18 @@
                   <ion-icon name="trash-outline" (click)="removeServiceDetailAlert(services.serviceId)"></ion-icon>
                 </ion-col>
                 <ion-col size="3" class="card-col" (click)="openService(services, true)">
-                  <img src="../../assets/imgs/testhaircut.png" width="50" height="50">
+                  <img src={{services.image}} width="50" height="50" style="margin-top: -20px;">
                 </ion-col>
-                <ion-col size="9" class="card-col" (click)="openService(services, true)">
-                  <ion-row>
-                      <ion-col size="6">Услуга</ion-col>
-                      <ion-col size="3">Време</ion-col>
-                      <ion-col size="3">Цена</ion-col>
-                      <ion-col size="6"><b>{{services.name}}</b></ion-col>
-                      <ion-col size="3"><b>{{services.duration}}</b></ion-col>
-                      <ion-col size="3"><b>{{services.price}}</b></ion-col>
-                  </ion-row>
-                </ion-col>
+                  <ion-col size="9" class="card-col" (click)="openService(services, true)" style="text-align: -webkit-center;">
+                    <ion-row *ngFor="let info of services.serviceInfoList">
+                        <!-- <ion-col size="6" *ngIf="info.language == selectedLang">Услуга</ion-col>
+                        <ion-col size="3" *ngIf="info.language == selectedLang">Време</ion-col>
+                        <ion-col size="3" *ngIf="info.language == selectedLang">Цена</ion-col> -->
+                        <ion-col size="6" *ngIf="info.language == selectedLang"><b>{{info.name}}</b></ion-col>
+                        <ion-col size="3" *ngIf="info.language == selectedLang"><b>{{services.duration}}</b></ion-col>
+                        <ion-col size="3" *ngIf="info.language == selectedLang"><b>{{services.price}}</b></ion-col>
+                    </ion-row>
+                  </ion-col>
               </ion-row>
             </ion-card-header>
           </ion-card>
@@ -703,6 +703,14 @@
         <ion-row *ngSwitchCase="'new'">
             <ion-col size="12" class="ion-margin-bottom">
                 <h4 style="text-align-last: center;">Креирај нова услуга</h4>
+            </ion-col>
+            <ion-col size="12">
+              <div class="ion-text-center">Јазик</div>
+              <ion-item style="margin-top: 5px">
+                <ion-select [formControl]="serviceForm.controls['language']">
+                  <ion-select-option *ngFor="let lang of availableLanguages" value={{lang.code}}>{{lang.language}}</ion-select-option>
+                </ion-select>
+              </ion-item>
             </ion-col>
             <ion-col size="12">
               <div class="ion-text-center">Избери слика</div>
@@ -764,7 +772,7 @@
             </ion-col>
             <ion-col size="12" class="ion-margin-bottom">
               <div class="ion-text-center">Времетраење на услугата</div>
-              <ion-item class="mt-5">
+              <ion-item style="margin-top: 5px">
                 <ion-select [formControl]="serviceForm.controls['duration']">
                   <ion-select-option value="10">10 минути</ion-select-option>
                   <ion-select-option value="20">20 минути</ion-select-option>
@@ -810,6 +818,14 @@
     </ion-header>
     <ion-content class="ion-padding">
     <ion-row>
+     <ion-col size="12">
+        <div class="ion-text-center">Јазик</div>
+        <ion-item style="margin-top: 5px">
+          <ion-select (ionChange)="changeUpdateServiceLanguage()" [formControl]="serviceForm.controls['language']">
+            <ion-select-option *ngFor="let lang of availableLanguages" value={{lang.code}}>{{lang.language}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
       <ion-col size="12">
         <div class="ion-text-center">Избери слика</div>
         <ion-slides pager style="margin-top: 10px; margin-bottom: 10px;">
