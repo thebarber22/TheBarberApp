@@ -1,7 +1,7 @@
 <ion-content id="container">
   <div class="header">
     <span>
-      Подесување
+      {{'settings' | translate}}
     </span>
   </div>
   <div class="main">
@@ -13,7 +13,7 @@
               <ion-item lines="none" detail='true' (click)="setModalValue('companyModal',true)">
                 <ion-icon name="business-outline" slot='start'></ion-icon>
                 <ion-label>
-                  <h4>Компанија и Претплата</h4>
+                  <h4>{{'companyBilling' | translate}}</h4>
                 </ion-label>
               </ion-item>
             </ion-card>
@@ -23,7 +23,7 @@
               <ion-item lines="none" detail='true' (click)="setModalValue('myProfileModal',true)">
                 <ion-icon name="person-outline" slot='start'></ion-icon>
                 <ion-label>
-                  <h4>Мој Профил</h4>
+                  <h4>{{'profile' | translate}}</h4>
                 </ion-label>
               </ion-item>
             </ion-card>
@@ -33,12 +33,12 @@
               <ion-item lines="none" detail='true' (click)="setModalValue('serviceModal', true)">
                 <ion-icon name="pricetags-outline" slot='start'></ion-icon>
                 <ion-label>
-                  <h4>Услуги</h4>
+                  <h4>{{'services' | translate}}</h4>
                 </ion-label>
               </ion-item>
             </ion-card>
           </ion-col>
-          <ion-col class="col-card">
+          <!-- <ion-col class="col-card">
             <ion-card mode="ios">
               <ion-item lines="none" detail='true' (click)="setModalValue('settingsModal', true)">
                 <ion-icon name="settings-outline" slot='start'></ion-icon>
@@ -47,13 +47,13 @@
                 </ion-label>
               </ion-item>
             </ion-card>
-          </ion-col>
+          </ion-col> -->
           <ion-col class="col-card">
             <ion-card mode="ios">
               <ion-item lines="none" detail='true' (click)="setModalValue('passwordModal', true)">
                 <ion-icon name="refresh-circle-outline" slot='start'></ion-icon>
                 <ion-label class="ion-text-wrap">
-                  <h4>Промени Лозинка</h4>
+                  <h4>{{'changePass' | translate}}</h4>
                 </ion-label>
               </ion-item>
             </ion-card>
@@ -63,7 +63,7 @@
               <ion-item lines="none" detail='true' (click)="setModalValue('removeProfileModal', true)">
                 <ion-icon name="person-remove-outline" slot='start'></ion-icon>
                 <ion-label class="ion-text-wrap">
-                  <h4>Избриши го мојот профил</h4>
+                  <h4>{{'deleteProfile' | translate}}</h4>
                 </ion-label>
               </ion-item>
             </ion-card>
@@ -73,7 +73,7 @@
               <ion-item lines="none" detail='true' (click)="setModalValue('documentsModal', true)">
                 <ion-icon name="document-text-outline" slot='start'></ion-icon>
                 <ion-label class="ion-text-wrap">
-                  <h4>Правни документи</h4>
+                  <h4>{{'termsCond' | translate}}</h4>
                 </ion-label>
               </ion-item>
             </ion-card>
@@ -83,7 +83,7 @@
               <ion-item lines="none" detail='true' (click)="setModalValue('contactModal', true)">
                 <ion-icon name="mail-outline" slot='start'></ion-icon>
                 <ion-label class="ion-text-wrap">
-                  <h4>Контакт</h4>
+                  <h4>{{'contact' | translate}}</h4>
                 </ion-label>
               </ion-item>
             </ion-card>
@@ -93,7 +93,7 @@
               <ion-item lines="none" detail='true'>
                 <ion-icon name="log-out-outline" slot='start'></ion-icon>
                 <ion-label class="ion-text-wrap">
-                  <h4>Одјави се</h4>
+                  <h4>{{'logout' | translate}}</h4>
                 </ion-label>
               </ion-item>
             </ion-card>
@@ -108,17 +108,17 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Правни документи</ion-title>
+        <ion-title>{{'termsCond' | translate}}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setModalValue('documentsModal', false)">Затвори</ion-button>
+          <ion-button (click)="setModalValue('documentsModal', false)">{{'close' | translate}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding" style="text-align-last: center;">
       <p style="text-align: center;">
-        Сите права се задржани и информации околу истите може да се добијат на следнава патека
+        {{'privacyPolicyText' | translate}}
       </p>
-      <a href="https://easyreserve.mk/index.php/privacy-policy/">Приватна Полиса</a>
+      <a href="https://easyreserve.mk/index.php/privacy-policy/">{{'termsCond' | translate}}</a>
     </ion-content>
   </ng-template>
 </ion-modal>
@@ -127,9 +127,9 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Подесување</ion-title>
+        <ion-title>{{'settings' | translate}}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setModalValue('settingsModal', false)">Затвори</ion-button>
+          <ion-button (click)="setModalValue('settingsModal', false)">{{'close' | translate}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -169,16 +169,16 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Мој Профил</ion-title>
+        <ion-title>{{'profile' | translate}}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setModalValue('myProfileModal', false)">Затвори</ion-button>
+          <ion-button (click)="setModalValue('myProfileModal', false)">{{'close' | translate}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Име</div>
+          <div class="ion-text-center">{{'name' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="userForm.controls['name']"
@@ -190,13 +190,13 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-            <div *ngIf="f.name.errors.required">Име е задолжително</div>
+            <div *ngIf="f.name.errors.required">{{'name' | translate}} {{'isRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Презиме</div>
+          <div class="ion-text-center">{{'surname' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="userForm.controls['surname']"
@@ -208,13 +208,13 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
-            <div *ngIf="f.surname.errors.required">Презиме е задолжително</div>
+            <div *ngIf="f.surname.errors.required">{{'surname' | translate}} {{'isRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Е-маил</div>
+          <div class="ion-text-center">{{'email' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="userForm.controls['email']"
@@ -227,14 +227,14 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Е-маил полето е задолжителен</div>
+            <div *ngIf="f.email.errors.required">{{'email' | translate}} {{'isRequired' | translate}}</div>
             <div *ngIf="f.email.errors.email">Внесениот е-маил не е валиден</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Телефонски број</div>
+          <div class="ion-text-center">{{'phoneNumber' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="userForm.controls['phone']"
@@ -247,14 +247,14 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-            <div *ngIf="f.phone.errors.required">Телефонскиот број е задолжителен</div>
+            <div *ngIf="f.phone.errors.required">{{'phoneNumber' | translate}} {{'isRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
           <ion-button size="large" (click)="updateUser()">
-            <span>Зачувај</span>    
+            <span>{{'save' | translate}}</span>    
           </ion-button>
         </ion-col>
       </ion-row> 
@@ -271,9 +271,9 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Мој Профил</ion-title>
+        <ion-title>{{'profile' | translate}}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setModalValue('myProfileModal', false)">Затвори</ion-button>
+          <ion-button (click)="setModalValue('myProfileModal', false)">{{'close' | translate}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -281,7 +281,7 @@
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom" *ngIf="isManager">
           <ion-list>
-            <div class="ion-text-center">Вработен</div>
+            <div class="ion-text-center">{{'vraboten' | translate}}</div>
             <ion-item fill="outline" class="mt-5">
               <ion-select (ionChange)="onChangeEmp()"  [formControl]="empForm.controls['userId']">
                 <ion-select-option *ngFor="let emp of employees" value={{emp.userId}}>{{emp.displayName}}</ion-select-option>
@@ -292,7 +292,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Име</div>
+          <div class="ion-text-center">{{'name' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="userForm.controls['name']"
@@ -304,13 +304,13 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-            <div *ngIf="f.name.errors.required">Име е задолжително</div>
+            <div *ngIf="f.name.errors.required">{{'name' | translate}} {{'isRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Презиме</div>
+          <div class="ion-text-center">{{'surname' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="userForm.controls['surname']"
@@ -322,13 +322,13 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
-            <div *ngIf="f.surname.errors.required">Презиме е задолжително</div>
+            <div *ngIf="f.surname.errors.required">{{'name' | translate}} {{'isRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Е-маил</div>
+          <div class="ion-text-center">{{'email' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="userForm.controls['email']"
@@ -341,14 +341,14 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Е-маил полето е задолжителен</div>
+            <div *ngIf="f.email.errors.required">{{'email' | translate}} {{'isRequired' | translate}}</div>
             <div *ngIf="f.email.errors.email">Внесениот е-маил не е валиден</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Телефонски број</div>
+          <div class="ion-text-center">{{'phoneNumber' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="userForm.controls['phone']"
@@ -361,94 +361,94 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-            <div *ngIf="f.phone.errors.required">Телефонскиот број е задолжителен</div>
+            <div *ngIf="f.phone.errors.required">{{'phoneNumber' | translate}} {{'isRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" style="margin-top: 5% !important;">
-          <div class="ion-text-center">Работно време</div>
+          <div class="ion-text-center">{{'workingHours' | translate}}</div>
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
           <ion-item fill="outline" mode="md">
-            <ion-label position="fixed">ПОН</ion-label>
+            <ion-label position="fixed">{{'mon' | translate}}</ion-label>
             <ion-input [formControl]="workingHours.controls['mon']"></ion-input>
           </ion-item>
           <div *ngIf="monError" class="invalid-feedback">
-            <div *ngIf="monError">Невалиден формат на работно време</div>
+            <div *ngIf="monError">{{'notValidFormat' | translate}}</div>
           </div>
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
           <ion-item fill="outline" mode="md">
-            <ion-label position="fixed">ВТО</ion-label>
+            <ion-label position="fixed">{{'tue' | translate}}</ion-label>
             <ion-input [formControl]="workingHours.controls['tue']"></ion-input>
           </ion-item>
           <div *ngIf="tueError" class="invalid-feedback">
-            <div *ngIf="tueError">Невалиден формат на работно време</div>
+            <div *ngIf="tueError">{{'notValidFormat' | translate}}</div>
           </div>
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
           <ion-item fill="outline" mode="md">
-            <ion-label position="fixed">СРЕ</ion-label>
+            <ion-label position="fixed">{{'wen' | translate}}</ion-label>
             <ion-input [formControl]="workingHours.controls['wed']"></ion-input>
           </ion-item>
           <div *ngIf="wedError" class="invalid-feedback">
-            <div *ngIf="wedError">Невалиден формат на работно време</div>
+            <div *ngIf="wedError">{{'notValidFormat' | translate}}</div>
           </div>
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
           <ion-item fill="outline" mode="md">
-            <ion-label position="fixed">ЧЕТ</ion-label>
+            <ion-label position="fixed">{{'thu' | translate}}</ion-label>
             <ion-input [formControl]="workingHours.controls['thu']"></ion-input>
           </ion-item>
           <div *ngIf="thuError" class="invalid-feedback">
-            <div *ngIf="thuError">Невалиден формат на работно време</div>
+            <div *ngIf="thuError">{{'notValidFormat' | translate}}</div>
           </div>
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
           <ion-item fill="outline" mode="md">
-            <ion-label position="fixed">ПЕТ</ion-label>
+            <ion-label position="fixed">{{'fri' | translate}}</ion-label>
             <ion-input [formControl]="workingHours.controls['fri']"></ion-input>
           </ion-item>
           <div *ngIf="friError" class="invalid-feedback">
-            <div *ngIf="friError">Невалиден формат на работно време</div>
+            <div *ngIf="friError">{{'notValidFormat' | translate}}</div>
           </div>
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
           <ion-item fill="outline" mode="md">
-            <ion-label position="fixed">САБ</ion-label>
+            <ion-label position="fixed">{{'sat' | translate}}</ion-label>
             <ion-input [formControl]="workingHours.controls['sat']"></ion-input>
           </ion-item>
           <div *ngIf="satError" class="invalid-feedback">
-            <div *ngIf="satError">Невалиден формат на работно време</div>
+            <div *ngIf="satError">{{'notValidFormat' | translate}}</div>
           </div>
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
           <ion-item fill="outline" mode="md">
-            <ion-label position="fixed">НЕД</ion-label>
+            <ion-label position="fixed">{{'sun' | translate}}</ion-label>
             <ion-input [formControl]="workingHours.controls['sun']"></ion-input>
           </ion-item>
           <div *ngIf="sunError" class="invalid-feedback">
-            <div *ngIf="sunError">Невалиден формат на работно време</div>
+            <div *ngIf="sunError">{{'notValidFormat' | translate}}</div>
           </div>
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
           <ion-item>
             <ion-checkbox [checked]="showForReservation" (ionChange)="checkboxClick($event)" slot="start"></ion-checkbox>
-            <ion-label>Прикажи за резервирање</ion-label>
+            <ion-label>{{'showReservable' | translate}}</ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
           <ion-button size="large" (click)="updateEmployee()">
-            <span>Зачувај</span>    
+            <span>{{'save' | translate}}</span>    
           </ion-button>
         </ion-col>
       </ion-row> 
       <ion-row style="margin-top: 10px;">
         <ion-col size="12" style="margin-top: 5% !important;">
-          <div class="ion-text-center">Услуги</div>
+          <div class="ion-text-center">{{'services' | translate}}</div>
         </ion-col>
         <ion-card class="serviceCard" *ngFor="let services of servicesList">
           <ion-card-header>
@@ -461,9 +461,9 @@
               </ion-col>
               <ion-col size="9" class="card-col">
                 <ion-row>
-                    <ion-col size="6">Услуга</ion-col>
-                    <ion-col size="3">Време</ion-col>
-                    <ion-col size="3">Цена</ion-col>
+                    <ion-col size="6">{{'service' | translate}}</ion-col>
+                    <ion-col size="3">{{'time' | translate}}</ion-col>
+                    <ion-col size="3">{{'price' | translate}}</ion-col>
                     <ion-col size="6"><b>{{services.name}}</b></ion-col>
                     <ion-col size="3"><b>{{services.duration}}</b></ion-col>
                     <ion-col size="3"><b>{{services.price}}</b></ion-col>
@@ -486,19 +486,19 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Промена на лозинка</ion-title>
+        <ion-title>{{'changePassword' | translate}}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setModalValue('passwordModal', false)">Затвори</ion-button>
+          <ion-button (click)="setModalValue('passwordModal', false)">{{'close' | translate}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Стара лозинка</div>
+          <div class="ion-text-center">{{'oldPass' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
-             [formControl]="passForm.controls['oldPassword']"
+             [formControl]="passForm.controls['oldPass']"
               type="password"
               autocomplete="off"
               autocorrect="off"
@@ -513,7 +513,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Нова лозинка</div>
+          <div class="ion-text-center">{{'newPass' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="passForm.controls['newPassword']"
@@ -531,7 +531,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Повтори ја лозинката</div>
+          <div class="ion-text-center">{{'repeatPass' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="passForm.controls['newPasswordRepeat']"
@@ -550,7 +550,7 @@
       <ion-row>
         <ion-col class="ion-text-center">
           <ion-button size="large" (click)="changePass()">
-            <span>Зачувај</span>    
+            <span>{{'save' | translate}}</span>    
           </ion-button>
         </ion-col>
       </ion-row> 
@@ -567,21 +567,21 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Избриши го мојот профил</ion-title>
+        <ion-title>{{'deleteProfile' | translate}}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setModalValue('removeProfileModal', false)">Затвори</ion-button>
+          <ion-button (click)="setModalValue('removeProfileModal', false)">{{'close' | translate}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <p style="text-align: -webkit-center;">
-        Внимание, доколку го избришете вашиот профил, ќе ви се забрани пристап до апликацијата и трајно ќе ви се избришат сите ваши податоци и резервации од нашата база. 
+        {{'deleteProfileText' | translate}} 
       </p>
-      <h3 style="text-align: center; margin-top: 15%;">Дали сте сигурни?</h3>
+      <h3 style="text-align: center; margin-top: 15%;">{{'areYouSure' | translate}} </h3>
       <ion-row>
         <ion-col class="ion-text-center mt-5">
           <ion-button size="large" (click)="removeMyProfile()">
-            <span>Избриши</span>    
+            <span>{{'delete' | translate}} </span>    
           </ion-button>
         </ion-col>
       </ion-row> 
@@ -598,16 +598,16 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Контакт</ion-title>
+        <ion-title>{{'contact' | translate}} </ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setModalValue('contactModal', false)">Затвори</ion-button>
+          <ion-button (click)="setModalValue('contactModal', false)">{{'close' | translate}} </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Наслов</div>
+          <div class="ion-text-center">{{'subject' | translate}} </div>
           <ion-item fill="outline" mode="md">
             <ion-input
              [formControl]="contactForm.controls['title']"
@@ -619,13 +619,13 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && m.title.errors" class="invalid-feedback">
-            <div *ngIf="m.title.errors.required">Наслов на пораката е задолжителен</div>
+            <div *ngIf="m.title.errors.required">{{'subject' | translate}} {{'isRequired' | translate}} </div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Порака</div>
+          <div class="ion-text-center">{{'message' | translate}} </div>
           <ion-item fill="outline" mode="md">
             <ion-textarea 
             [formControl]="contactForm.controls['message']" 
@@ -635,14 +635,14 @@
             </ion-textarea>
           </ion-item>
           <div *ngIf="submitted && m.message.errors" class="invalid-feedback">
-            <div *ngIf="m.message.errors.required">Содржината на пораката е задолжителна</div>
+            <div *ngIf="m.message.errors.required">{{'message' | translate}} {{'isRequired' | translate}} </div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
           <ion-button size="large" (click)="sendMessage()">
-            <span>Испрати порака</span>    
+            <span>{{'send' | translate}} {{'message' | translate}} </span>    
           </ion-button>
         </ion-col>
       </ion-row> 
@@ -659,19 +659,19 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Услуги</ion-title>
+        <ion-title>{{'services' | translate}} </ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setModalValue('serviceModal', false)">Затвори</ion-button>
+          <ion-button (click)="setModalValue('serviceModal', false)">{{'close' | translate}} </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)">
         <ion-segment-button value="all">
-          <ion-label>Сите услуги</ion-label>
+          <ion-label>{{'all' | translate}} {{'services' | translate}} </ion-label>
         </ion-segment-button>
         <ion-segment-button value="new">
-          <ion-label>Нова услуга</ion-label>
+          <ion-label>{{'new' | translate}} {{'service' | translate}} </ion-label>
         </ion-segment-button>
       </ion-segment>
 
@@ -702,10 +702,10 @@
         </ion-row>
         <ion-row *ngSwitchCase="'new'">
             <ion-col size="12" class="ion-margin-bottom">
-                <h4 style="text-align-last: center;">Креирај нова услуга</h4>
+                <h4 style="text-align-last: center;">{{'createNewService' | translate}} </h4>
             </ion-col>
             <ion-col size="12">
-              <div class="ion-text-center">Јазик</div>
+              <div class="ion-text-center">{{'language' | translate}}</div>
               <ion-item style="margin-top: 5px">
                 <ion-select [formControl]="serviceForm.controls['language']">
                   <ion-select-option *ngFor="let lang of availableLanguages" value={{lang.code}}>{{lang.language}}</ion-select-option>
@@ -713,7 +713,7 @@
               </ion-item>
             </ion-col>
             <ion-col size="12">
-              <div class="ion-text-center">Избери слика</div>
+              <div class="ion-text-center">{{'choosePicture' | translate}}</div>
               <ion-slides pager style="margin-top: 10px; margin-bottom: 10px;">
                 <ion-slide *ngFor="let image of images">
                   <ion-row class="card-row">
@@ -727,7 +727,7 @@
               </ion-slides>
             </ion-col>
             <ion-col size="12" class="ion-margin-bottom">
-              <div class="ion-text-center">Име</div>
+              <div class="ion-text-center">{{'name' | translate}}</div>
               <ion-item fill="outline" mode="md">
                 <ion-input
                  [formControl]="serviceForm.controls['name']"
@@ -739,11 +739,11 @@
                 ></ion-input>
               </ion-item>
               <div *ngIf="submitted && s.name.errors" class="invalid-feedback">
-                <div *ngIf="s.name.errors.required">Име на услугата е задолжително</div>
+                <div *ngIf="s.name.errors.required">{{'name' | translate}} {{'isRequired' | translate}}</div>
               </div> 
             </ion-col>
             <ion-col size="12" class="ion-margin-bottom">
-              <div class="ion-text-center">Опис</div>
+              <div class="ion-text-center">{{'desc' | translate}}</div>
               <ion-item fill="outline" mode="md">
                 <ion-input
                 [formControl]="serviceForm.controls['description']" 
@@ -753,11 +753,11 @@
                 </ion-input>
               </ion-item>
               <div *ngIf="submitted && s.description.errors" class="invalid-feedback">
-                <div *ngIf="s.description.errors.required">Опис на услугата е задолжителен</div>
+                <div *ngIf="s.description.errors.required">{{'desc' | translate}} {{'isRequired' | translate}}</div>
               </div>
             </ion-col>
             <ion-col size="12" class="ion-margin-bottom">
-              <div class="ion-text-center">Цена</div>
+              <div class="ion-text-center">{{'price' | translate}}</div>
               <ion-item fill="outline" mode="md">
                 <ion-input 
                 [formControl]="serviceForm.controls['price']" 
@@ -767,32 +767,32 @@
                 </ion-input>
               </ion-item>
               <div *ngIf="submitted && s.price.errors" class="invalid-feedback">
-                <div *ngIf="s.price.errors.required">Полето за цена на услугата е задолжително</div>
+                <div *ngIf="s.price.errors.required">{{'price' | translate}} {{'isRequired' | translate}}</div>
               </div>
             </ion-col>
             <ion-col size="12" class="ion-margin-bottom">
-              <div class="ion-text-center">Времетраење на услугата</div>
+              <div class="ion-text-center">{{'duration' | translate}}</div>
               <ion-item style="margin-top: 5px">
                 <ion-select [formControl]="serviceForm.controls['duration']">
-                  <ion-select-option value="10">10 минути</ion-select-option>
-                  <ion-select-option value="20">20 минути</ion-select-option>
-                  <ion-select-option value="30">30 минути</ion-select-option>
-                  <ion-select-option value="40">40 минути</ion-select-option>
-                  <ion-select-option value="50">50 минути</ion-select-option>
-                  <ion-select-option value="60">60 минути</ion-select-option>
-                  <ion-select-option value="70">70 минути</ion-select-option>
-                  <ion-select-option value="80">80 минути</ion-select-option>
-                  <ion-select-option value="90">90 минути</ion-select-option>
-                  <ion-select-option value="100">100 минути</ion-select-option>
-                  <ion-select-option value="110">110 минути</ion-select-option>
-                  <ion-select-option value="120">120 минути</ion-select-option>
-                  <ion-select-option value="130">130 минути</ion-select-option>
+                  <ion-select-option value="10">10 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="20">20 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="30">30 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="40">40 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="50">50 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="60">60 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="70">70 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="80">80 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="90">90 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="100">100 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="110">110 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="120">120 {{'minutes' | translate}}</ion-select-option>
+                  <ion-select-option value="130">130 {{'minutes' | translate}}</ion-select-option>
                 </ion-select>
               </ion-item>
             </ion-col>
             <ion-col class="ion-text-center">
               <ion-button size="large" (click)="createNewService()">
-                <span>Зачувај</span>    
+                <span>{{'save' | translate}}</span>    
               </ion-button>
             </ion-col>
         </ion-row>
@@ -812,14 +812,14 @@
       <ion-toolbar>
         <ion-title>{{serviceName}}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="openService('', false)">Затвори</ion-button>
+          <ion-button (click)="openService('', false)">{{'close' | translate}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
     <ion-row>
      <ion-col size="12">
-        <div class="ion-text-center">Јазик</div>
+        <div class="ion-text-center">{{'language' | translate}}</div>
         <ion-item style="margin-top: 5px">
           <ion-select (ionChange)="changeUpdateServiceLanguage()" [formControl]="serviceForm.controls['language']">
             <ion-select-option *ngFor="let lang of availableLanguages" value={{lang.code}}>{{lang.language}}</ion-select-option>
@@ -827,7 +827,7 @@
         </ion-item>
       </ion-col>
       <ion-col size="12">
-        <div class="ion-text-center">Избери слика</div>
+        <div class="ion-text-center">{{'choosePicture' | translate}}</div>
         <ion-slides pager style="margin-top: 10px; margin-bottom: 10px;">
           <ion-slide *ngFor="let image of images">
             <ion-row class="card-row">
@@ -841,7 +841,7 @@
         </ion-slides>
       </ion-col>
       <ion-col size="12" class="ion-margin-bottom">
-        <div class="ion-text-center">Име</div>
+        <div class="ion-text-center">{{'name' | translate}}</div>
         <ion-item fill="outline" mode="md">
           <ion-input
            [formControl]="serviceForm.controls['name']"
@@ -853,11 +853,11 @@
           ></ion-input>
         </ion-item>
         <div *ngIf="submitted && s.name.errors" class="invalid-feedback">
-          <div *ngIf="s.name.errors.required">Име на услугата е задолжително</div>
+          <div *ngIf="s.name.errors.required">{{'name' | translate}} {{'isRequired' | translate}}</div>
         </div> 
       </ion-col>
       <ion-col size="12" class="ion-margin-bottom">
-        <div class="ion-text-center">Опис</div>
+        <div class="ion-text-center">{{'desc' | translate}}</div>
         <ion-item fill="outline" mode="md">
           <ion-input
           [formControl]="serviceForm.controls['description']" 
@@ -867,11 +867,11 @@
           </ion-input>
         </ion-item>
         <div *ngIf="submitted && s.description.errors" class="invalid-feedback">
-          <div *ngIf="s.description.errors.required">Опис на услугата е задолжителен</div>
+          <div *ngIf="s.description.errors.required">{{'desc' | translate}} {{'isRequired' | translate}}</div>
         </div>
       </ion-col>
       <ion-col size="12" class="ion-margin-bottom">
-        <div class="ion-text-center">Цена</div>
+        <div class="ion-text-center">{{'price' | translate}}</div>
         <ion-item fill="outline" mode="md">
           <ion-input 
           [formControl]="serviceForm.controls['price']" 
@@ -881,39 +881,39 @@
           </ion-input>
         </ion-item>
         <div *ngIf="submitted && s.price.errors" class="invalid-feedback">
-          <div *ngIf="s.price.errors.required">Полето за цена на услугата е задолжително</div>
+          <div *ngIf="s.price.errors.required">{{'price' | translate}} {{'isRequired' | translate}}</div>
         </div>
       </ion-col>
       <ion-col size="12" class="ion-margin-bottom">
-        <div class="ion-text-center">Времетраење на услугата</div>
+        <div class="ion-text-center">{{'duration' | translate}}</div>
         <ion-item class="mt-5">
           <ion-select [formControl]="serviceForm.controls['duration']">
-            <ion-select-option value="10">10 минути</ion-select-option>
-            <ion-select-option value="20">20 минути</ion-select-option>
-            <ion-select-option value="30">30 минути</ion-select-option>
-            <ion-select-option value="40">40 минути</ion-select-option>
-            <ion-select-option value="50">50 минути</ion-select-option>
-            <ion-select-option value="60">60 минути</ion-select-option>
-            <ion-select-option value="70">70 минути</ion-select-option>
-            <ion-select-option value="80">80 минути</ion-select-option>
-            <ion-select-option value="90">90 минути</ion-select-option>
-            <ion-select-option value="100">100 минути</ion-select-option>
-            <ion-select-option value="110">110 минути</ion-select-option>
-            <ion-select-option value="120">120 минути</ion-select-option>
-            <ion-select-option value="130">130 минути</ion-select-option>
+            <ion-select-option value="10">10 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="20">20 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="30">30 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="40">40 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="50">50 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="60">60 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="70">70 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="80">80 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="90">90 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="100">100 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="110">110 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="120">120 {{'minutes' | translate}}</ion-select-option>
+            <ion-select-option value="130">130 {{'minutes' | translate}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
       <ion-col  size="12" class="ion-text-center">
         <ion-button size="large" (click)="updateService()">
-          <span>Измени</span>    
+          <span>{{'edit' | translate}}</span>    
         </ion-button>
       </ion-col>
     </ion-row>
       <ion-col size="12">
-        <h4 style="text-align: -webkit-center;">Вработени означени со зелена/црвена боја ja имаат/немаат оваа услуга</h4>
+        <h4 style="text-align: -webkit-center;">{{'redGreenText' | translate}}</h4>
         <br/>
-        <h6 style="text-align-last: center; font-size: 13px;">Повлечете во лево за да извршите акција кон одреден вработен</h6>
+        <h6 style="text-align-last: center; font-size: 13px;">{{'swipeLeft' | translate}}</h6>
       </ion-col>
       <ion-list *ngFor="let service of serviceDetailsUsers">
         <ion-item-sliding>
@@ -944,16 +944,16 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Компанија</ion-title>
+        <ion-title>{{'company' | translate}}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setModalValue('companyModal', false)">Затвори</ion-button>
+          <ion-button (click)="setModalValue('companyModal', false)">{{'close' | translate}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Име</div>
+          <div class="ion-text-center">{{'name' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
              [formControl]="companyForm.controls['name']"
@@ -965,13 +965,13 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && c.name.errors" class="invalid-feedback">
-            <div *ngIf="c.name.errors.required">Име на компанијата е задолжително</div>
+            <div *ngIf="c.name.errors.required">{{'name' | translate}} {{'isRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Адреса</div>
+          <div class="ion-text-center">{{'address' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
              [formControl]="companyForm.controls['address']"
@@ -983,13 +983,13 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && c.address.errors" class="invalid-feedback">
-            <div *ngIf="c.address.errors.required">Адреса на компанијата е задолжително</div>
+            <div *ngIf="c.address.errors.required">{{'address' | translate}} {{'isRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Телефон</div>
+          <div class="ion-text-center">{{'phoneNumber' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
              [formControl]="companyForm.controls['mobilePhone']"
@@ -1001,25 +1001,25 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && c.mobilePhone.errors" class="invalid-feedback">
-            <div *ngIf="c.mobilePhone.errors.required">Телефонски број на компанијата е задолжителен</div>
+            <div *ngIf="c.mobilePhone.errors.required">{{'phoneNumber' | translate}} {{'isRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
           <ion-button size="large" (click)="updateCompany()">
-            <span>Зачувај</span>    
+            <span>{{'save' | translate}}</span>    
           </ion-button>
         </ion-col>
       </ion-row> 
       <ion-row>
         <ion-col class="ion-text-center">
-          <h3>Претплата</h3>
+          <h3>{{'billing' | translate}}</h3>
         </ion-col>
       </ion-row> 
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">План на претплата</div>
+          <div class="ion-text-center">{{'billingPlan' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
              [formControl]="companyForm.controls['packagePlan']"
@@ -1034,7 +1034,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <div class="ion-text-center">Платено до</div>
+          <div class="ion-text-center">{{'paidUntil' | translate}}</div>
           <ion-item fill="outline" mode="md">
             <ion-input
               [formControl]="companyForm.controls['availableUntill']" 

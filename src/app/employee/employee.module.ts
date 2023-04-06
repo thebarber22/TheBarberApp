@@ -11,13 +11,15 @@ import { EmployeePage } from './employee.page';
 import { ReserveButtonComponent } from '../shared/reserve-button/reserve-button.component';
 
 import { SuccessScreenComponent } from '../shared/success-screen/success-screen.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EmployeePageRoutingModule
+    EmployeePageRoutingModule,
+    TranslateModule
   ],
   declarations: [EmployeePage, ReserveButtonComponent, SuccessScreenComponent]
 })

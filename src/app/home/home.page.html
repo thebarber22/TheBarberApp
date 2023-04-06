@@ -9,7 +9,7 @@
       {{company.name}}
     </span>
     <span>
-      {{'tvojotberber' | translate}}
+      {{'findYourBarber' | translate}}
     </span>
   </div>
   <div class="main">
@@ -22,7 +22,7 @@
                 <img src={{emp.img}}>
               </div>
               <ion-card-header style="padding: 0;">
-                <ion-card-title class="card-title">Мајстор {{emp.displayName}}</ion-card-title>
+                <ion-card-title class="card-title">{{'employee' | translate}} {{emp.displayName}}</ion-card-title>
                 <ion-card-subtitle class="card-subtitle"><ion-icon name="star-outline" style="margin-right: 6px;"></ion-icon><span>4.5</span></ion-card-subtitle>
               </ion-card-header>
             </ion-card>
@@ -44,7 +44,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="end">
-          <ion-button (click)="isOpen = false">Затвори</ion-button>
+          <ion-button (click)="isOpen = false">{{'close' | translate}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>      
@@ -66,7 +66,7 @@
     <ion-content [fullscreen]="true" id="container" *ngIf="notifications.length == 0">
       <ion-item-sliding>
         <ion-item>
-          <h6 style="text-align: -webkit-center;">Во моментов немате нотификации</h6>
+          <h6 style="text-align: -webkit-center;">{{'noNotif' | translate}}</h6>
         </ion-item>
         <ion-item-options side="end"></ion-item-options>
       </ion-item-sliding>

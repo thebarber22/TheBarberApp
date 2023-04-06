@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { LocationPageRoutingModule } from './location-routing.module';
 import { LocationPage } from './location.page';
 import { SafePipe } from './safe.pipe';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -14,6 +14,7 @@ import { SafePipe } from './safe.pipe';
     ReactiveFormsModule,
     FormsModule,
     LocationPageRoutingModule,
+    TranslateModule
   ],
   declarations: [LocationPage, SafePipe],
 })

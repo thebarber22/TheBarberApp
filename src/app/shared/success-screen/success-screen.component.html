@@ -2,7 +2,7 @@
 <ion-content [fullscreen]="true" id="container">
   <div class="header">
     <span>
-      Ви благодариме!
+      {{'thankYou' | translate}}
     </span>
   </div>
   <div class="main">
@@ -15,7 +15,7 @@
 
         <ion-row class="card-info">
           <ion-col size="9" class="ion-margin-bottom ion-text-center succ-app">
-              <span>Успешна резервација</span>
+              <span>{{'successReserve' | translate}}</span>
            </ion-col>
            <ion-col size="3" class="ion-margin-bottom ion-text-center svg-stick">
               <svg width="43" height="45" viewBox="0 0 43 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,19 +26,19 @@
               </svg> 
            </ion-col>            
            <ion-col size="6" class="ion-margin-bottom ion-text-center">
-              <span>Бербер</span>
+              <span>{{'barber' | translate}}</span>
            </ion-col>
            <ion-col size="6" class="ion-margin-bottom ion-text-center value">
               <span>{{employee}}</span>
           </ion-col>
           <ion-col size="6" class="ion-margin-bottom ion-text-center">
-              <span>Услуга</span>
+              <span>{{'service' | translate}}</span>
            </ion-col>
            <ion-col size="6" class="ion-margin-bottom ion-text-center value">
               <span>{{formatString()}}</span>
           </ion-col>
           <ion-col size="6" class="ion-margin-bottom ion-text-center">
-              <span>Време</span>
+              <span>{{'date' | translate}}</span>
            </ion-col>
            <ion-col size="6" class="ion-margin-bottom ion-text-center value" style="text-align: end !important;">
               <span>{{start | date: "dd-MM-YYYY hh:mm a"}}</span>

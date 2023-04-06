@@ -7,7 +7,7 @@
         </ion-col>
         <ion-col class="header" size="8">
           <span>{{empName}}</span>
-          <span>Одбери услуга</span>
+          <span>{{'chooseService' | translate}}</span>
         </ion-col>
         <ion-col class="back-button">
         </ion-col>
@@ -19,7 +19,7 @@
             <div class="no-icon" *ngIf="!service.selected"></div>
             <div class="card-desc" *ngFor="let info of service.serviceInfoList">
               <span *ngIf="info.language == selectedLang">{{info.name}}</span>
-              <span *ngIf="info.language == selectedLang">{{service.price}}ден - {{service.duration}}мин</span>
+              <span *ngIf="info.language == selectedLang">{{service.price}}{{'den' | translate}} - {{service.duration}}{{'min' | translate}}</span>
             </div>
             <img class="card-img" style="image-rendering: -webkit-optimize-contrast; object-fit: fill;" src={{service.image}} alt="">
           </div>
@@ -42,8 +42,8 @@
           <ion-icon name="chevron-back-outline" ></ion-icon>
         </ion-col>
         <ion-col class="header" size="8">
-          <span>Резервирај</span>
-          <span>Одбери датум и време</span>
+          <span>{{'reserve' | translate}}</span>
+          <span>{{'chooseDateTime' | translate}}</span>
         </ion-col>
         <ion-col class="back-button">
         </ion-col>
@@ -55,13 +55,13 @@
       </ion-row>
       <ion-row class="card-row" style="margin-top: 30px;">
         <ion-col class="card-wrapper2" style="height: 90px;">  
-          <span>Време</span>
+          <span>{{'time' | translate}}</span>
           <div class="time-select">
             <div class="scroll-wrap" *ngIf="freeSlots.length != 0">
               <div class="time-select-item" *ngFor="let time of freeSlots" (click)="selectionTime(time)" id="{{time.id}}">{{time.startHours}}:{{time.startMinutes}}</div>
             </div>
             <div class="scroll-wrap" *ngIf="freeSlots.length == 0">
-              <span>Нема слободен термин за избраниот ден. Обидете се на друг ден.</span>
+              <span>{{'noSlot' | translate}}</span>
             </div>
           </div>
           <div class="time-select-loader" *ngIf="loadingTimes">
@@ -71,13 +71,13 @@
       </ion-row>
       <ion-row style="margin-top: 30px;" class="selected-times">
         <ion-col size="6">
-          <span>Датум</span>
+          <span>{{'date' | translate}}</span>
           <span class="selected-slot" *ngIf="selectedDateFormatted">{{selectedDateFormatted}}</span>
           <span class="selected-slot" *ngIf="!selectedDateFormatted">/</span>
 
         </ion-col>
         <ion-col size="6">
-          <span>Време</span>
+          <span>{{'time' | translate}}</span>
           <span class="selected-slot" *ngIf="selectedSlot!='/'">{{selectedSlot.startHours}} : {{selectedSlot.startMinutes}}</span>
           <span class="selected-slot" *ngIf="selectedSlot=='/'">{{selectedSlot}}</span>
         </ion-col>
