@@ -36,6 +36,7 @@ export class TimelinePage implements OnInit {
               }
 
   async ngOnInit() {
+
     this.checkDefaultLanguage();
     await this.authService.getUser().then((res)=>{
       this.user = JSON.parse(res)
@@ -50,12 +51,14 @@ export class TimelinePage implements OnInit {
   }
 
 
-  checkDefaultLanguage(){
-    this.authService.getLanguage().then(lang => {
+  async checkDefaultLanguage(){
+    await this.authService.getLanguage().then(lang => {
       if(lang != null && lang != undefined && lang != ""){
         this.selectedLang = lang;
+        this.translate.use(lang);
       } else {
         this.selectedLang = this.translate.getDefaultLang()
+        this.translate.use(this.translate.getDefaultLang());
       }
     });    
   }
@@ -68,11 +71,24 @@ export class TimelinePage implements OnInit {
   }
   
   async removeAppointmentAlert(id) {
+    let caution: any;
+    let yes: any;
+    let areYouSureCancelReservation : any;
+    this.translate.get('caution').subscribe((translatedString) => {
+      caution = translatedString;
+    });
+    this.translate.get('yes').subscribe((translatedString) => {
+      yes = translatedString;
+    });
+
+    this.translate.get('areYouSureCancelReservation').subscribe((translatedString) => {
+      areYouSureCancelReservation = translatedString;
+    });
     const alert = await this.alertController.create({
-      header: 'Внимание',
-      message: 'Дали сте сигурни дека сакате да ја откажете резервацијата?',
+      header: caution,
+      message: areYouSureCancelReservation,
       buttons: [{
-          text: 'Да',
+          text: yes,
           role: 'confirm',
           handler: () => {
             this.removeAppointment(id)
@@ -80,7 +96,7 @@ export class TimelinePage implements OnInit {
         },
     ],
     });
-
+    
     await alert.present();
   }
 
@@ -117,6 +133,7 @@ export class TimelinePage implements OnInit {
     
       this.timelineService.getTimeline(userId, "past", this.selectedLang).subscribe(res => {
         if(res != null && res != undefined){
+          console.log(res)
           this.pastAppointmentsList = res;
         }
       },err => this.router.navigate(['error']))
@@ -130,7 +147,4 @@ export class TimelinePage implements OnInit {
     }
   }
 
-  startDate(value){
-    alert(value);
-  }
 }

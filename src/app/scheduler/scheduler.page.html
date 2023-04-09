@@ -38,7 +38,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="end">
-          <ion-button (click)="isOpen = false">Затвори</ion-button>
+          <ion-button (click)="isOpen = false">{{'close' | translate}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>      
@@ -47,28 +47,28 @@
         <div class="section-card">
             <ion-row class="card-info">
               <ion-col size="12" class="ion-margin-bottom ion-text-center succ-app">
-                  <span>Детали за резервација</span>
+                  <span>{{'reservationDetail' | translate}}</span>
               </ion-col>
               <ion-col size="6" class="ion-margin-bottom ion-text-center">
-                  <span>Бербер</span>
+                  <span>{{'barber' | translate}}</span>
               </ion-col>
               <ion-col size="6" class="ion-margin-bottom ion-text-center value" style="text-align: end !important;">
                   <span>{{this.selectedAppointment.employee.displayName}}</span>
               </ion-col>
               <ion-col size="6" class="ion-margin-bottom ion-text-center">
-                <span>Клиент</span>
+                <span>{{'client' | translate}}</span>
               </ion-col>
               <ion-col size="6" class="ion-margin-bottom ion-text-center value" style="text-align: end !important;">
                   <span>{{this.selectedAppointment.client.displayName}}</span>
               </ion-col>
               <ion-col size="6" class="ion-margin-bottom ion-text-center">
-                  <span>Услуга</span>
+                  <span>{{'service' | translate}}</span>
               </ion-col>
               <ion-col size="6" class="ion-margin-bottom ion-text-center value">
                   <span>{{this.selectedServices}}</span>
               </ion-col>
               <ion-col size="6" class="ion-margin-bottom ion-text-center">
-                  <span>Време</span>
+                  <span>{{'time' | translate}}</span>
               </ion-col>
               <ion-col size="6" class="ion-margin-bottom ion-text-center value" style="text-align: end !important;">
                   <span>{{this.selectedAppointment.startDateTime | date: "dd-MM-YYYY hh:mm a" }}</span>
@@ -76,7 +76,7 @@
             
               <ion-col size="12" class="ion-margin-bottom ion-text-center">
                 <ion-button size="small" (click)="deleteReservation()">
-                  <span>Откажи термин</span>    
+                  <span>{{'cancelAppointment' | translate}}</span>    
                 </ion-button>
               </ion-col>
               <ion-col class="ion-margin-bottom ion-text-center">
@@ -101,7 +101,7 @@
   <ng-template>
     <ion-content>
       <div class="modal-wrapper">
-        <h3>Одберете датум</h3>
+        <h3>{{'chooseDate' | translate}}</h3>
         <ion-datetime [(ngModel)]="selectedDate" (ngModelChange)="selectDate($event)" mode="ios" presentation="date"></ion-datetime>
       </div>
     </ion-content>
@@ -113,7 +113,7 @@
   <ng-template>
     <ion-content>
       <div class="modal-wrapper">
-        <h3>Одберете вработен</h3>
+        <h3>{{'chooseEmployee' | translate}}</h3>
         <ion-list>
           <ion-item *ngFor="let emp of employees" (click)="selectEmployee(emp); modal2.dismiss()">
             <ion-avatar slot="start">

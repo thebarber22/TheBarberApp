@@ -1,29 +1,29 @@
 <ion-content *ngIf="user">
   <div class="header">
-    <span>Апликацијата е надвор од употреба!</span>
+    <span>{{'appDown' | translate}}</span>
   </div>
   <div class="img"></div>
   <div class="button-wrapper">
-    <span>Ве молиме обидете се подоцна</span>
+    <span>{{'tryLater' | translate}}</span>
   </div>
 </ion-content>
 
 <ion-content *ngIf="moderator">
   <div class="header">
-    <span style="color:red">Апликацијата не е во функција поради истечена претплата!</span>
+    <span style="color:red">{{'expiredSubscription' | translate}}</span>
   </div>
   <div class="img"></div>
   <ion-row style="text-align-last: center;">
-    <ion-col><h4>Детали за последна уплата</h4></ion-col>
+    <ion-col><h4>{{'lastPaymentDetails' | translate}}</h4></ion-col>
   </ion-row>
   <ion-row style="text-align-last: center;">
-    <ion-col><h5>Уплатено на: {{startDateTime}}</h5></ion-col>
+    <ion-col><h5>{{"paidOn" | translate}} {{startDateTime}}</h5></ion-col>
   </ion-row>
   <ion-row style="text-align-last: center">
-    <ion-col><h5 style="color:red">Активно до: {{endDateTime}}</h5></ion-col>
+    <ion-col><h5 style="color:red">{{'activeUntill' | translate}} {{endDateTime}}</h5></ion-col>
   </ion-row>
   <ion-row style="text-align-last: center">
-    <ion-col><h6 style="text-align: -webkit-center;">Почитувани вашата претплата е истечена и мобилните апликации се надвор од функција. За продолжување на претплатата ве молиме контактирајте не на еден од следниве начини:</h6></ion-col>
+    <ion-col><h6 style="text-align: -webkit-center;">{{'expiredSubscriptionDetails' | translate}}</h6></ion-col>
   </ion-row>
   <ion-row>
     <ion-col style="text-align-last: center;" size="6">
@@ -34,8 +34,8 @@
     <ion-col style="text-align-last: center;" size="6">
       <ion-icon name="phone-portrait-outline"></ion-icon>
       <br />
-      <h5> +389 78252863</h5>
-      <h5> +389 77894391</h5>
+      <h5><a href="tel:+38978252863">+389 78252863</a></h5>
+      <h5><a href="tel:+38977894391">+389 77894391</a></h5>
     </ion-col>
     <ion-col style="text-align-last: center;" size="12">
       <ion-icon name="mail-outline"></ion-icon>

@@ -1,14 +1,14 @@
 <ion-content>
 
   <div class="header">
-    <span>Се случи грешка!</span>
+    <span>{{'errorOccured' | translate}}</span>
   </div>
 
   <div class="img"></div>
 
   <div class="button-wrapper">
-    <span>Ве молиме обидете се повторно за 10 до 15 минути</span>
-    <ion-button (click)="goBack()" color="dark">Назад</ion-button>
+    <span>{{'tryAgain15Min' | translate}}</span>
+    <ion-button (click)="goBack()" color="dark">{{'back' | translate}}</ion-button>
   </div>
 
 </ion-content>

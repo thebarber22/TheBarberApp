@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { SchedulerPageRoutingModule } from './scheduler-routing.module';
 
 import { SchedulerPage } from './scheduler.page';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     SchedulerPageRoutingModule,
+    TranslateModule
   ],
   declarations: [SchedulerPage]
 })

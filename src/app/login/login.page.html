@@ -1,14 +1,14 @@
 <ion-content id="container" *ngIf="!loading">
   <div class="header">
     <span>
-      Регистрирај се
+      {{'register' | translate}}
     </span>
   </div>
   <div class="main">
     <div class="section-login">
         <ion-row *ngIf="showFields">
           <ion-col size="12" class="ion-margin-bottom">
-            <div class="ion-text-center">Име</div>
+            <div class="ion-text-center">{{'name' | translate}}</div>
             <ion-item fill="outline" mode="md">
               <ion-input
                [formControl]="signUpForm.controls['name']"
@@ -20,13 +20,13 @@
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-              <div *ngIf="f.name.errors.required">Име е задолжително</div>
+              <div *ngIf="f.name.errors.required">{{'nameIsRequired' | translate}}</div>
             </div>
           </ion-col>
         </ion-row>
         <ion-row *ngIf="showFields">
           <ion-col size="12" class="ion-margin-bottom">
-            <div class="ion-text-center">Презиме</div>
+            <div class="ion-text-center">{{'surname'| translate}}</div>
             <ion-item fill="outline" mode="md">
               <ion-input
                 [formControl]="signUpForm.controls['surname']"
@@ -38,13 +38,13 @@
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
-              <div *ngIf="f.surname.errors.required">Презиме е задолжително</div>
+              <div *ngIf="f.surname.errors.required">{{'surnameIsRequired' | translate}}</div>
             </div>
           </ion-col>
         </ion-row>
         <ion-row *ngIf="showFields">
           <ion-col size="12" class="ion-margin-bottom">
-            <div class="ion-text-center">Е-маил</div>
+            <div class="ion-text-center">{{'email' | translate}}</div>
             <ion-item fill="outline" mode="md">
               <ion-input
                 [formControl]="signUpForm.controls['email']"
@@ -57,14 +57,14 @@
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-              <div *ngIf="f.email.errors.required">Е-маил полето е задолжителен</div>
-              <div *ngIf="f.email.errors.email">Внесениот е-маил не е валиден</div>
+              <div *ngIf="f.email.errors.required">{{'emailIsRequired' | translate}}</div>
+              <div *ngIf="f.email.errors.email">{{'emailIsNotValid' | translate}}</div>
             </div>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="12" class="ion-margin-bottom">
-            <div class="ion-text-center">Телефонски број</div>
+            <div class="ion-text-center">{{'phoneNumber' | translate}}</div>
             <ion-item fill="outline" mode="md">
               <ion-text matPrefix>{{prefix}} &nbsp;</ion-text>
               <ion-input
@@ -78,13 +78,13 @@
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-              <div *ngIf="f.phone.errors.required">Телефонскиот број е задолжителен</div>
+              <div *ngIf="f.phone.errors.required">{{'phoneNumberIsRequired' | translate}}</div>
             </div>
           </ion-col>
         </ion-row>
         <ion-row *ngIf="showFields">
           <ion-col size="12" class="ion-margin-bottom">
-            <div class="ion-text-center">Лозинка</div>
+            <div class="ion-text-center">{{'password' | translate}}</div>
             <ion-item fill="outline" mode="md">
               <ion-input
                 [formControl]="signUpForm.controls['password']"
@@ -96,13 +96,13 @@
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-              <div *ngIf="f.password.errors.required">Полето за лозинка е задолжително</div>
+              <div *ngIf="f.password.errors.required">{{'passwordIsRequired' | translate}}</div>
             </div>
           </ion-col>
         </ion-row>
         <ion-row *ngIf="showFields">
           <ion-col size="12" class="ion-margin-bottom">
-            <div class="ion-text-center">Потврди Лозинка</div>
+            <div class="ion-text-center">{{'confirmPassword' | translate}}</div>
             <ion-item fill="outline" mode="md">
               <ion-input
                 [formControl]="signUpForm.controls['repeatPassword']"
@@ -114,32 +114,32 @@
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.repeatPassword.errors" class="invalid-feedback">
-              <div *ngIf="f.repeatPassword.errors.required">Полето за лозинка е задолжително</div>
+              <div *ngIf="f.repeatPassword.errors.required">{{'passwordIsRequired' | translate}}</div>
             </div>
           </ion-col>
         </ion-row>
         <ion-row *ngIf="showFields">
           <ion-col class="ion-text-center">
             <ion-button size="large" (click)="signUpNewUser()">
-              <span>Регистрирај се</span>    
+              <span>{{'register' | translate}}</span>    
             </ion-button>
           </ion-col>
         </ion-row> 
         <ion-row *ngIf="!showFields">
           <ion-col class="ion-text-center">
             <ion-button size="large" (click)="finishSocialMediaRegistration()">
-              <span>Регистрирај се</span>    
+              <span>{{'register' | translate}}</span>    
             </ion-button>
           </ion-col>
         </ion-row> 
         <ion-row>
           <ion-col class="ion-text-center text-small" *ngIf="showFields">
-              <span>Имаш корисничка сметка? <a (click)="goToLogin()">Најави се</a></span>    
+              <span>{{'haveProfile' | translate}} <a (click)="goToLogin()">{{'login' | translate}}</a></span>    
           </ion-col>
         </ion-row> 
         <ion-row>
           <ion-col class="ion-text-center text-small" *ngIf="showFields">
-              <span>или продолжи со</span>    
+              <span>{{'orContinueWith' | translate}}</span>    
           </ion-col>
         </ion-row> 
 

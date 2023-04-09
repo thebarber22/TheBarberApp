@@ -5,7 +5,6 @@ import { AuthService } from '../login/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { lang } from 'moment';
 
 @Component({
   selector: 'app-home', 
@@ -117,12 +116,14 @@ export class HomePage {
     })
   }
 
-  checkCompanyLanguage(){
-    this.auth.getLanguage().then(lang => {
+  async checkCompanyLanguage(){
+   await this.auth.getLanguage().then(lang => {
       if(lang != null && lang != undefined && lang != ""){
         this.selectedLang = lang;
+        this.translate.use(lang);
       } else {
         this.selectedLang = this.translate.getDefaultLang()
+        this.translate.use(this.selectedLang);
       }
 
       for(let i = 0; i < this.company.languages.length; i++){

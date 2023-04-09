@@ -1,14 +1,14 @@
 <ion-content id="container" *ngIf="!loading">
   <div class="header">
     <span>
-      Добредојде
+      {{'welcome' | translate}}
     </span>
   </div>
   <div class="main">
     <div class="section-login">
         <ion-row >
           <ion-col size="12" class="ion-margin-bottom">
-            <div class="ion-text-center">Е-маил</div>
+            <div class="ion-text-center">{{'email' | translate}}</div>
             <ion-item fill="outline" mode="md">
               <ion-input
                 [formControl]="signUpForm.controls['email']"
@@ -21,14 +21,14 @@
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-              <div *ngIf="f.email.errors.required">Е-маил полето е задолжителен</div>
-              <div *ngIf="f.email.errors.email">Внесениот е-маил не е валиден</div>
+              <div *ngIf="f.email.errors.required">{{'emailIsRequired' | translate}}</div>
+              <div *ngIf="f.email.errors.email">{{'emailIsNotValid' | translate}}</div>
             </div>
           </ion-col>
         </ion-row>
         <ion-row *ngIf="login">
           <ion-col size="12" class="ion-margin-bottom">
-            <div class="ion-text-center">Лозинка</div>
+            <div class="ion-text-center">{{'password' | translate}}</div>
             <ion-item fill="outline" mode="md">
               <ion-input
                 [formControl]="signUpForm.controls['password']"
@@ -40,33 +40,33 @@
               ></ion-input>
             </ion-item>
             <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-              <div *ngIf="f.password.errors.required">Полето за лозинка е задолжителен</div>
+              <div *ngIf="f.password.errors.required">{{'passwordIsRequired' | translate}}</div>
             </div>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col *ngIf="login" class="ion-text-center text-small">
-              <span (click)="this.login = false;"><a>Заборавена лозинка?</a></span>    
+              <span (click)="this.login = false;"><a>{{'forgotPassword' | translate}}</a></span>    
           </ion-col>
           <ion-col *ngIf="!login" class="ion-text-center text-small">
-            <span (click)="this.login = true;"><a>Најави се</a></span>    
+            <span (click)="this.login = true;"><a>{{'login' | translate}}</a></span>    
         </ion-col>
         </ion-row> 
         <ion-row>
           <ion-col class="ion-text-center" *ngIf="login">
             <ion-button size="large" (click)="hiddenLogin()">
-              <span>Најави се</span>    
+              <span>{{'login' | translate}}</span>    
             </ion-button>
           </ion-col>
           <ion-col class="ion-text-center" *ngIf="!login">
             <ion-button size="large" (click)="resetPass()">
-              <span>Ресетирај</span>    
+              <span>{{'reset' | translate}}</span>    
             </ion-button>
           </ion-col>
         </ion-row> 
         <ion-row *ngIf="login">
           <ion-col class="ion-text-center text-small">
-            <span>или продолжи со</span>    
+            <span>{{'orContinueWith' | translate}}</span>    
           </ion-col>
         </ion-row>
         <ion-row *ngIf="login">
@@ -100,8 +100,8 @@
         </ion-row> 
         <ion-row>
           <ion-col class="ion-text-center text-small">
-              <span>Немате корисничка сметка?</span> <br/>
-              <span><a (click)="goToRegister()"> Регистрирајте се</a></span>
+              <span>{{'dontHaveAccount' | translate}}</span> <br/>
+              <span><a (click)="goToRegister()">{{'register' | translate}}</a></span>
           </ion-col>
         </ion-row> 
       </div>

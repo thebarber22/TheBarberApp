@@ -69,8 +69,10 @@ export class SchedulerPage implements OnInit {
     await this.authService.getLanguage().then(lang => {
       if(lang != null && lang != undefined && lang != ""){
         this.selectedLang = lang;
+        this.translate.use(lang);
       } else {
         this.selectedLang = this.translate.getDefaultLang()
+        this.translate.use(this.translate.getDefaultLang());
       }
     });    
   }

@@ -69,10 +69,12 @@ export class EmployeePage implements OnInit {
     await this.auth.getLanguage().then(lang => {
       if(lang != null && lang != undefined && lang != ""){
         this.selectedLang = lang;
+        this.translate.use(lang);
       } else {
-        this.selectedLang = this.translate.getDefaultLang()
+        this.selectedLang = this.translate.getDefaultLang();
+        this.translate.use(this.selectedLang);
       }
-    });    
+    });   
   }
 
   async ionViewDidEnter(){

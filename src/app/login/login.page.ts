@@ -16,6 +16,7 @@ import { isPlatform } from '@ionic/angular';
 import { MediaLoginDTO } from './models/MediaLoginDTO';
 import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -40,13 +41,16 @@ export class LoginPage {
   passwordNoMatching = true;
   loginDTO : MediaLoginDTO;
   userId : any;
+  selectedLang: any;
+
   constructor(
              private route: ActivatedRoute,
               private authService: AuthService,
               private loginService: LoginService,
               private router: Router,
               private fb: FormBuilder,
-              private toastController: ToastController) {
+              private toastController: ToastController,
+              private translate: TranslateService) {
                 this.signUpForm = this.fb.group({
                   name : ['', Validators.required],
                   surname : ['', Validators.required],
@@ -66,8 +70,21 @@ export class LoginPage {
               }
 
    async ngOnInit() { 
+    this.checkDefaultLanguage();
     // await FacebookLogin.initialize({ appId: '1096409884371369' });
   } 
+
+  checkDefaultLanguage(){
+    this.authService.getLanguage().then(lang => {
+      if(lang != null && lang != undefined && lang != ""){
+        this.selectedLang = lang;
+        this.translate.use(lang);
+      } else {
+        this.selectedLang = this.translate.getDefaultLang()
+        this.translate.use(this.selectedLang);
+      }
+    });    
+  }
 
   async signUpNewUser(){
     if(this.checkRequired()){
@@ -134,13 +151,16 @@ export class LoginPage {
     if(this.signUpForm.controls["password"].value != this.signUpForm.controls["repeatPassword"].value){
       this.signUpForm.controls["password"].setValue("");
       this.signUpForm.controls["repeatPassword"].setValue("");
-      this.presentToast('top', "Лозинките не се софпаѓаат");
+      this.translate.get('passwordNotMatch').subscribe((translatedString) => {
+        this.presentToast('top', translatedString);
+      })
       return false;
     }
 
-
     if(this.signUpForm.controls["password"].value.length < 8){
-      this.presentToast('top', "Лозинкатa мора да содржи минимум 8 карактери");
+      this.translate.get('passwordMinCharacters').subscribe((translatedString) => {
+        this.presentToast('top', translatedString);
+      })
       return false;
     }
 
@@ -148,6 +168,7 @@ export class LoginPage {
   } 
 
    async googleSignUp(){
+    this.loading = true;
     this.loginDTO = new MediaLoginDTO();
     const googleUser = await GoogleAuth.signIn();
     this.loginDTO.name = googleUser.givenName + " " + googleUser.familyName;
@@ -160,14 +181,18 @@ export class LoginPage {
       if(response != null) {
         if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
           await this.authService.saveAuthResponse(response);
+          this.loading = false;
           this.router.navigate(['/home']);
         } else {
           this.userId = response.userId;
           this.showFields = false;
+          this.loading = false;
         }
       } else {
         this.loading = false;
-        this.presentToast('top', "Настана проблем, обидете се повторно");
+        this.translate.get('problemOccurred').subscribe((translatedString) => {
+          this.presentToast('top', translatedString);
+        });
       }
     });
    }

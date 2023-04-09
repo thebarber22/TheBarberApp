@@ -139,8 +139,10 @@ export class SettingsPage implements OnInit {
     this.authService.getLanguage().then(lang => {
       if(lang != null && lang != undefined && lang != ""){
         this.selectedLang = lang;
+        this.translate.use(lang);
       } else {
         this.selectedLang = this.translate.getDefaultLang()
+        this.translate.use(this.translate.getDefaultLang());
       }
     });    
   }
@@ -170,10 +172,14 @@ export class SettingsPage implements OnInit {
       this.settingsService.updateUser(this.userDTO).subscribe(data => { 
         if(data != null) {
           this.fillUserForm(data)
-          this.presentToast("top", "Податоците се успешно променети")
+          this.translate.get('dataUpdateSucc').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
           this.loading = false;
         } else {
-          this.presentToast("top", "Настана проблем, обидете се повторно")
+          this.translate.get('problemOccurred').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
           this.loading = false;
         }
       });
@@ -210,14 +216,20 @@ export class SettingsPage implements OnInit {
         if(data != null) {
           this.fillUserForm(data)
           this.loading = false;
-          this.presentToast("top", "Податоците се успешно променети")
+          this.translate.get('dataUpdateSucc').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
         } else {
           this.loading = false;
-          this.presentToast("top", "Настана проблем, обидете се повторно")
+          this.translate.get('problemOccurred').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
         }
       });
     } else {
-      this.presentToast("top", "Валиден формат 00:00-23:59")
+      this.translate.get('validEmpTimeFormat').subscribe((translatedString) => {
+        this.presentToast('top', translatedString);
+      })
       this.loading = false;
     }
   }
@@ -235,13 +247,17 @@ export class SettingsPage implements OnInit {
         if(data){
           this.loading = false;
           this.submitted = false;
-          this.presentToast("top", "Лозинката е успешно променета")
+          this.translate.get('passwordChangeSucc').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
           setTimeout(() => {  
             this.passwordModal = false;
           }, 2000);
         } else {
           this.loading = false;
-          this.presentToast("top", "Настана проблем, обидете се повторно")
+          this.translate.get('problemOccurred').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
         }
       })
     } else {
@@ -259,13 +275,17 @@ export class SettingsPage implements OnInit {
         this.settingsService.sendMessage(this.mailDTO).subscribe(data => { 
           if(data == true){
             this.loading = false;
-            this.presentToast("top", "Пораката е успешно испратена")
+            this.translate.get('messageSuccSent').subscribe((translatedString) => {
+              this.presentToast('top', translatedString);
+            })
             setTimeout(() => {  
               this.contactModal = false;
           }, 3000);
           } else {
             this.loading = false;
-            this.presentToast("top", "Настана проблем, обидете се повторно")
+            this.translate.get('problemOccurred').subscribe((translatedString) => {
+              this.presentToast('top', translatedString);
+            })
           }
         })
     } else {
@@ -324,7 +344,9 @@ export class SettingsPage implements OnInit {
       this.settingsService.createNewService(this.serviceDTO).subscribe(data => { 
         if(data){
           this.loading = false;
-          this.presentToast('top', "Сервисот е успешно креиран");
+          this.translate.get('serviceSuccCreated').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
           this.submitted = false;
           this.getServiceByCompany(this.companyId);
           this.serviceForm.reset();
@@ -332,12 +354,16 @@ export class SettingsPage implements OnInit {
               this.segment = "all";
           }, 1000);
         } else { 
-          this.presentToast('top', "Настана грешка, обидете се повторно");
+          this.translate.get('problemOccurred').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
           this.loading = false;
         }
       })
     } else {
-      this.presentToast("top", "Невалиден внес на податоци")
+      this.translate.get('invalidDataEntry').subscribe((translatedString) => {
+        this.presentToast('top', translatedString);
+      })
       this.loading = false;
     }    
   }
@@ -360,18 +386,24 @@ export class SettingsPage implements OnInit {
       this.settingsService.updateService(this.serviceDTO).subscribe(data => { 
         if(data){
           this.loading = false;
-          this.presentToast('top', "Промените се успешно зачувани");
+          this.translate.get('dataUpdateSucc').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
           this.getServiceByCompany(this.companyId);
           setTimeout(() => {  
               this.segment = "all";
           }, 1000);
         } else { 
-          this.presentToast('top', "Настана грешка, обидете се повторно");
+          this.translate.get('problemOccurred').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
           this.loading = false;
         }
       })
     } else {
-      this.presentToast("top", "Невалиден внес на податоци")
+      this.translate.get('invalidDataEntry').subscribe((translatedString) => {
+        this.presentToast('top', translatedString);
+      })
       this.loading = false;
     }    
   }
@@ -388,9 +420,10 @@ export class SettingsPage implements OnInit {
       }
     }
 
-
     if(!flag) {
-      this.presentToast('top', "Ве молиме внесете име и опис за селектираниот јазик");
+      this.translate.get('enterTitleAndDesc').subscribe((translatedString) => {
+        this.presentToast('top', translatedString);
+      })
       this.serviceForm.controls["name"].setValue("");
       this.serviceForm.controls["description"].setValue("");
     }
@@ -404,7 +437,9 @@ export class SettingsPage implements OnInit {
     this.settingsService.removeMyProfile(this.user.id).subscribe(data => { 
       if(data){
         this.loading = false;
-        this.presentToast('top', "Вашиот профил е успешно избришан");
+        this.translate.get('yourProfileSuccRemoved').subscribe((translatedString) => {
+          this.presentToast('top', translatedString);
+        })
         setTimeout(() => {  
             this.logout();
         }, 1000);
@@ -416,9 +451,21 @@ export class SettingsPage implements OnInit {
 
 
   async removeServiceAlert(id) {
+    let caution: any;
+    let message: any;
+    let yes: any;
+    this.translate.get('yes').subscribe((translatedString) => {
+      message = translatedString;
+    })
+    this.translate.get('caution').subscribe((translatedString) => {
+      caution = translatedString;
+    })
+    this.translate.get('removeServiceFromEmpQ').subscribe((translatedString) => {
+      message = translatedString;
+    })
     const alert = await this.alertController.create({
-      header: 'Внимание',
-      message: 'Доколку го избришете сервисот, истиот ќе биде тргнат од овој вработен. Дали сте сигурни?',
+      header: caution,
+      message: message,
       buttons: [{
           text: 'Да',
           role: 'confirm',
@@ -434,11 +481,24 @@ export class SettingsPage implements OnInit {
 
 
   async removeServiceDetailAlert(id){
+    let caution : any;
+    let message : any;
+    let yes: any;
+    this.translate.get('yes').subscribe((translatedString) => {
+      message = translatedString;
+    })
+    this.translate.get('caution').subscribe((translatedString) => {
+      caution = translatedString;
+    })
+    this.translate.get('removeServiceFromAllEmpQ').subscribe((translatedString) => {
+      message = translatedString;
+    })
+   
     const alert = await this.alertController.create({
-      header: 'Внимание',
-      message: 'Доколку го избришете сервисот, истиот ќе биде тргнат од сите вработени и вашите клиенти нема да може да го резервираат. Дали сте сигурни?',
+      header: caution,
+      message: message,
       buttons: [{
-          text: 'Да',
+          text: yes,
           role: 'confirm',
           handler: () => {
              this.removeServiceFromCompany(id)
@@ -455,11 +515,15 @@ export class SettingsPage implements OnInit {
     this.settingsService.removeServiceFromCompany(serviceId).subscribe(data => { 
       if(data){
         this.loading = false;
-        this.presentToast("top", "Сервисот е успешно избришан")
+        this.translate.get('serviceSuccRemoved').subscribe((translatedString) => {
+          this.presentToast('top', translatedString);
+        })
         this.getServiceByCompany(this.companyId);
       } else {
         this.loading = false;
-        this.presentToast("top", "Настана грешка, обидете се повторно")
+        this.translate.get('problemOccurred').subscribe((translatedString) => {
+          this.presentToast('top', translatedString);
+        })
       }
     })
   }
@@ -468,7 +532,9 @@ export class SettingsPage implements OnInit {
     this.loading = true;
     await this.settingsService.removeServiceFromEmp(serviceId, employeeId).subscribe(data => { 
       if(data){
-        this.presentToast("top", "Сервисот е успешно избришан")
+        this.translate.get('serviceSuccRemoved').subscribe((translatedString) => {
+          this.presentToast('top', translatedString);
+        })
         if(getUser==true){
           this.getUserById(employeeId);
         } else {
@@ -476,7 +542,9 @@ export class SettingsPage implements OnInit {
         }
       } else {
         this.loading = false;
-        this.presentToast("top", "Настана грешка, обидете се повторно")
+        this.translate.get('problemOccurred').subscribe((translatedString) => {
+          this.presentToast('top', translatedString);
+        })
       }
     })
   }
@@ -545,11 +613,15 @@ export class SettingsPage implements OnInit {
     this.settingsService.addServiceToEmp(serviceId, empId).subscribe(data => { 
       if(data){
         this.loading = false;
-        this.presentToast("top", "Сервисот е успешно додаден")
+        this.translate.get('serviceSuccAdded').subscribe((translatedString) => {
+          this.presentToast('top', translatedString);
+        })
         this.getServiceDetails(serviceId)
       } else {
         this.loading = false;
-        this.presentToast("top", "Настана грешка, обидете се повторно")
+        this.translate.get('problemOccurred').subscribe((translatedString) => {
+          this.presentToast('top', translatedString);
+        })
       }
     })
   }
@@ -566,11 +638,15 @@ export class SettingsPage implements OnInit {
       this.settingsService.updateCompany(this.companyDTO).subscribe(data => { 
         if(data){
           this.loading = false;
-          this.presentToast("top", "Податоците се успешно променети")
+          this.translate.get('dataUpdateSucc').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
           this.authService.saveCompany(data);
         } else {
           this.loading = false;
-          this.presentToast("top", "Настана грешка, обидете се повторно")
+          this.translate.get('problemOccurred').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
         }
       })
     }
@@ -701,19 +777,25 @@ export class SettingsPage implements OnInit {
     if(this.passForm.controls["newPassword"].value != this.passForm.controls["newPasswordRepeat"].value){
       this.passForm.controls["newPassword"].setValue("");
       this.passForm.controls["newPasswordRepeat"].setValue("");
-      this.presentToast('top', "Лозинките не се софпаѓаат");
+      this.translate.get('passwordNotMatch').subscribe((translatedString) => {
+        this.presentToast('top', translatedString);
+      })
       return false;
     }
 
     if(this.passForm.controls["newPassword"].value.length < 8){
-      this.presentToast('top', "Лозинкатa мора да содржи минимум 8 карактери");
+      this.translate.get('passwordMinCharacters').subscribe((translatedString) => {
+        this.presentToast('top', translatedString);
+      })
       return false;
     }
 
     if(this.passForm.controls["oldPassword"].value == this.passForm.controls["newPassword"].value){
       this.passForm.controls["newPassword"].setValue("");
       this.passForm.controls["newPasswordRepeat"].setValue("");
-      this.presentToast('top', "Внете различна лозинка од старата");
+      this.translate.get('differentPasswords').subscribe((translatedString) => {
+        this.presentToast('top', translatedString);
+      })
       return false;
     }
     
@@ -828,7 +910,9 @@ export class SettingsPage implements OnInit {
     this.settingsService.updateAllowNotification(this.user.id, value).subscribe(data => { 
       if(data){
         this.notificationStatus = !this.notificationStatus;
-        this.presentToast('top', "Статусот за дозвола на нотификации е успешно променет!");
+        this.translate.get('allowNotificationStatus').subscribe((translatedString) => {
+          this.presentToast('top', translatedString);
+        })
       }
     })
   }

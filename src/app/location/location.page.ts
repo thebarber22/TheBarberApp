@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Device } from '@capacitor/device';
 import { AuthService } from '../login/services/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -22,13 +23,16 @@ export class LocationPage {
   companyPhone : any;
   totalEmployees = 0;
   totalServices = 0;
+  selectedLang: any;
   constructor(private homeService: HomeService,
               private sanitizer: DomSanitizer,
-              private authService: AuthService) {} 
+              private authService: AuthService,
+              private translate: TranslateService) {} 
 
   async ngOnInit() { 
     this.getCompanyData();
     this.getEmployesData();
+    this.checkDefaultLanguage
   }
 
  async getCompanyData(){
@@ -39,6 +43,18 @@ export class LocationPage {
       this.locationSrc = this.company.iframeMapUrl;
       this.companyLogo = this.company.companyLogo;
     })    
+  }
+
+  async checkDefaultLanguage(){
+    await this.authService.getLanguage().then(lang => {
+      if(lang != null && lang != undefined && lang != ""){
+        this.selectedLang = lang;
+        this.translate.use(lang);
+      } else {
+        this.selectedLang = this.translate.getDefaultLang();
+        this.translate.use(this.selectedLang);
+      }
+    });   
   }
 
   getEmployesData(){

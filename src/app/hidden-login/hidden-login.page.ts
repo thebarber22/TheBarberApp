@@ -10,6 +10,7 @@ import { HiddenLoginService } from './services/hidden-login.service';
 import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { MediaLoginDTO } from '../login/models/MediaLoginDTO';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-hidden-login',
@@ -24,12 +25,13 @@ export class HiddenLoginPage {
   login = true;
   private companyId = environment.companyId;
   loginDTO : MediaLoginDTO;
-
+  selectedLang: any;
   constructor(private fb: FormBuilder,
               private hiddenLoginService: HiddenLoginService,
               private authService : AuthService,
               private router: Router,
-              private toastController: ToastController) {
+              private toastController: ToastController,
+              private translate: TranslateService) {
        this.signUpForm = this.fb.group({
          email: ['', [Validators.required, Validators.email]],
          password: ['', Validators.required],
@@ -45,8 +47,21 @@ export class HiddenLoginPage {
     }
 
    async ngOnInit() { 
+    this.checkDefaultLanguage();
       //await FacebookLogin.initialize({ appId: '1096409884371369' });
    }
+
+   checkDefaultLanguage(){
+    this.authService.getLanguage().then(lang => {
+      if(lang != null && lang != undefined && lang != ""){
+        this.selectedLang = lang;
+        this.translate.use(lang);
+      } else {
+        this.selectedLang = this.translate.getDefaultLang()
+        this.translate.use(this.selectedLang);
+      }
+    });    
+  }
 
   async hiddenLogin(){
     if(this.checkRequired()){
@@ -65,7 +80,9 @@ export class HiddenLoginPage {
           this.router.navigate(['/home']);
         } else {
           this.loading = false;
-          this.presentToast('top', "Погрешна лозинка или емаил адреса");
+          this.translate.get('wrongPasswordOrEmail').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
         }
       }, () => this.router.navigate(['error']));
     }
@@ -85,6 +102,7 @@ export class HiddenLoginPage {
   }
 
   async googleLogin(){
+    this.loading = true;
     this.loginDTO = new MediaLoginDTO();
     const googleUser = await GoogleAuth.signIn();
     this.loginDTO.email = googleUser.email;
@@ -94,6 +112,7 @@ export class HiddenLoginPage {
   }
 
   loginFromSocialMedia(loginDTO){
+    this.loading = true;
     this.hiddenLoginService.socialMediaLogin(loginDTO).subscribe(async response => {
       if(response != null) {
         if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
@@ -105,9 +124,12 @@ export class HiddenLoginPage {
         }
       } else {
         this.loading = false;
-        this.presentToast('top', "Вашиот корисник не е пронајден, регистрирајте се");
+        this.translate.get('accountNotFound').subscribe((translatedString) => {
+          this.presentToast('top', translatedString);
+        })
         this.router.navigate(['/login']);
       }
+      this.loading = false;
     }); 
   }
 
@@ -118,7 +140,9 @@ export class HiddenLoginPage {
       this.hiddenLoginService.resetPass(email).subscribe(response => {
         if(response != null && response == true){
           this.login = true;
-          this.presentToast('top', "Новата лозинка е испратена на вашиот емаил");
+          this.translate.get('newPasswordSent').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
           this.submitted = false;
           this.loading = false;
         } else {
@@ -139,7 +163,9 @@ export class HiddenLoginPage {
     } 
 
     if(this.signUpForm.controls["password"].value.length < 8){
-      this.presentToast('top', "Лозинкaтa мора да содржи минимум 8 карактери");
+      this.translate.get('passwordMinCharacters').subscribe((translatedString) => {
+        this.presentToast('top', translatedString);
+      })
       return false;
     }
 

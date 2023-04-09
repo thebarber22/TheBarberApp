@@ -6,6 +6,7 @@ import { TimelinePageRoutingModule } from './timeline-routing.module';
 import { ReserveButtonComponent } from '../shared/reserve-button/reserve-button.component';
 import { TimelinePage } from './timeline.page';
 import { DatePipe } from './services/date.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { DatePipe } from './services/date.pipe';
     IonicModule.forRoot({
       mode: 'ios'
     }),
-    TimelinePageRoutingModule
+    TimelinePageRoutingModule,
+    TranslateModule
   ],
   
   declarations: [TimelinePage, DatePipe]

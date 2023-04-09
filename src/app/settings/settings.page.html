@@ -228,7 +228,7 @@
           </ion-item>
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
             <div *ngIf="f.email.errors.required">{{'email' | translate}} {{'isRequired' | translate}}</div>
-            <div *ngIf="f.email.errors.email">Внесениот е-маил не е валиден</div>
+            <div *ngIf="f.email.errors.email">{{'emailIsNotValid' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
@@ -342,7 +342,7 @@
           </ion-item>
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
             <div *ngIf="f.email.errors.required">{{'email' | translate}} {{'isRequired' | translate}}</div>
-            <div *ngIf="f.email.errors.email">Внесениот е-маил не е валиден</div>
+            <div *ngIf="f.email.errors.email">{{'emailIsNotValid' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
@@ -457,7 +457,7 @@
                 <ion-icon name="trash-outline" (click)="removeServiceAlert(services.serviceId)"></ion-icon>
               </ion-col>
               <ion-col size="3" class="card-col">
-                <img src="../../assets/imgs/testhaircut.png" width="50" height="50">
+                <img style="image-rendering: pixelated;" src={{services.image}} width="50" height="50">
               </ion-col>
               <ion-col size="9" class="card-col">
                 <ion-row>
@@ -507,7 +507,7 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && p.oldPassword.errors" class="invalid-feedback">
-            <div *ngIf="p.oldPassword.errors.required">Лозинката е задолжителна</div>
+            <div *ngIf="p.oldPassword.errors.required">{{'passwordIsRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
@@ -525,7 +525,7 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && p.newPassword.errors" class="invalid-feedback">
-            <div *ngIf="p.newPassword.errors.required">Лозинката е задолжителна</div>
+            <div *ngIf="p.newPassword.errors.required">{{'passwordIsRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
@@ -543,7 +543,7 @@
             ></ion-input>
           </ion-item>
           <div *ngIf="submitted && p.newPasswordRepeat.errors" class="invalid-feedback">
-            <div *ngIf="p.newPasswordRepeat.errors.required">Лозинката е задолжителна</div>
+            <div *ngIf="p.newPasswordRepeat.errors.required">{{'passwordIsRequired' | translate}}</div>
           </div>
         </ion-col>
       </ion-row>
@@ -629,7 +629,7 @@
           <ion-item fill="outline" mode="md">
             <ion-textarea 
             [formControl]="contactForm.controls['message']" 
-            placeholder="Оставете порака тука" 
+            placeholder="{{'writeMessageHere' | translate}}"
             [autoGrow]="true"
             [ngClass]="{ 'is-invalid': submitted && m.message.errors }">
             </ion-textarea>

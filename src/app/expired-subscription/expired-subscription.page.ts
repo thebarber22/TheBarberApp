@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../login/services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-expired-subscription',
@@ -14,12 +15,16 @@ export class ExpiredSubscriptionPage implements OnInit {
   moderator : any = true;
   startDateTime: any = "";
   endDateTime: any = "";
+  selectedLang: any;
+
   constructor(private router: Router,
               private authService : AuthService,
-              public datepipe: DatePipe) { }
+              public datepipe: DatePipe,
+              private translate: TranslateService) { }
 
   ngOnInit() {
     this.getCompany()
+    this.checkDefaultLanguage();
   }
 
   async getCompany(){
@@ -31,6 +36,18 @@ export class ExpiredSubscriptionPage implements OnInit {
          this.startDateTime = this.datepipe.transform(this.company.packagePlan.startDateTime, "dd-MM-YYYY")
         }
     })
+  }
+
+  async checkDefaultLanguage(){
+    await this.authService.getLanguage().then(lang => {
+      if(lang != null && lang != undefined && lang != ""){
+        this.selectedLang = lang;
+        this.translate.use(lang);
+      } else {
+        this.selectedLang = this.translate.getDefaultLang();
+        this.translate.use(this.selectedLang);
+      }
+    });   
   }
 
 
