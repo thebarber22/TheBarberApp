@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   "appId": 'com.easyreserve.test',
-  "appName": 'TheBarberApp',
+  "appName": 'MStyling',
   "webDir": 'www',
   "bundledWebRuntime": false,
   "plugins": {
