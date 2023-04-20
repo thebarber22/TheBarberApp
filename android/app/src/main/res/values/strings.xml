@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">TheBarberApp</string>
-    <string name="title_activity_main">TheBarberApp</string>
+    <string name="app_name">MStyling</string>
+    <string name="title_activity_main">MStyling</string>
     <string name="package_name">com.easyreserve.test</string>
     <string name="custom_url_scheme">com.easyreserve.test</string>
     <string name="server_client_id">266915288245-ca0r830cdlc2q4b768e67k73bsjnrhl9.apps.googleusercontent.com</string>
