@@ -8,6 +8,7 @@ import { isPlatform } from '@ionic/angular';
 import { PushNotifications, PushNotificationSchema } from '@capacitor/push-notifications';
 import { FCM } from '@capacitor-community/fcm';
 import { TranslateService } from '@ngx-translate/core';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-root',
@@ -43,9 +44,9 @@ export class AppComponent implements OnInit{
       }
     });
 
-    if(isPlatform('capacitor')){
+   // if(isPlatform('capacitor')){
       this.firebaseConfiguration();
-    }
+  //  }
   }
 
   ngOnDestroy() {
@@ -68,9 +69,24 @@ export class AppComponent implements OnInit{
   }
 
   firebaseConfiguration(){
-    PushNotifications.addListener('registration', (data) => {
-      console.log(data);
-    });
+
+    PushNotifications.addListener('registration', async ({ value }) => {
+      let token = value // Push token for Android
+    
+      // Get FCM token instead the APN one returned by Capacitor
+      if (Capacitor.getPlatform() === 'ios') {
+        const { token: fcm_token } = await FCM.getToken()
+        token = fcm_token
+        this.authService.saveFirebaseToken(token);
+      } else {
+        this.authService.saveFirebaseToken(token);
+      }
+    })
+
+
+    // PushNotifications.addListener('registration', (data) => {
+    //   console.log(data);
+    // });
     PushNotifications.addListener(
       'pushNotificationReceived',
       (notification: PushNotificationSchema) => {
@@ -86,11 +102,11 @@ export class AppComponent implements OnInit{
       PushNotifications.register().then(() => console.log(`registered for push`))
     );
 
-    FCM.getToken()
-      .then((result) => {
-        this.authService.saveFirebaseToken(result.token);
-      })
-      .catch((err) => console.log(err));
+    // FCM.getToken()
+    //   .then((result) => {
+    //     this.authService.saveFirebaseToken(result.token);
+    //   })
+    //   .catch((err) => console.log(err));
   }
 
   
