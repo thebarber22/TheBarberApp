@@ -83,7 +83,7 @@ export class SettingsPage implements OnInit {
               private r:ActivatedRoute) {
                 this.userForm = this.fb.group({
                   name : ['', Validators.required],
-                  surname : ['', Validators.required],
+                  surname : [''],
                   email: ['', [Validators.required, Validators.email]],
                   phone: ['', Validators.required],
                 });
