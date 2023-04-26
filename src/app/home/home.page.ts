@@ -107,7 +107,7 @@ export class HomePage {
           let today = new Date();
           if(endDate < today) {
             this.router.navigate(['expired-subscription'])
-          }
+          } 
         }
       }
     },()=>{this.loading=false}, ()=> {

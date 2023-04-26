@@ -25,4 +25,9 @@ export class LoginService {
     return this.http.post<any>(this.url + 'public/create-social-login', loginDTO)
   }
 
+  checkIfEmailExist(email: any, company:any) {
+    let queryParams = {"company":company};
+    return this.http.get<any>(this.url + 'api/auth/email-exist/' + email, {params:queryParams})
+  }
+
 }

@@ -143,5 +143,6 @@
     "September": "September", 
     "October": "October", 
     "November": "November", 
-    "December": "December"
+    "December": "December",
+    "emailExist": "A user has been found with this email, please login or reset your password"
 }

@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ExpiredSubscriptionPageRoutingModule } from './expired-subscription-routing.module';
 import { ExpiredSubscriptionPage } from './expired-subscription.page';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ExpiredSubscriptionPageRoutingModule
+    ExpiredSubscriptionPageRoutingModule,
+    TranslateModule
   ],
   declarations: [ExpiredSubscriptionPage],
   providers: [DatePipe]

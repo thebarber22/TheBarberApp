@@ -23,8 +23,8 @@ export class ExpiredSubscriptionPage implements OnInit {
               private translate: TranslateService) { }
 
   ngOnInit() {
-    this.getCompany()
     this.checkDefaultLanguage();
+    this.getCompany()
   }
 
   async getCompany(){
@@ -65,4 +65,5 @@ export class ExpiredSubscriptionPage implements OnInit {
       }
     })
   }
+  
 }

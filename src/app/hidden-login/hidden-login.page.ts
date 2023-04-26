@@ -72,7 +72,7 @@ export class HiddenLoginPage {
       this.user.password = this.signUpForm.controls["password"].value;
       this.user.deviceId = info2.uuid;
       this.user.companyId = this.companyId;
-
+      this.authService.getFirebaseToken().then(res => this.user.firebaseToken = res);
       this.hiddenLoginService.hiddenLogin(this.user).subscribe(response => {
         if(response != null){
           this.authService.saveAuthResponse(response);
@@ -113,6 +113,7 @@ export class HiddenLoginPage {
 
   loginFromSocialMedia(loginDTO){
     this.loading = true;
+    this.authService.getFirebaseToken().then(res => this.loginDTO.firebaseToken = res);
     this.hiddenLoginService.socialMediaLogin(loginDTO).subscribe(async response => {
       if(response != null) {
         if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){

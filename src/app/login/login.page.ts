@@ -89,25 +89,34 @@ export class LoginPage {
   async signUpNewUser(){
     if(this.checkRequired()){
       this.loading = true;
-      this.user = new User();
-      const info2 = await Device.getId();
-      this.user.name = this.signUpForm.controls["name"].value;
-      this.user.surname = this.signUpForm.controls["surname"].value;
-      this.user.email = this.signUpForm.controls["email"].value;
-      this.user.mobile = this.prefix + "" +this.signUpForm.controls["phone"].value;
-      this.user.deviceId = info2.uuid;
-      this.user.companyId = this.companyId;
-      this.user.password = this.signUpForm.controls["password"].value;
-      this.authService.getFirebaseToken().then(res => this.user.firebaseToken = res);
-
-      this.loginService.signUpNewUser(this.user).subscribe(response => {
-        if(response != null && response != "" && response != undefined) {
-            this.authService.saveAuthResponse(response);
-            this.router.navigate(['/home']);
-          } else {
-            this.loading = false;
-            this.router.navigate(['error']);
-          }
+      this.loginService.checkIfEmailExist(this.signUpForm.controls["email"].value, this.companyId).subscribe(async response => {
+        if(!response || response == false){
+          this.user = new User();
+          const info2 = await Device.getId();
+          this.user.name = this.signUpForm.controls["name"].value;
+          this.user.surname = this.signUpForm.controls["surname"].value;
+          this.user.email = this.signUpForm.controls["email"].value;
+          this.user.mobile = this.prefix + "" +this.signUpForm.controls["phone"].value;
+          this.user.deviceId = info2.uuid;
+          this.user.companyId = this.companyId;
+          this.user.password = this.signUpForm.controls["password"].value;
+          this.authService.getFirebaseToken().then(res => this.user.firebaseToken = res);
+    
+          this.loginService.signUpNewUser(this.user).subscribe(response => {
+            if(response != null && response != "" && response != undefined) {
+                this.authService.saveAuthResponse(response);
+                this.router.navigate(['/home']);
+              } else {
+                this.loading = false;
+                this.router.navigate(['error']);
+              }
+          })
+        } else {
+          this.loading = false;
+          this.translate.get('emailExist').subscribe((translatedString) => {
+            this.presentToast('top', translatedString);
+          })
+        }
       })
     }
   }

@@ -4,4 +4,5 @@ export class MediaLoginDTO{
     image : any;
     socialMediaId : any;
     name : any;
+    firebaseToken: any;
 }

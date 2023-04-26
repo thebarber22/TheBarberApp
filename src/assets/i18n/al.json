@@ -143,9 +143,7 @@
     "September": "Shtator", 
     "October": "Tetor", 
     "November": "Nëntor", 
-    "December": "Dhjetor"
-
-
-
+    "December": "Dhjetor",
+    "emailExist": "Një përdorues është gjetur me këtë email, ju lutemi identifikohuni ose rivendosni fjalëkalimin tuaj"
 
 }
