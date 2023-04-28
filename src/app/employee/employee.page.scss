@@ -81,6 +81,9 @@
                     height: 100px;
                     border-radius: 20px;
                     box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+                    &:last-child{
+                        margin-bottom: 120px!important;
+                    }
                     .card-desc{
                         display: flex;
                         flex-direction: column;
