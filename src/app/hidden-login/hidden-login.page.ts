@@ -11,6 +11,12 @@ import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/faceb
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { MediaLoginDTO } from '../login/models/MediaLoginDTO';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  SignInWithApple,
+  ASAuthorizationAppleIDRequest,
+  AppleSignInResponse,
+  AppleSignInErrorResponse
+} from "@ionic-native/sign-in-with-apple/ngx";
 
 @Component({
   selector: 'app-hidden-login',
@@ -31,7 +37,7 @@ export class HiddenLoginPage {
               private authService : AuthService,
               private router: Router,
               private toastController: ToastController,
-              private translate: TranslateService) {
+              private translate: TranslateService, private signInWithApple: SignInWithApple) {
        this.signUpForm = this.fb.group({
          email: ['', [Validators.required, Validators.email]],
          password: ['', Validators.required],
@@ -190,4 +196,26 @@ export class HiddenLoginPage {
   goToRegister(){
     this.router.navigate(['/login']);
   }
- }
+
+  appleLogin() {
+
+    this.signInWithApple
+      .signin({
+        requestedScopes: [
+          ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+          ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+        ]
+      })
+      .then((res: AppleSignInResponse) => {
+
+        if(res){
+          this.loginDTO = new MediaLoginDTO();
+        }
+
+      })
+      .catch((error: AppleSignInErrorResponse) => {
+        console.error(error);
+      });
+
+  }
+}

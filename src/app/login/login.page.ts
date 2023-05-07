@@ -17,6 +17,12 @@ import { MediaLoginDTO } from './models/MediaLoginDTO';
 import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  SignInWithApple,
+  ASAuthorizationAppleIDRequest,
+  AppleSignInResponse,
+  AppleSignInErrorResponse
+} from "@ionic-native/sign-in-with-apple/ngx";
 
 @Component({
   selector: 'app-login',
@@ -50,7 +56,8 @@ export class LoginPage {
               private router: Router,
               private fb: FormBuilder,
               private toastController: ToastController,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private signInWithApple: SignInWithApple) {
                 this.signUpForm = this.fb.group({
                   name : ['', Validators.required],
                   surname : ['', Validators.required],
@@ -250,6 +257,28 @@ export class LoginPage {
 
   get f(): { [key: string]: AbstractControl } {
     return this.signUpForm.controls;
+  }
+
+  appleLogin() {
+
+    this.signInWithApple
+      .signin({
+        requestedScopes: [
+          ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+          ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+        ]
+      })
+      .then((res: AppleSignInResponse) => {
+
+        if(res){
+          this.loginDTO = new MediaLoginDTO();
+        }
+
+      })
+      .catch((error: AppleSignInErrorResponse) => {
+        console.error(error);
+      });
+
   }
 
  }

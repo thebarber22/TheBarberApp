@@ -13,6 +13,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { DatePipe } from './timeline/services/date.pipe';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SignInWithApple } from "@ionic-native/sign-in-with-apple/ngx";
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +38,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     })
     ],
   // eslint-disable-next-line max-len
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, authInterceptorProviders, {provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig}, DatePipe],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, authInterceptorProviders, {provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig}, DatePipe, SignInWithApple],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
