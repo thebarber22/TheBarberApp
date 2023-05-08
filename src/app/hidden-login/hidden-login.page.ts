@@ -210,6 +210,10 @@ export class HiddenLoginPage {
 
         if(res){
           this.loginDTO = new MediaLoginDTO();
+          this.loginDTO.email = res.email;
+          this.loginDTO.provider = "Apple"
+          this.loginDTO.socialMediaId  = res.user;
+          this.loginFromSocialMedia(this.loginDTO);
         }
 
       })

@@ -259,7 +259,7 @@ export class LoginPage {
     return this.signUpForm.controls;
   }
 
-  appleLogin() {
+  appleSignUp() {
 
     this.signInWithApple
       .signin({
@@ -272,6 +272,29 @@ export class LoginPage {
 
         if(res){
           this.loginDTO = new MediaLoginDTO();
+          this.loginDTO.name = res.fullName.givenName + " " + res.fullName.familyName;
+          this.loginDTO.email = res.email;
+          this.loginDTO.provider = "Apple"
+          this.loginDTO.socialMediaId  = res.user;
+
+          this.loginService.createSocialMediaLogin(this.loginDTO).subscribe(async response => {
+            if(response != null) {
+              if(response.accessToken != null && response.accessToken != undefined && response.accessToken != ""){
+                await this.authService.saveAuthResponse(response);
+                this.loading = false;
+                this.router.navigate(['/home']);
+              } else {
+                this.userId = response.userId;
+                this.showFields = false;
+                this.loading = false;
+              }
+            } else {
+              this.loading = false;
+              this.translate.get('problemOccurred').subscribe((translatedString) => {
+                this.presentToast('top', translatedString);
+              });
+            }
+          });
         }
 
       })
